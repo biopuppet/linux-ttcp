@@ -301,31 +301,31 @@ extern struct proto ttcp_prot;
 #define TTCP_ADD_STATS_USER(net, field, val) SNMP_ADD_STATS_USER((net)->mib.ttcp_statistics, field, val)
 #define TTCP_ADD_STATS(net, field, val)	SNMP_ADD_STATS((net)->mib.ttcp_statistics, field, val)
 
-extern void ttcp_v4_err(struct sk_buff *skb, u32);
+// extern void ttcp_v4_err(struct sk_buff *skb, u32);
 
-extern void ttcp_shutdown (struct sock *sk, int how);
+// extern void ttcp_shutdown (struct sock *sk, int how);
 
-extern int ttcp_v4_rcv(struct sk_buff *skb);
+// extern int ttcp_v4_rcv(struct sk_buff *skb);
 
-extern struct inet_peer *ttcp_v4_get_peer(struct sock *sk, bool *release_it);
-extern void *ttcp_v4_tw_get_peer(struct sock *sk);
-extern int ttcp_v4_tw_remember_stamp(struct inet_timewait_sock *tw);
-extern int ttcp_sendmsg(struct kiocb *iocb, struct sock *sk, struct msghdr *msg,
-		       size_t size);
-extern int ttcp_sendpage(struct sock *sk, struct page *page, int offset,
-			size_t size, int flags);
-extern int ttcp_ioctl(struct sock *sk, int cmd, unsigned long arg);
-extern int ttcp_rcv_state_process(struct sock *sk, struct sk_buff *skb,
-				 struct ttcphdr *th, unsigned len);
-extern int ttcp_rcv_established(struct sock *sk, struct sk_buff *skb,
-			       struct ttcphdr *th, unsigned len);
-extern void ttcp_rcv_space_adjust(struct sock *sk);
-extern void ttcp_cleanup_rbuf(struct sock *sk, int copied);
-extern int ttcp_twsk_unique(struct sock *sk, struct sock *sktw, void *twp);
-extern void ttcp_twsk_destructor(struct sock *sk);
-extern ssize_t ttcp_splice_read(struct socket *sk, loff_t *ppos,
-			       struct pipe_inode_info *pipe, size_t len,
-			       unsigned int flags);
+// extern struct inet_peer *ttcp_v4_get_peer(struct sock *sk, bool *release_it);
+// extern void *ttcp_v4_tw_get_peer(struct sock *sk);
+// extern int ttcp_v4_tw_remember_stamp(struct inet_timewait_sock *tw);
+// extern int ttcp_sendmsg(struct kiocb *iocb, struct sock *sk, struct msghdr *msg,
+// 		       size_t size);
+// extern int ttcp_sendpage(struct sock *sk, struct page *page, int offset,
+// 			size_t size, int flags);
+// extern int ttcp_ioctl(struct sock *sk, int cmd, unsigned long arg);
+// extern int ttcp_rcv_state_process(struct sock *sk, struct sk_buff *skb,
+// 				 struct ttcphdr *th, unsigned len);
+// extern int ttcp_rcv_established(struct sock *sk, struct sk_buff *skb,
+// 			       struct ttcphdr *th, unsigned len);
+// extern void ttcp_rcv_space_adjust(struct sock *sk);
+// extern void ttcp_cleanup_rbuf(struct sock *sk, int copied);
+// extern int ttcp_twsk_unique(struct sock *sk, struct sock *sktw, void *twp);
+// extern void ttcp_twsk_destructor(struct sock *sk);
+// extern ssize_t ttcp_splice_read(struct socket *sk, loff_t *ppos,
+// 			       struct pipe_inode_info *pipe, size_t len,
+// 			       unsigned int flags);
 
 static inline void ttcp_dec_quickack_mode(struct sock *sk,
 					 const unsigned int pkts)

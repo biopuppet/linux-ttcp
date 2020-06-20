@@ -1176,7 +1176,7 @@ struct request_sock_ops ttcp_request_sock_ops __read_mostly = {
 	.send_ack	=	ttcp_v4_reqsk_send_ack,
 	.destructor	=	ttcp_v4_reqsk_destructor,
 	.send_reset	=	ttcp_v4_send_reset,
-	.syn_ack_timeout = 	ttcp_syn_ack_timeout,
+	.syn_ack_timeout = 	tcp_syn_ack_timeout,
 };
 
 #ifdef CONFIG_TTCP_MD5SIG

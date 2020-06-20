@@ -244,6 +244,7 @@ failure:
 }
 EXPORT_SYMBOL(ttcp_v4_connect);
 
+#if 0
 /*
  * This routine does path mtu discovery as defined in RFC1191.
  */
@@ -280,7 +281,7 @@ static void do_pmtu_discovery(struct sock *sk, struct iphdr *iph, u32 mtu)
 
 	if (inet->pmtudisc != IP_PMTUDISC_DONT &&
 	    inet_csk(sk)->icsk_pmtu_cookie > mtu) {
-		ttcp_sync_mss(sk, mtu);
+		// ttcp_sync_mss(sk, mtu);
 
 		/* Resend the TTCP packet because it's
 		 * clear that the old packet has been
@@ -290,7 +291,7 @@ static void do_pmtu_discovery(struct sock *sk, struct iphdr *iph, u32 mtu)
 		ttcp_simple_retransmit(sk);
 	} /* else let the usual retransmit timer handle it */
 }
-
+#endif
 /*
  * This routine is called by the ICMP module when it gets some
  * sort of error condition.  If err < 0 then the socket should
@@ -306,7 +307,7 @@ static void do_pmtu_discovery(struct sock *sk, struct iphdr *iph, u32 mtu)
  * is probably better.
  *
  */
-
+#if 0
 void ttcp_v4_err(struct sk_buff *icmp_skb, u32 info)
 {
 	struct iphdr *iph = (struct iphdr *)icmp_skb->data;
@@ -494,6 +495,7 @@ out:
 	bh_unlock_sock(sk);
 	sock_put(sk);
 }
+#endif
 
 static void __ttcp_v4_send_check(struct sk_buff *skb,
 				__be32 saddr, __be32 daddr)

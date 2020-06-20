@@ -117,6 +117,8 @@
 #include <linux/mroute.h>
 #endif
 
+extern void ttcp_v4_init(void);
+extern void ttcp_init(void);
 
 extern struct proto ttcp_prot;
 /* The inetsw table contains everything that inet_create needs to
@@ -1522,6 +1524,16 @@ static const struct net_protocol tcp_protocol = {
 	.netns_ok =	1,
 };
 
+static const struct net_protocol ttcp_protocol = {
+	// .handler =	ttcp_v4_rcv,
+	// .err_handler =	ttcp_v4_err,
+	// .gso_send_check = ttcp_v4_gso_send_check,
+	// .gso_segment =	ttcp_tso_segment,
+	// .gro_receive =	ttcp4_gro_receive,
+	// .gro_complete =	ttcp4_gro_complete,
+	.no_policy =	1,
+	.netns_ok =	1,
+};
 static const struct net_protocol udp_protocol = {
 	.handler =	udp_rcv,
 	.err_handler =	udp_err,

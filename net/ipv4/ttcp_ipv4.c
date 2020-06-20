@@ -73,7 +73,7 @@ EXPORT_SYMBOL(ttcp_hashinfo);
 
 static inline __u32 ttcp_v4_init_sequence(struct sk_buff *skb)
 {
-	return secure_ttcp_sequence_number(ip_hdr(skb)->daddr,
+	return secure_tcp_sequence_number(ip_hdr(skb)->daddr,
 					  ip_hdr(skb)->saddr,
 					  ttcp_hdr(skb)->dest,
 					  ttcp_hdr(skb)->source);
@@ -178,9 +178,9 @@ int ttcp_v4_connect(struct sock *sk, struct sockaddr *uaddr, int addr_len)
 		 */
 		if (peer) {
 			inet_peer_refcheck(peer);
-			if ((u32)get_seconds() - peer->ttcp_ts_stamp <= TTCP_PAWS_MSL) {
-				tp->rx_opt.ts_recent_stamp = peer->ttcp_ts_stamp;
-				tp->rx_opt.ts_recent = peer->ttcp_ts;
+			if ((u32)get_seconds() - peer->tcp_ts_stamp <= TTCP_PAWS_MSL) {
+				tp->rx_opt.ts_recent_stamp = peer->tcp_ts_stamp;
+				tp->rx_opt.ts_recent = peer->tcp_ts;
 			}
 		}
 	}
@@ -213,7 +213,7 @@ int ttcp_v4_connect(struct sock *sk, struct sockaddr *uaddr, int addr_len)
 		goto failure;
 	}
 	/* OK, now commit destination to socket.  */
-	sk->sk_gso_type = SKB_GSO_TTCPV4;
+	sk->sk_gso_type = SKB_GSO_TCPV4;
 	sk_setup_caps(sk, &rt->dst);
 
 	if (!tp->write_seq)
@@ -350,7 +350,7 @@ void ttcp_v4_err(struct sk_buff *icmp_skb, u32 info)
 		goto out;
 
 	if (unlikely(iph->ttl < inet_sk(sk)->min_ttl)) {
-		NET_INC_STATS_BH(net, LINUX_MIB_TTCPMINTTLDROP);
+		NET_INC_STATS_BH(net, LINUX_MIB_TCPMINTTLDROP);
 		goto out;
 	}
 
@@ -618,8 +618,8 @@ static void ttcp_v4_send_reset(struct sock *sk, struct sk_buff *skb)
 	ip_send_reply(net->ipv4.ttcp_sock, skb,
 		      &arg, arg.iov[0].iov_len);
 
-	TTCP_INC_STATS_BH(net, TTCP_MIB_OUTSEGS);
-	TTCP_INC_STATS_BH(net, TTCP_MIB_OUTRSTS);
+	TTCP_INC_STATS_BH(net, TCP_MIB_OUTSEGS);
+	TTCP_INC_STATS_BH(net, TCP_MIB_OUTRSTS);
 }
 
 /* The code following below sending ACKs in SYN-RECV and TIME-WAIT states
@@ -693,7 +693,7 @@ static void ttcp_v4_send_ack(struct sk_buff *skb, u32 seq, u32 ack,
 	ip_send_reply(net->ipv4.ttcp_sock, skb,
 		      &arg, arg.iov[0].iov_len);
 
-	TTCP_INC_STATS_BH(net, TTCP_MIB_OUTSEGS);
+	TTCP_INC_STATS_BH(net, TCP_MIB_OUTSEGS);
 }
 
 static void ttcp_v4_timewait_ack(struct sock *sk, struct sk_buff *skb)
@@ -758,7 +758,7 @@ static int ttcp_v4_send_synack(struct sock *sk, struct dst_entry *dst,
 static int ttcp_v4_rtx_synack(struct sock *sk, struct request_sock *req,
 			      struct request_values *rvp)
 {
-	TTCP_INC_STATS_BH(sock_net(sk), TTCP_MIB_RETRANSSEGS);
+	TTCP_INC_STATS_BH(sock_net(sk), TCP_MIB_RETRANSSEGS);
 	return ttcp_v4_send_synack(sk, NULL, req, rvp);
 }
 
@@ -1137,12 +1137,12 @@ static int ttcp_v4_inbound_md5_hash(struct sock *sk, struct sk_buff *skb)
 		return 0;
 
 	if (hash_expected && !hash_location) {
-		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TTCPMD5NOTFOUND);
+		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TCPMD5NOTFOUND);
 		return 1;
 	}
 
 	if (!hash_expected && hash_location) {
-		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TTCPMD5UNEXPECTED);
+		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TCPMD5UNEXPECTED);
 		return 1;
 	}
 
@@ -1390,7 +1390,7 @@ struct sock *ttcp_v4_syn_recv_sock(struct sock *sk, struct sk_buff *skb,
 	if (!newsk)
 		goto exit_nonewsk;
 
-	newsk->sk_gso_type = SKB_GSO_TTCPV4;
+	newsk->sk_gso_type = SKB_GSO_TCPV4;
 	sk_setup_caps(newsk, dst);
 
 	newtp		      = ttcp_sk(newsk);
@@ -1573,7 +1573,7 @@ discard:
 	return 0;
 
 csum_err:
-	TTCP_INC_STATS_BH(sock_net(sk), TTCP_MIB_INERRS);
+	TTCP_INC_STATS_BH(sock_net(sk), TCP_MIB_INERRS);
 	goto discard;
 }
 EXPORT_SYMBOL(ttcp_v4_do_rcv);
@@ -1594,7 +1594,7 @@ int ttcp_v4_rcv(struct sk_buff *skb)
 		goto discard_it;
 
 	/* Count it even if it's bad */
-	TTCP_INC_STATS_BH(net, TTCP_MIB_INSEGS);
+	TTCP_INC_STATS_BH(net, TCP_MIB_INSEGS);
 
 	if (!pskb_may_pull(skb, sizeof(struct ttcphdr)))
 		goto discard_it;
@@ -1632,7 +1632,7 @@ process:
 		goto do_time_wait;
 
 	if (unlikely(iph->ttl < inet_sk(sk)->min_ttl)) {
-		NET_INC_STATS_BH(net, LINUX_MIB_TTCPMINTTLDROP);
+		NET_INC_STATS_BH(net, LINUX_MIB_TCPMINTTLDROP);
 		goto discard_and_relse;
 	}
 
@@ -1662,7 +1662,7 @@ process:
 		}
 	} else if (unlikely(sk_add_backlog(sk, skb))) {
 		bh_unlock_sock(sk);
-		NET_INC_STATS_BH(net, LINUX_MIB_TTCPBACKLOGDROP);
+		NET_INC_STATS_BH(net, LINUX_MIB_TCPBACKLOGDROP);
 		goto discard_and_relse;
 	}
 	bh_unlock_sock(sk);
@@ -1677,7 +1677,7 @@ no_ttcp_socket:
 
 	if (skb->len < (th->doff << 2) || ttcp_checksum_complete(skb)) {
 bad_packet:
-		TTCP_INC_STATS_BH(net, TTCP_MIB_INERRS);
+		TTCP_INC_STATS_BH(net, TCP_MIB_INERRS);
 	} else {
 		ttcp_v4_send_reset(NULL, skb);
 	}
@@ -1698,7 +1698,7 @@ do_time_wait:
 	}
 
 	if (skb->len < (th->doff << 2) || ttcp_checksum_complete(skb)) {
-		TTCP_INC_STATS_BH(net, TTCP_MIB_INERRS);
+		TTCP_INC_STATS_BH(net, TCP_MIB_INERRS);
 		inet_twsk_put(inet_twsk(sk));
 		goto discard_it;
 	}
@@ -2521,7 +2521,7 @@ int ttcp4_gro_complete(struct sk_buff *skb)
 
 	th->check = ~ttcp_v4_check(skb->len - skb_transport_offset(skb),
 				  iph->saddr, iph->daddr, 0);
-	skb_shinfo(skb)->gso_type = SKB_GSO_TTCPV4;
+	skb_shinfo(skb)->gso_type = SKB_GSO_TCPV4;
 
 	return ttcp_gro_complete(skb);
 }

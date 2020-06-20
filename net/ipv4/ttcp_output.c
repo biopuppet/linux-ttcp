@@ -145,9 +145,9 @@ static void ttcp_event_data_sent(struct ttcp_sock *tp,
 }
 
 /* Account for an ACK we sent. */
-static inline void tcp_event_ack_sent(struct sock *sk, unsigned int pkts)
+static inline void ttcp_event_ack_sent(struct sock *sk, unsigned int pkts)
 {
-	tcp_dec_quickack_mode(sk, pkts);
+	ttcp_dec_quickack_mode(sk, pkts);
 	inet_csk_clear_xmit_timer(sk, ICSK_TIME_DACK);
 }
 
@@ -223,14 +223,14 @@ void ttcp_select_initial_window(int __space, __u32 mss,
 }
 EXPORT_SYMBOL(ttcp_select_initial_window);
 
-/* Chose a new window to advertise, update state in tcp_sock for the
+/* Chose a new window to advertise, update state in ttcp_sock for the
  * socket, and return result with RFC1323 scaling applied.  The return
  * value can be stuffed directly into th->window for an outgoing
  * frame.
  */
 static u16 ttcp_select_window(struct sock *sk)
 {
-	struct tcp_sock *tp = ttcp_sk(sk);
+	struct ttcp_sock *tp = ttcp_sk(sk);
 	u32 cur_win = ttcp_receive_window(tp);
 	u32 new_win = __ttcp_select_window(sk);
 

@@ -120,7 +120,7 @@ EXPORT_SYMBOL(ttcp_memory_pressure);
 void ttcp_enter_memory_pressure(struct sock *sk)
 {
 	if (!ttcp_memory_pressure) {
-		NET_INC_STATS(sock_net(sk), LINUX_MIB_TTCPMEMORYPRESSURES);
+		NET_INC_STATS(sock_net(sk), LINUX_MIB_TCPMEMORYPRESSURES);
 		ttcp_memory_pressure = 1;
 	}
 }
@@ -1054,7 +1054,7 @@ static void ttcp_prequeue_process(struct sock *sk)
 	struct sk_buff *skb;
 	struct ttcp_sock *tp = ttcp_sk(sk);
 
-	NET_INC_STATS_USER(sock_net(sk), LINUX_MIB_TTCPPREQUEUED);
+	NET_INC_STATS_USER(sock_net(sk), LINUX_MIB_TCPPREQUEUED);
 
 	/* RX process wants to run with disabled BHs, though it is not
 	 * necessary */
@@ -1412,7 +1412,7 @@ int ttcp_recvmsg(struct kiocb *iocb, struct sock *sk, struct msghdr *msg,
 			/* __ Restore normal policy in scheduler __ */
 
 			if ((chunk = len - tp->ucopy.len) != 0) {
-				NET_ADD_STATS_USER(sock_net(sk), LINUX_MIB_TTCPDIRECTCOPYFROMBACKLOG, chunk);
+				NET_ADD_STATS_USER(sock_net(sk), LINUX_MIB_TCPDIRECTCOPYFROMBACKLOG, chunk);
 				len -= chunk;
 				copied += chunk;
 			}
@@ -1423,7 +1423,7 @@ do_prequeue:
 				ttcp_prequeue_process(sk);
 
 				if ((chunk = len - tp->ucopy.len) != 0) {
-					NET_ADD_STATS_USER(sock_net(sk), LINUX_MIB_TTCPDIRECTCOPYFROMPREQUEUE, chunk);
+					NET_ADD_STATS_USER(sock_net(sk), LINUX_MIB_TCPDIRECTCOPYFROMPREQUEUE, chunk);
 					len -= chunk;
 					copied += chunk;
 				}
@@ -1543,7 +1543,7 @@ skip_copy:
 			ttcp_prequeue_process(sk);
 
 			if (copied > 0 && (chunk = len - tp->ucopy.len) != 0) {
-				NET_ADD_STATS_USER(sock_net(sk), LINUX_MIB_TTCPDIRECTCOPYFROMPREQUEUE, chunk);
+				NET_ADD_STATS_USER(sock_net(sk), LINUX_MIB_TCPDIRECTCOPYFROMPREQUEUE, chunk);
 				len -= chunk;
 				copied += chunk;
 			}
@@ -1721,13 +1721,13 @@ void ttcp_close(struct sock *sk, long timeout)
 	 */
 	if (data_was_unread) {
 		/* Unread data was tossed, zap the connection. */
-		NET_INC_STATS_USER(sock_net(sk), LINUX_MIB_TTCPABORTONCLOSE);
+		NET_INC_STATS_USER(sock_net(sk), LINUX_MIB_TCPABORTONCLOSE);
 		ttcp_set_state(sk, TTCP_CLOSE);
 		ttcp_send_active_reset(sk, sk->sk_allocation);
 	} else if (sock_flag(sk, SOCK_LINGER) && !sk->sk_lingertime) {
 		/* Check zero linger _after_ checking for unread data. */
 		sk->sk_prot->disconnect(sk, 0);
-		NET_INC_STATS_USER(sock_net(sk), LINUX_MIB_TTCPABORTONDATA);
+		NET_INC_STATS_USER(sock_net(sk), LINUX_MIB_TCPABORTONDATA);
 	} else if (ttcp_close_state(sk)) {
 		/* We FIN if the application ate all the data before
 		 * zapping the connection.
@@ -1801,7 +1801,7 @@ adjudge_to_death:
 			ttcp_set_state(sk, TTCP_CLOSE);
 			ttcp_send_active_reset(sk, GFP_ATOMIC);
 			NET_INC_STATS_BH(sock_net(sk),
-					LINUX_MIB_TTCPABORTONLINGER);
+					LINUX_MIB_TCPABORTONLINGER);
 		} else {
 			const int tmo = ttcp_fin_time(sk);
 
@@ -1823,7 +1823,7 @@ adjudge_to_death:
 		// 	ttcp_set_state(sk, TTCP_CLOSE);
 		// 	ttcp_send_active_reset(sk, GFP_ATOMIC);
 		// 	NET_INC_STATS_BH(sock_net(sk),
-		// 			LINUX_MIB_TTCPABORTONMEMORY);
+		// 			LINUX_MIB_TCPABORTONMEMORY);
 		// }
 	}
 

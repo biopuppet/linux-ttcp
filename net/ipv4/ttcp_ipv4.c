@@ -50,9 +50,9 @@
 #include <linux/crypto.h>
 #include <linux/scatterlist.h>
 
-int sysctl_tcp_tw_reuse __read_mostly;
-int sysctl_tcp_low_latency __read_mostly;
-EXPORT_SYMBOL(sysctl_tcp_low_latency);
+int sysctl_ttcp_tw_reuse __read_mostly;
+int sysctl_ttcp_low_latency __read_mostly;
+EXPORT_SYMBOL(sysctl_ttcp_low_latency);
 
 
 #ifdef CONFIG_TTCP_MD5SIG
@@ -96,7 +96,7 @@ int ttcp_twsk_unique(struct sock *sk, struct sock *sktw, void *twp)
 	   and use initial timestamp retrieved from peer table.
 	 */
 	if (ttcptw->tw_ts_recent_stamp &&
-	    (twp == NULL || (sysctl_tcp_tw_reuse &&
+	    (twp == NULL || (sysctl_ttcp_tw_reuse &&
 			     get_seconds() - ttcptw->tw_ts_recent_stamp > 1))) {
 		tp->write_seq = ttcptw->tw_snd_nxt + 65535 + 2;
 		if (tp->write_seq == 0)

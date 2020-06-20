@@ -1186,6 +1186,7 @@ static const struct ttcp_request_sock_ops ttcp_request_sock_ipv4_ops = {
 };
 #endif
 
+#if 0
 /*
  * The three way handshake has completed - we got a valid synack -
  * now create the new socket.
@@ -1274,7 +1275,7 @@ exit:
 	return NULL;
 }
 EXPORT_SYMBOL(ttcp_v4_syn_recv_sock);
-
+#endif
 static struct sock *ttcp_v4_hnd_req(struct sock *sk, struct sk_buff *skb)
 {
 	struct ttcphdr *th = ttcp_hdr(skb);

@@ -381,10 +381,10 @@ extern int ttcp_getsockopt(struct sock *sk, int level, int optname,
 			  char __user *optval, int __user *optlen);
 extern int ttcp_setsockopt(struct sock *sk, int level, int optname,
 			  char __user *optval, unsigned int optlen);
-extern int compat_ttcp_getsockopt(struct sock *sk, int level, int optname,
-				 char __user *optval, int __user *optlen);
-extern int compat_ttcp_setsockopt(struct sock *sk, int level, int optname,
-				 char __user *optval, unsigned int optlen);
+// extern int compat_ttcp_getsockopt(struct sock *sk, int level, int optname,
+// 				 char __user *optval, int __user *optlen);
+// extern int compat_ttcp_setsockopt(struct sock *sk, int level, int optname,
+// 				 char __user *optval, unsigned int optlen);
 extern void ttcp_set_keepalive(struct sock *sk, int val);
 extern void ttcp_syn_ack_timeout(struct sock *sk, struct request_sock *req);
 extern int ttcp_recvmsg(struct kiocb *iocb, struct sock *sk, struct msghdr *msg,

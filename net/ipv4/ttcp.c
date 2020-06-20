@@ -3018,6 +3018,7 @@ static int __init set_thash_entries(char *str)
 	return 1;
 }
 __setup("thash_entries=", set_thash_entries);
+#endif
 
 void __init ttcp_init(void)
 {
@@ -3107,7 +3108,7 @@ void __init ttcp_init(void)
 	       "(established %u bind %u)\n",
 	       ttcp_hashinfo.ehash_mask + 1, ttcp_hashinfo.bhash_size);
 
-	ttcp_register_congestion_control(&ttcp_reno);
+	// ttcp_register_congestion_control(&ttcp_reno);
 
 	memset(&ttcp_secret_one.secrets[0], 0, sizeof(ttcp_secret_one.secrets));
 	memset(&ttcp_secret_two.secrets[0], 0, sizeof(ttcp_secret_two.secrets));
@@ -3118,4 +3119,3 @@ void __init ttcp_init(void)
 	ttcp_secret_retiring = &ttcp_secret_two;
 	ttcp_secret_secondary = &ttcp_secret_two;
 }
-#endif

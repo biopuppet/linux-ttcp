@@ -1006,7 +1006,15 @@ static struct inet_protosw inetsw_array[] =
 		.flags =      INET_PROTOSW_PERMANENT |
 			      INET_PROTOSW_ICSK,
 	},
-
+    {
+		.type =       SOCK_STREAM,
+		.protocol =   IPPROTO_TTCP,
+		.prot =       &ttcp_prot,
+		.ops =        &inet_stream_ops,
+		.no_check =   0,
+		.flags =      INET_PROTOSW_PERMANENT |
+			      INET_PROTOSW_ICSK,
+	},
 	{
 		.type =       SOCK_DGRAM,
 		.protocol =   IPPROTO_UDP,
@@ -1631,6 +1639,10 @@ static int __init inet_init(void)
 	if (rc)
 		goto out_free_reserved_ports;
 
+    rc = proto_register(&ttcp_prot, 1);
+	if (rc)
+		goto out_free_reserved_ports;
+
 	rc = proto_register(&udp_prot, 1);
 	if (rc)
 		goto out_unregister_tcp_proto;
@@ -1687,7 +1699,7 @@ static int __init inet_init(void)
 
 	/* Setup TCP slab cache for open requests. */
 	tcp_init();
-	// ttcp_init();
+	ttcp_init();
 
 	/* Setup UDP memory threshold */
 	udp_init();

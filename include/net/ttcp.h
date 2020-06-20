@@ -851,7 +851,7 @@ static inline void ttcp_update_wl(struct ttcp_sock *tp, u32 seq)
 static inline __sum16 ttcp_v4_check(int len, __be32 saddr,
 				   __be32 daddr, __wsum base)
 {
-	return csum_ttcpudp_magic(saddr,daddr,len,IPPROTO_TTCP,base);
+	return csum_tcpudp_magic(saddr,daddr,len,IPPROTO_TTCP,base);
 }
 
 static inline __sum16 __ttcp_checksum_complete(struct sk_buff *skb)
@@ -906,7 +906,7 @@ static inline int ttcp_prequeue(struct sock *sk, struct sk_buff *skb)
 		while ((skb1 = __skb_dequeue(&tp->ucopy.prequeue)) != NULL) {
 			sk_backlog_rcv(sk, skb1);
 			NET_INC_STATS_BH(sock_net(sk),
-					 LINUX_MIB_TTCPPREQUEUEDROPPED);
+					 LINUX_MIB_TCPPREQUEUEDROPPED);
 		}
 
 		tp->ucopy.memory = 0;
@@ -1066,10 +1066,10 @@ static inline int ttcp_paws_reject(const struct ttcp_options_received *rx_opt,
 static inline void ttcp_mib_init(struct net *net)
 {
 	/* See RFC 2012 */
-	TTCP_ADD_STATS_USER(net, TTCP_MIB_RTOALGORITHM, 1);
-	TTCP_ADD_STATS_USER(net, TTCP_MIB_RTOMIN, TTCP_RTO_MIN*1000/HZ);
-	TTCP_ADD_STATS_USER(net, TTCP_MIB_RTOMAX, TTCP_RTO_MAX*1000/HZ);
-	TTCP_ADD_STATS_USER(net, TTCP_MIB_MAXCONN, -1);
+	TTCP_ADD_STATS_USER(net, TCP_MIB_RTOALGORITHM, 1);
+	TTCP_ADD_STATS_USER(net, TCP_MIB_RTOMIN, TTCP_RTO_MIN*1000/HZ);
+	TTCP_ADD_STATS_USER(net, TCP_MIB_RTOMAX, TTCP_RTO_MAX*1000/HZ);
+	TTCP_ADD_STATS_USER(net, TCP_MIB_MAXCONN, -1);
 }
 
 /* from STTCP */

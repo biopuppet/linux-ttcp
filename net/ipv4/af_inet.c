@@ -102,7 +102,6 @@
 #include <net/route.h>
 #include <net/ip_fib.h>
 #include <net/inet_connection_sock.h>
-#include <net/ttcp.h>
 #include <net/tcp.h>
 #include <net/udp.h>
 #include <net/udplite.h>
@@ -119,6 +118,7 @@
 #endif
 
 
+extern struct proto ttcp_prot;
 /* The inetsw table contains everything that inet_create needs to
  * build a new socket.
  */

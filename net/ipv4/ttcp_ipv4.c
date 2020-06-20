@@ -1505,7 +1505,7 @@ static __sum16 ttcp_v4_checksum_init(struct sk_buff *skb)
 	return 0;
 }
 
-
+#if 0
 /* The socket must have it's spinlock held when we get
  * here.
  *
@@ -1530,7 +1530,7 @@ int ttcp_v4_do_rcv(struct sock *sk, struct sk_buff *skb)
 
 	if (sk->sk_state == TTCP_ESTABLISHED) { /* Fast path */
 		sock_rps_save_rxhash(sk, skb->rxhash);
-		if (ttcp_rcv_established(sk, skb, ttcp_hdr(skb), skb->len)) {
+		if (tcp_rcv_established(sk, skb, ttcp_hdr(skb), skb->len)) {
 			rsk = sk;
 			goto reset;
 		}
@@ -1789,6 +1789,7 @@ static const struct ttcp_sock_af_ops ttcp_sock_ipv4_specific = {
 	.md5_parse		= ttcp_v4_parse_md5_keys,
 };
 #endif
+#endif /* if 0 */
 
 /* NOTE: A lot of things set to zero explicitly by call to
  *       sk_alloc() so need not be done here.

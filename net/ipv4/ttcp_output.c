@@ -133,7 +133,7 @@ static void ttcp_event_data_sent(struct ttcp_sock *tp,
 
 	if (sysctl_ttcp_slow_start_after_idle &&
 	    (!tp->packets_out && (s32)(now - tp->lsndtime) > icsk->icsk_rto))
-		tcp_cwnd_restart(sk, __sk_dst_get(sk));
+		ttcp_cwnd_restart(sk, __sk_dst_get(sk));
 
 	tp->lsndtime = now;
 
@@ -158,7 +158,7 @@ static inline void tcp_event_ack_sent(struct sock *sk, unsigned int pkts)
  * be a multiple of mss if possible. We assume here that mss >= 1.
  * This MUST be enforced by all callers.
  */
-void tcp_select_initial_window(int __space, __u32 mss,
+void ttcp_select_initial_window(int __space, __u32 mss,
 			       __u32 *rcv_wnd, __u32 *window_clamp,
 			       int wscale_ok, __u8 *rcv_wscale,
 			       __u32 init_rcv_wnd)
@@ -182,7 +182,7 @@ void tcp_select_initial_window(int __space, __u32 mss,
 	 * which we interpret as a sign the remote TTCP is not
 	 * misinterpreting the window field as a signed quantity.
 	 */
-	if (sysctl_tcp_workaround_signed_windows)
+	if (sysctl_ttcp_workaround_signed_windows)
 		(*rcv_wnd) = min(space, MAX_TTCP_WINDOW);
 	else
 		(*rcv_wnd) = space;
@@ -192,7 +192,7 @@ void tcp_select_initial_window(int __space, __u32 mss,
 		/* Set window scaling on max possible window
 		 * See RFC1323 for an explanation of the limit to 14
 		 */
-		space = max_t(u32, sysctl_tcp_rmem[2], sysctl_rmem_max);
+		space = max_t(u32, sysctl_ttcp_rmem[2], sysctl_rmem_max);
 		space = min_t(u32, space, *window_clamp);
 		while (space > 65535 && (*rcv_wscale) < 14) {
 			space >>= 1;
@@ -221,18 +221,18 @@ void tcp_select_initial_window(int __space, __u32 mss,
 	/* Set the clamp no higher than max representable value */
 	(*window_clamp) = min(65535U << (*rcv_wscale), *window_clamp);
 }
-EXPORT_SYMBOL(tcp_select_initial_window);
+EXPORT_SYMBOL(ttcp_select_initial_window);
 
 /* Chose a new window to advertise, update state in tcp_sock for the
  * socket, and return result with RFC1323 scaling applied.  The return
  * value can be stuffed directly into th->window for an outgoing
  * frame.
  */
-static u16 tcp_select_window(struct sock *sk)
+static u16 ttcp_select_window(struct sock *sk)
 {
-	struct tcp_sock *tp = tcp_sk(sk);
-	u32 cur_win = tcp_receive_window(tp);
-	u32 new_win = __tcp_select_window(sk);
+	struct tcp_sock *tp = ttcp_sk(sk);
+	u32 cur_win = ttcp_receive_window(tp);
+	u32 new_win = __ttcp_select_window(sk);
 
 	/* Never shrink the offered window */
 	if (new_win < cur_win) {
@@ -251,7 +251,7 @@ static u16 tcp_select_window(struct sock *sk)
 	/* Make sure we do not exceed the maximum possible
 	 * scaled window.
 	 */
-	if (!tp->rx_opt.rcv_wscale && sysctl_tcp_workaround_signed_windows)
+	if (!tp->rx_opt.rcv_wscale && sysctl_ttcp_workaround_signed_windows)
 		new_win = min(new_win, MAX_TTCP_WINDOW);
 	else
 		new_win = min(new_win, (65535U << tp->rx_opt.rcv_wscale));
@@ -280,7 +280,7 @@ static inline void TTCP_ECN_send_syn(struct sock *sk, struct sk_buff *skb)
 	struct tcp_sock *tp = tcp_sk(sk);
 
 	tp->ecn_flags = 0;
-	if (sysctl_tcp_ecn == 1) {
+	if (sysctl_ttcp_ecn == 1) {
 		TTCP_SKB_CB(skb)->flags |= TTCPHDR_ECE | TTCPHDR_CWR;
 		tp->ecn_flags = TTCP_ECN_OK;
 	}
@@ -372,7 +372,7 @@ static u8 tcp_cookie_size_check(u8 desired)
 		/* previously specified */
 		return desired;
 
-	cookie_size = ACCESS_ONCE(sysctl_tcp_cookie_size);
+	cookie_size = ACCESS_ONCE(sysctl_ttcp_cookie_size);
 	if (cookie_size <= 0)
 		/* no default specified */
 		return 0;

@@ -224,7 +224,7 @@ int ttcp_v4_connect(struct sock *sk, struct sockaddr *uaddr, int addr_len)
 
 	inet->inet_id = tp->write_seq ^ jiffies;
 
-	err = ttcp_connect(sk);
+	// err = ttcp_connect(sk);
 	rt = NULL;
 	if (err)
 		goto failure;

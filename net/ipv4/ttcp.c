@@ -1582,6 +1582,7 @@ recv_urg:
 	goto out;
 }
 EXPORT_SYMBOL(ttcp_recvmsg);
+#endif
 
 void ttcp_set_state(struct sock *sk, int state)
 {
@@ -1650,7 +1651,7 @@ static int ttcp_close_state(struct sock *sk)
 
 	return next & TTCP_ACTION_FIN;
 }
-
+#if 0
 /*
  *	Shutdown the sending side of a connection. Much like close except
  *	that we don't receive shut down or sock_set_flag(sk, SOCK_DEAD).

@@ -1641,7 +1641,7 @@ static int ttcp_v4_init_sock(struct sock *sk)
 	tp->mss_cache = TTCP_MSS_DEFAULT;
 
 	tp->reordering = sysctl_tcp_reordering;
-	icsk->icsk_tca_ops = &ttcp_init_congestion_ops;
+	icsk->icsk_tca_ops = &tcp_init_congestion_ops;
 
 	sk->sk_state = TTCP_CLOSE;
 
@@ -1671,7 +1671,7 @@ static int ttcp_v4_init_sock(struct sock *sk)
 	sk->sk_rcvbuf = sysctl_tcp_rmem[1];
 
 	local_bh_disable();
-	percpu_counter_inc(&ttcp_sockets_allocated);
+	percpu_counter_inc(&tcp_sockets_allocated);
 	local_bh_enable();
 
 	return 0;
@@ -1683,7 +1683,7 @@ void ttcp_v4_destroy_sock(struct sock *sk)
 
 	ttcp_clear_xmit_timers(sk);
 
-	ttcp_cleanup_congestion_control(sk);
+	// ttcp_cleanup_congestion_control(sk);
 
 	/* Cleanup up the write buffer. */
 	ttcp_write_queue_purge(sk);

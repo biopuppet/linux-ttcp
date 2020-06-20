@@ -267,7 +267,7 @@ static u16 ttcp_select_window(struct sock *sk)
 }
 
 /* Packet ECN state for a SYN-ACK */
-static inline void TTCP_ECN_send_synack(struct tcp_sock *tp, struct sk_buff *skb)
+static inline void TTCP_ECN_send_synack(struct ttcp_sock *tp, struct sk_buff *skb)
 {
 	TTCP_SKB_CB(skb)->flags &= ~TTCPHDR_CWR;
 	if (!(tp->ecn_flags & TTCP_ECN_OK))
@@ -277,17 +277,17 @@ static inline void TTCP_ECN_send_synack(struct tcp_sock *tp, struct sk_buff *skb
 /* Packet ECN state for a SYN.  */
 static inline void TTCP_ECN_send_syn(struct sock *sk, struct sk_buff *skb)
 {
-	struct tcp_sock *tp = tcp_sk(sk);
+	struct ttcp_sock *tp = ttcp_sk(sk);
 
 	tp->ecn_flags = 0;
-	if (sysctl_ttcp_ecn == 1) {
+	if (sysctl_tttcp_ecn == 1) {
 		TTCP_SKB_CB(skb)->flags |= TTCPHDR_ECE | TTCPHDR_CWR;
 		tp->ecn_flags = TTCP_ECN_OK;
 	}
 }
 
 static __inline__ void
-TTCP_ECN_make_synack(struct request_sock *req, struct tcphdr *th)
+TTCP_ECN_make_synack(struct request_sock *req, struct ttcphdr *th)
 {
 	if (inet_rsk(req)->ecn_ok)
 		th->ece = 1;
@@ -297,18 +297,18 @@ TTCP_ECN_make_synack(struct request_sock *req, struct tcphdr *th)
  * be sent.
  */
 static inline void TTCP_ECN_send(struct sock *sk, struct sk_buff *skb,
-				int tcp_header_len)
+				int ttcp_header_len)
 {
-	struct tcp_sock *tp = tcp_sk(sk);
+	struct ttcp_sock *tp = ttcp_sk(sk);
 
 	if (tp->ecn_flags & TTCP_ECN_OK) {
 		/* Not-retransmitted data segment: set ECT and inject CWR. */
-		if (skb->len != tcp_header_len &&
+		if (skb->len != ttcp_header_len &&
 		    !before(TTCP_SKB_CB(skb)->seq, tp->snd_nxt)) {
 			INET_ECN_xmit(sk);
 			if (tp->ecn_flags & TTCP_ECN_QUEUE_CWR) {
 				tp->ecn_flags &= ~TTCP_ECN_QUEUE_CWR;
-				tcp_hdr(skb)->cwr = 1;
+				ttcp_hdr(skb)->cwr = 1;
 				skb_shinfo(skb)->gso_type |= SKB_GSO_TTCP_ECN;
 			}
 		} else {
@@ -316,14 +316,14 @@ static inline void TTCP_ECN_send(struct sock *sk, struct sk_buff *skb,
 			INET_ECN_dontxmit(sk);
 		}
 		if (tp->ecn_flags & TTCP_ECN_DEMAND_CWR)
-			tcp_hdr(skb)->ece = 1;
+			ttcp_hdr(skb)->ece = 1;
 	}
 }
 
 /* Constructs common control bits of non-data skb. If SYN/FIN is present,
  * auto increment end seqno.
  */
-static void tcp_init_nondata_skb(struct sk_buff *skb, u32 seq, u8 flags)
+static void ttcp_init_nondata_skb(struct sk_buff *skb, u32 seq, u8 flags)
 {
 	skb->ip_summed = CHECKSUM_PARTIAL;
 	skb->csum = 0;
@@ -341,7 +341,7 @@ static void tcp_init_nondata_skb(struct sk_buff *skb, u32 seq, u8 flags)
 	TTCP_SKB_CB(skb)->end_seq = seq;
 }
 
-static inline int tcp_urg_mode(const struct tcp_sock *tp)
+static inline int ttcp_urg_mode(const struct ttcp_sock *tp)
 {
 	return tp->snd_una != tp->snd_up;
 }
@@ -352,7 +352,7 @@ static inline int tcp_urg_mode(const struct tcp_sock *tp)
 #define OPTION_WSCALE		(1 << 3)
 #define OPTION_COOKIE_EXTENSION	(1 << 4)
 
-struct tcp_out_options {
+struct ttcp_out_options {
 	u8 options;		/* bit field of OPTION_* */
 	u8 ws;			/* window scale, 0 to disable */
 	u8 num_sack_blocks;	/* number of SACK blocks to include */
@@ -364,7 +364,7 @@ struct tcp_out_options {
 
 /* The sysctl int routines are generic, so check consistency here.
  */
-static u8 tcp_cookie_size_check(u8 desired)
+static u8 ttcp_cookie_size_check(u8 desired)
 {
 	int cookie_size;
 
@@ -405,7 +405,7 @@ static u8 tcp_cookie_size_check(u8 desired)
  * At least SACK_PERM as the first option is known to lead to a disaster
  * (but it may well be that other scenarios fail similarly).
  */
-static void tcp_options_write(__be32 *ptr, struct tcp_sock *tp,
+static void ttcp_options_write(__be32 *ptr, struct ttcp_sock *tp,
 			      struct ttcp_out_options *opts)
 {
 	u8 options = opts->options;	/* mungable copy */

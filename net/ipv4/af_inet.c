@@ -272,8 +272,9 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
 	char answer_no_check;
 	int try_loading_module = 0;
 	int err;
+    printk(KERN_INFO "inet_init: inside\n");
 
-	if (unlikely(!inet_ehash_secret))
+    if (unlikely(!inet_ehash_secret))
 		if (sock->type != SOCK_RAW && sock->type != SOCK_DGRAM)
 			build_ehash_secret();
 
@@ -301,6 +302,7 @@ lookup_protocol:
 		}
 		err = -EPROTONOSUPPORT;
 	}
+    printk(KERN_INFO "inet_init: lookup error: %d.\n", err);
 
 	if (unlikely(err)) {
 		if (try_loading_module < 2) {
@@ -331,6 +333,7 @@ lookup_protocol:
 	err = -EAFNOSUPPORT;
 	if (!inet_netns_ok(net, protocol))
 		goto out_rcu_unlock;
+    printk(KERN_INFO "inet_init: netnsok.\n");
 
 	sock->ops = answer->ops;
 	answer_prot = answer->prot;
@@ -344,6 +347,7 @@ lookup_protocol:
 	sk = sk_alloc(net, PF_INET, GFP_KERNEL, answer_prot);
 	if (sk == NULL)
 		goto out;
+    printk(KERN_INFO "inet_init: sk_alloc ok.\n");
 
 	err = 0;
 	sk->sk_no_check = answer_no_check;
@@ -368,7 +372,9 @@ lookup_protocol:
 
 	inet->inet_id = 0;
 
+    printk(KERN_INFO "inet_init: init_data...\n");
 	sock_init_data(sock, sk);
+    printk(KERN_INFO "inet_init: init_data ok.\n");
 
 	sk->sk_destruct	   = inet_sock_destruct;
 	sk->sk_protocol	   = protocol;
@@ -1681,6 +1687,7 @@ static int __init inet_init(void)
 
 	/* Setup TCP slab cache for open requests. */
 	tcp_init();
+	// ttcp_init();
 
 	/* Setup UDP memory threshold */
 	udp_init();

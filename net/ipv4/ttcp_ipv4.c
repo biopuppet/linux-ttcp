@@ -50,9 +50,9 @@
 #include <linux/crypto.h>
 #include <linux/scatterlist.h>
 
-int sysctl_ttcp_tw_reuse __read_mostly;
-int sysctl_ttcp_low_latency __read_mostly;
-EXPORT_SYMBOL(sysctl_ttcp_low_latency);
+int sysctl_tcp_tw_reuse __read_mostly;
+int sysctl_tcp_low_latency __read_mostly;
+EXPORT_SYMBOL(sysctl_tcp_low_latency);
 
 
 #ifdef CONFIG_TTCP_MD5SIG
@@ -96,7 +96,7 @@ int ttcp_twsk_unique(struct sock *sk, struct sock *sktw, void *twp)
 	   and use initial timestamp retrieved from peer table.
 	 */
 	if (ttcptw->tw_ts_recent_stamp &&
-	    (twp == NULL || (sysctl_ttcp_tw_reuse &&
+	    (twp == NULL || (sysctl_tcp_tw_reuse &&
 			     get_seconds() - ttcptw->tw_ts_recent_stamp > 1))) {
 		tp->write_seq = ttcptw->tw_snd_nxt + 65535 + 2;
 		if (tp->write_seq == 0)
@@ -775,7 +775,7 @@ static void syn_flood_warning(const struct sk_buff *skb)
 	const char *msg;
 
 #ifdef CONFIG_SYN_COOKIES
-	if (sysctl_ttcp_syncookies)
+	if (sysctl_tcp_syncookies)
 		msg = "Sending cookies";
 	else
 #endif
@@ -1214,7 +1214,7 @@ int ttcp_v4_conn_request(struct sock *sk, struct sk_buff *skb)
 		if (net_ratelimit())
 			syn_flood_warning(skb);
 #ifdef CONFIG_SYN_COOKIES
-		if (sysctl_ttcp_syncookies) {
+		if (sysctl_tcp_syncookies) {
 			want_cookie = 1;
 		} else
 #endif
@@ -1245,7 +1245,7 @@ int ttcp_v4_conn_request(struct sock *sk, struct sk_buff *skb)
 	if (tmp_opt.cookie_plus > 0 &&
 	    tmp_opt.saw_tstamp &&
 	    !tp->rx_opt.cookie_out_never &&
-	    (sysctl_ttcp_cookie_size > 0 ||
+	    (sysctl_tcp_cookie_size > 0 ||
 	     (tp->cookie_values != NULL &&
 	      tp->cookie_values->cookie_desired > 0))) {
 		u8 *c;
@@ -1325,7 +1325,7 @@ int ttcp_v4_conn_request(struct sock *sk, struct sk_buff *skb)
 			}
 		}
 		/* Kill the following clause, if you dislike this way. */
-		else if (!sysctl_ttcp_syncookies &&
+		else if (!sysctl_tcp_syncookies &&
 			 (sysctl_max_syn_backlog - inet_csk_reqsk_queue_len(sk) <
 			  (sysctl_max_syn_backlog >> 2)) &&
 			 (!peer || !peer->tcp_ts_stamp) &&
@@ -1799,7 +1799,7 @@ static int ttcp_v4_init_sock(struct sock *sk)
 	struct ttcp_sock *tp = ttcp_sk(sk);
 
 	skb_queue_head_init(&tp->out_of_order_queue);
-	ttcp_init_xmit_timers(sk);
+	tcp_init_xmit_timers(sk);
 	ttcp_prequeue_init(tp);
 
 	icsk->icsk_rto = TTCP_TIMEOUT_INIT;
@@ -1819,7 +1819,7 @@ static int ttcp_v4_init_sock(struct sock *sk)
 	tp->snd_cwnd_clamp = ~0;
 	tp->mss_cache = TTCP_MSS_DEFAULT;
 
-	tp->reordering = sysctl_ttcp_reordering;
+	tp->reordering = sysctl_tcp_reordering;
 	icsk->icsk_tca_ops = &ttcp_init_congestion_ops;
 
 	sk->sk_state = TTCP_CLOSE;
@@ -1834,7 +1834,7 @@ static int ttcp_v4_init_sock(struct sock *sk)
 #endif
 
 	/* TTCP Cookie Transactions */
-	if (sysctl_ttcp_cookie_size > 0) {
+	if (sysctl_tcp_cookie_size > 0) {
 		/* Default, cookies without s_data_payload. */
 		tp->cookie_values =
 			kzalloc(sizeof(*tp->cookie_values),
@@ -1846,8 +1846,8 @@ static int ttcp_v4_init_sock(struct sock *sk)
 	 *	cookie_in_always, cookie_out_never,
 	 *	s_data_constant, s_data_in, s_data_out
 	 */
-	sk->sk_sndbuf = sysctl_ttcp_wmem[1];
-	sk->sk_rcvbuf = sysctl_ttcp_rmem[1];
+	sk->sk_sndbuf = sysctl_tcp_wmem[1];
+	sk->sk_rcvbuf = sysctl_tcp_rmem[1];
 
 	local_bh_disable();
 	percpu_counter_inc(&ttcp_sockets_allocated);
@@ -2551,9 +2551,9 @@ struct proto ttcp_prot = {
 	.orphan_count		= &ttcp_orphan_count,
 	.memory_allocated	= &ttcp_memory_allocated,
 	.memory_pressure	= &ttcp_memory_pressure,
-	.sysctl_mem		= sysctl_ttcp_mem,
-	.sysctl_wmem		= sysctl_ttcp_wmem,
-	.sysctl_rmem		= sysctl_ttcp_rmem,
+	.sysctl_mem		= sysctl_tcp_mem,
+	.sysctl_wmem		= sysctl_tcp_wmem,
+	.sysctl_rmem		= sysctl_tcp_rmem,
 	.max_header		= MAX_TTCP_HEADER,
 	.obj_size		= sizeof(struct ttcp_sock),
 	.slab_flags		= SLAB_DESTROY_BY_RCU,

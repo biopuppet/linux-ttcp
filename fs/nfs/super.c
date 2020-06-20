@@ -553,6 +553,7 @@ static void nfs_show_mountd_netid(struct seq_file *m, struct nfs_server *nfss,
 			seq_printf(m, RPCBIND_NETID_UDP);
 			break;
 		case IPPROTO_TCP:
+		case IPPROTO_TTCP:
 			seq_printf(m, RPCBIND_NETID_TCP);
 			break;
 		default:

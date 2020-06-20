@@ -22,6 +22,7 @@ static inline bool ip_set_proto_with_ports(u8 proto)
 {
 	switch (proto) {
 	case IPPROTO_TCP:
+	case IPPROTO_TTCP:
 	case IPPROTO_UDP:
 		return true;
 	}

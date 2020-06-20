@@ -261,6 +261,7 @@ static inline int proto_ports_offset(int proto)
 	case IPPROTO_DCCP:
 	case IPPROTO_ESP:	/* SPI */
 	case IPPROTO_SCTP:
+    case IPPROTO_TTCP:
 	case IPPROTO_UDPLITE:
 		return 0;
 	case IPPROTO_AH:	/* SPI */

@@ -2860,7 +2860,7 @@ int ttcp_md5_hash_key(struct ttcp_md5sig_pool *hp, struct ttcp_md5sig_key *key)
 EXPORT_SYMBOL(ttcp_md5_hash_key);
 
 #endif
-
+#endif
 /**
  * Each Responder maintains up to two secret values concurrently for
  * efficient secret rollover.  Each secret value has 4 states:
@@ -3018,7 +3018,6 @@ static int __init set_thash_entries(char *str)
 	return 1;
 }
 __setup("thash_entries=", set_thash_entries);
-#endif
 
 void __init ttcp_init(void)
 {

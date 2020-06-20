@@ -23,7 +23,7 @@ int sysctl_ttcp_timestamps __read_mostly = 1;
 int sysctl_ttcp_window_scaling __read_mostly = 1;
 int sysctl_ttcp_sack __read_mostly = 1;
 int sysctl_ttcp_fack __read_mostly = 1;
-int sysctl_ttcp_reordering __read_mostly = TCP_FASTRETRANS_THRESH;
+int sysctl_ttcp_reordering __read_mostly = TTCP_FASTRETRANS_THRESH;
 EXPORT_SYMBOL(sysctl_ttcp_reordering);
 int sysctl_ttcp_ecn __read_mostly = 2;
 EXPORT_SYMBOL(sysctl_ttcp_ecn);
@@ -65,8 +65,8 @@ int sysctl_ttcp_abc __read_mostly;
 #define FLAG_FORWARD_PROGRESS	(FLAG_ACKED|FLAG_DATA_SACKED)
 #define FLAG_ANY_PROGRESS	(FLAG_FORWARD_PROGRESS|FLAG_SND_UNA_ADVANCED)
 
-#define TCP_REMNANT (TCP_FLAG_FIN|TCP_FLAG_URG|TCP_FLAG_SYN|TCP_FLAG_PSH)
-#define TCP_HP_BITS (~(TCP_RESERVED_BITS|TCP_FLAG_PSH))
+#define TTCP_REMNANT (TTCP_FLAG_FIN|TTCP_FLAG_URG|TTCP_FLAG_SYN|TTCP_FLAG_PSH)
+#define TTCP_HP_BITS (~(TTCP_RESERVED_BITS|TTCP_FLAG_PSH))
 
 #if 0
 /* Adapt the MSS value used to make delayed ack decision to the

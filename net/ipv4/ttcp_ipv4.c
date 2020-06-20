@@ -777,7 +777,7 @@ static void syn_flood_warning(const struct sk_buff *skb)
 	const char *msg;
 
 #ifdef CONFIG_SYN_COOKIES
-	if (sysctl_tcp_syncookies)
+	if (sysctl_ttcp_syncookies)
 		msg = "Sending cookies";
 	else
 #endif
@@ -1642,7 +1642,7 @@ static int ttcp_v4_init_sock(struct sock *sk)
 	tp->snd_cwnd_clamp = ~0;
 	tp->mss_cache = TTCP_MSS_DEFAULT;
 
-	tp->reordering = sysctl_tcp_reordering;
+	tp->reordering = sysctl_ttcp_reordering;
 	// icsk->icsk_tca_ops = &tcp_init_congestion_ops;
 
 	sk->sk_state = TTCP_CLOSE;
@@ -1657,7 +1657,7 @@ static int ttcp_v4_init_sock(struct sock *sk)
 #endif
 
 	/* TTCP Cookie Transactions */
-	if (sysctl_tcp_cookie_size > 0) {
+	if (sysctl_ttcp_cookie_size > 0) {
 		/* Default, cookies without s_data_payload. */
 		tp->cookie_values =
 			kzalloc(sizeof(*tp->cookie_values),
@@ -1669,8 +1669,8 @@ static int ttcp_v4_init_sock(struct sock *sk)
 	 *	cookie_in_always, cookie_out_never,
 	 *	s_data_constant, s_data_in, s_data_out
 	 */
-	sk->sk_sndbuf = sysctl_tcp_wmem[1];
-	sk->sk_rcvbuf = sysctl_tcp_rmem[1];
+	sk->sk_sndbuf = sysctl_ttcp_wmem[1];
+	sk->sk_rcvbuf = sysctl_ttcp_rmem[1];
 
 	local_bh_disable();
 	// percpu_counter_inc(&tcp_sockets_allocated);
@@ -2376,9 +2376,9 @@ struct proto ttcp_prot = {
 	// .orphan_count		= &tcp_orphan_count,
 	// .memory_allocated	= &tcp_memory_allocated,
 	// .memory_pressure	= &tcp_memory_pressure,
-	.sysctl_mem		= sysctl_tcp_mem,
-	.sysctl_wmem		= sysctl_tcp_wmem,
-	.sysctl_rmem		= sysctl_tcp_rmem,
+	.sysctl_mem		= sysctl_ttcp_mem,
+	.sysctl_wmem		= sysctl_ttcp_wmem,
+	.sysctl_rmem		= sysctl_ttcp_rmem,
 	.max_header		= MAX_TTCP_HEADER,
 	.obj_size		= sizeof(struct ttcp_sock),
 	.slab_flags		= SLAB_DESTROY_BY_RCU,

@@ -740,7 +740,7 @@ static int ttcp_v4_send_synack(struct sock *sk, struct dst_entry *dst,
 	if (!dst && (dst = inet_csk_route_req(sk, req)) == NULL)
 		return -1;
 
-	skb = ttcp_make_synack(sk, dst, req, rvp);
+	// skb = tcp_make_synack(sk, dst, req, rvp);
 
 	if (skb) {
 		__ttcp_v4_send_check(skb, ireq->loc_addr, ireq->rmt_addr);
@@ -1649,7 +1649,7 @@ static int ttcp_v4_init_sock(struct sock *sk)
 	sock_set_flag(sk, SOCK_USE_WRITE_QUEUE);
 
 	icsk->icsk_af_ops = &ipv4_specific;
-	icsk->icsk_sync_mss = ttcp_sync_mss;
+	// icsk->icsk_sync_mss = ttcp_sync_mss;
 #ifdef CONFIG_TTCP_MD5SIG
 	tp->af_specific = &ttcp_sock_ipv4_specific;
 #endif
@@ -2314,6 +2314,7 @@ void ttcp4_proc_exit(void)
 }
 #endif /* CONFIG_PROC_FS */
 
+#if 0
 struct sk_buff **ttcp4_gro_receive(struct sk_buff **head, struct sk_buff *skb)
 {
 	struct iphdr *iph = skb_gro_network_header(skb);
@@ -2346,6 +2347,7 @@ int ttcp4_gro_complete(struct sk_buff *skb)
 
 	return ttcp_gro_complete(skb);
 }
+#endif
 
 struct proto ttcp_prot = {
 	.name			= "TTCP",

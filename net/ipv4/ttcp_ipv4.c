@@ -1622,8 +1622,9 @@ static int ttcp_v4_init_sock(struct sock *sk)
 	struct inet_connection_sock *icsk = inet_csk(sk);
 	struct ttcp_sock *tp = ttcp_sk(sk);
 
-	skb_queue_head_init(&tp->out_of_order_queue);
-	tcp_init_xmit_timers(sk);
+    printk(KERN_INFO "ttcp_v4_init_sock is called.\n");
+    skb_queue_head_init(&tp->out_of_order_queue);
+    tcp_init_xmit_timers(sk);
 	ttcp_prequeue_init(tp);
 
 	icsk->icsk_rto = TTCP_TIMEOUT_INIT;

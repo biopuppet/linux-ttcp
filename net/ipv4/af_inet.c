@@ -394,7 +394,9 @@ lookup_protocol:
 		sk->sk_prot->hash(sk);
 	}
 
-	if (sk->sk_prot->init) {
+    printk(KERN_INFO "inet_init: Going down to init sock of prot: %s.\n",
+           sk->sk_prot->name);
+    if (sk->sk_prot->init) {
 		err = sk->sk_prot->init(sk);
 		if (err)
 			sk_common_release(sk);

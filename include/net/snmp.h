@@ -88,6 +88,12 @@ struct tcp_mib {
 	unsigned long	mibs[TCP_MIB_MAX];
 };
 
+// TTCP
+#define TTCP_MIB_MAX	__TTCP_MIB_MAX
+struct ttcp_mib {
+	unsigned long	mibs[TTCP_MIB_MAX];
+};
+
 /* UDP */
 #define UDP_MIB_MAX	__UDP_MIB_MAX
 struct udp_mib {

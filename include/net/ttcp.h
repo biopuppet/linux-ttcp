@@ -268,14 +268,14 @@ static inline bool ttcp_too_many_orphans(struct sock *sk, int shift)
 	struct percpu_counter *ocp = sk->sk_prot->orphan_count;
 	int orphans = percpu_counter_read_positive(ocp);
 
-	if (orphans << shift > sysctl_ttcp_max_orphans) {
+	if (orphans << shift > sysctl_tcp_max_orphans) {
 		orphans = percpu_counter_sum_positive(ocp);
-		if (orphans << shift > sysctl_ttcp_max_orphans)
+		if (orphans << shift > sysctl_tcp_max_orphans)
 			return true;
 	}
 
 	if (sk->sk_wmem_queued > SOCK_MIN_SNDBUF &&
-	    atomic_long_read(&ttcp_memory_allocated) > sysctl_ttcp_mem[2])
+	    atomic_long_read(&ttcp_memory_allocated) > sysctl_tcp_mem[2])
 		return true;
 	return false;
 }
@@ -349,7 +349,7 @@ static inline void ttcp_dec_quickack_mode(struct sock *sk,
 static __inline__ void
 TTCP_ECN_create_request(struct request_sock *req, struct ttcphdr *th)
 {
-	if (sysctl_ttcp_ecn && th->ece && th->cwr)
+	if (sysctl_tcp_ecn && th->ece && th->cwr)
 		inet_rsk(req)->ecn_ok = 1;
 }
 
@@ -893,7 +893,7 @@ static inline int ttcp_prequeue(struct sock *sk, struct sk_buff *skb)
 {
 	struct ttcp_sock *tp = ttcp_sk(sk);
 
-	if (sysctl_ttcp_low_latency || !tp->ucopy.task)
+	if (sysctl_tcp_low_latency || !tp->ucopy.task)
 		return 0;
 
 	__skb_queue_tail(&tp->ucopy.prequeue, skb);
@@ -949,9 +949,9 @@ extern void ttcp_select_initial_window(int __space, __u32 mss,
 
 static inline int ttcp_win_from_space(int space)
 {
-	return sysctl_ttcp_adv_win_scale<=0 ?
-		(space>>(-sysctl_ttcp_adv_win_scale)) :
-		space - (space>>sysctl_ttcp_adv_win_scale);
+	return sysctl_tcp_adv_win_scale<=0 ?
+		(space>>(-sysctl_tcp_adv_win_scale)) :
+		space - (space>>sysctl_tcp_adv_win_scale);
 }
 
 /* Note: caller must be prepared to deal with negative returns */ 
@@ -991,17 +991,17 @@ extern void ttcp_enter_memory_pressure(struct sock *sk);
 
 static inline int keepalive_intvl_when(const struct ttcp_sock *tp)
 {
-	return tp->keepalive_intvl ? : sysctl_ttcp_keepalive_intvl;
+	return tp->keepalive_intvl ? : sysctl_tcp_keepalive_intvl;
 }
 
 static inline int keepalive_time_when(const struct ttcp_sock *tp)
 {
-	return tp->keepalive_time ? : sysctl_ttcp_keepalive_time;
+	return tp->keepalive_time ? : sysctl_tcp_keepalive_time;
 }
 
 static inline int keepalive_probes(const struct ttcp_sock *tp)
 {
-	return tp->keepalive_probes ? : sysctl_ttcp_keepalive_probes;
+	return tp->keepalive_probes ? : sysctl_tcp_keepalive_probes;
 }
 
 static inline u32 keepalive_time_elapsed(const struct ttcp_sock *tp)
@@ -1014,7 +1014,7 @@ static inline u32 keepalive_time_elapsed(const struct ttcp_sock *tp)
 
 static inline int ttcp_fin_time(const struct sock *sk)
 {
-	int fin_timeout = ttcp_sk(sk)->linger2 ? : sysctl_ttcp_fin_timeout;
+	int fin_timeout = ttcp_sk(sk)->linger2 ? : sysctl_tcp_fin_timeout;
 	const int rto = inet_csk(sk)->icsk_rto;
 
 	if (fin_timeout < (rto << 2) - (rto >> 1))
@@ -1454,7 +1454,7 @@ extern int ttcp_cookie_generator(u32 *bakery);
  * @cookie_pair:	variable data from the option exchange.
  *
  * @cookie_desired:	user specified ttcpct_cookie_desired.  Zero
- *			indicates default (sysctl_ttcp_cookie_size).
+ *			indicates default (sysctl_tcp_cookie_size).
  *			After cookie sent, remembers size of cookie.
  *			Range 0, TTCP_COOKIE_MIN to TTCP_COOKIE_MAX.
  *

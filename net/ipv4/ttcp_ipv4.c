@@ -2388,8 +2388,8 @@ struct proto ttcp_prot = {
 	.h.hashinfo		= &ttcp_hashinfo,
 	.no_autobind		= true,
 #ifdef CONFIG_COMPAT
-	.compat_setsockopt	= compat_ttcp_setsockopt,
-	.compat_getsockopt	= compat_ttcp_getsockopt,
+	// .compat_setsockopt	= compat_ttcp_setsockopt,
+	// .compat_getsockopt	= compat_ttcp_getsockopt,
 #endif
 };
 EXPORT_SYMBOL(ttcp_prot);

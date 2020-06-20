@@ -683,7 +683,7 @@ static void ttcp_v4_send_ack(struct sk_buff *skb, u32 seq, u32 ack,
 	}
 #endif
 	arg.flags = reply_flags;
-	arg.csum = csum_ttcpudp_nofold(ip_hdr(skb)->daddr,
+	arg.csum = csum_tcpudp_nofold(ip_hdr(skb)->daddr,
 				      ip_hdr(skb)->saddr, /* XXX */
 				      arg.iov[0].iov_len, IPPROTO_TTCP, 0);
 	arg.csumoffset = offsetof(struct ttcphdr, check) / 2;
@@ -1496,7 +1496,7 @@ static __sum16 ttcp_v4_checksum_init(struct sk_buff *skb)
 		}
 	}
 
-	skb->csum = csum_ttcpudp_nofold(iph->saddr, iph->daddr,
+	skb->csum = csum_tcpudp_nofold(iph->saddr, iph->daddr,
 				       skb->len, IPPROTO_TTCP, 0);
 
 	if (skb->len <= 76) {

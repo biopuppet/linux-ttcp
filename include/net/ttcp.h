@@ -263,22 +263,22 @@ static inline int between(__u32 seq1, __u32 seq2, __u32 seq3)
 	return seq3 - seq2 >= seq1 - seq2;
 }
 
-static inline bool ttcp_too_many_orphans(struct sock *sk, int shift)
-{
-	struct percpu_counter *ocp = sk->sk_prot->orphan_count;
-	int orphans = percpu_counter_read_positive(ocp);
+// static inline bool ttcp_too_many_orphans(struct sock *sk, int shift)
+// {
+// 	struct percpu_counter *ocp = sk->sk_prot->orphan_count;
+// 	int orphans = percpu_counter_read_positive(ocp);
 
-	if (orphans << shift > sysctl_tcp_max_orphans) {
-		orphans = percpu_counter_sum_positive(ocp);
-		if (orphans << shift > sysctl_tcp_max_orphans)
-			return true;
-	}
+// 	if (orphans << shift > sysctl_ttcp_max_orphans) {
+// 		orphans = percpu_counter_sum_positive(ocp);
+// 		if (orphans << shift > sysctl_tcp_max_orphans)
+// 			return true;
+// 	}
 
-	if (sk->sk_wmem_queued > SOCK_MIN_SNDBUF &&
-	    atomic_long_read(&tcp_memory_allocated) > sysctl_tcp_mem[2])
-		return true;
-	return false;
-}
+// 	if (sk->sk_wmem_queued > SOCK_MIN_SNDBUF &&
+// 	    atomic_long_read(&tcp_memory_allocated) > sysctl_tcp_mem[2])
+// 		return true;
+// 	return false;
+// }
 
 /* syncookies: remember time of last synqueue overflow */
 static inline void ttcp_synq_overflow(struct sock *sk)

@@ -1815,15 +1815,15 @@ adjudge_to_death:
 	}
 	if (sk->sk_state != TTCP_CLOSE) {
 		sk_mem_reclaim(sk);
-		if (ttcp_too_many_orphans(sk, 0)) {
-			if (net_ratelimit())
-				printk(KERN_INFO "TTCP: too many of orphaned "
-				       "sockets\n");
-			ttcp_set_state(sk, TTCP_CLOSE);
-			ttcp_send_active_reset(sk, GFP_ATOMIC);
-			NET_INC_STATS_BH(sock_net(sk),
-					LINUX_MIB_TTCPABORTONMEMORY);
-		}
+		// if (ttcp_too_many_orphans(sk, 0)) {
+		// 	if (net_ratelimit())
+		// 		printk(KERN_INFO "TTCP: too many of orphaned "
+		// 		       "sockets\n");
+		// 	ttcp_set_state(sk, TTCP_CLOSE);
+		// 	ttcp_send_active_reset(sk, GFP_ATOMIC);
+		// 	NET_INC_STATS_BH(sock_net(sk),
+		// 			LINUX_MIB_TTCPABORTONMEMORY);
+		// }
 	}
 
 	if (sk->sk_state == TTCP_CLOSE)

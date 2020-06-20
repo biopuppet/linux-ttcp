@@ -301,31 +301,31 @@ extern struct proto ttcp_prot;
 #define TTCP_ADD_STATS_USER(net, field, val) SNMP_ADD_STATS_USER((net)->mib.ttcp_statistics, field, val)
 #define TTCP_ADD_STATS(net, field, val)	SNMP_ADD_STATS((net)->mib.ttcp_statistics, field, val)
 
-// extern void ttcp_v4_err(struct sk_buff *skb, u32);
+extern void ttcp_v4_err(struct sk_buff *skb, u32);
 
-// extern void ttcp_shutdown (struct sock *sk, int how);
+extern void ttcp_shutdown (struct sock *sk, int how);
 
-// extern int ttcp_v4_rcv(struct sk_buff *skb);
+extern int ttcp_v4_rcv(struct sk_buff *skb);
 
-// extern struct inet_peer *ttcp_v4_get_peer(struct sock *sk, bool *release_it);
-// extern void *ttcp_v4_tw_get_peer(struct sock *sk);
-// extern int ttcp_v4_tw_remember_stamp(struct inet_timewait_sock *tw);
-// extern int ttcp_sendmsg(struct kiocb *iocb, struct sock *sk, struct msghdr *msg,
-// 		       size_t size);
-// extern int ttcp_sendpage(struct sock *sk, struct page *page, int offset,
-// 			size_t size, int flags);
-// extern int ttcp_ioctl(struct sock *sk, int cmd, unsigned long arg);
-// extern int ttcp_rcv_state_process(struct sock *sk, struct sk_buff *skb,
-// 				 struct ttcphdr *th, unsigned len);
-// extern int ttcp_rcv_established(struct sock *sk, struct sk_buff *skb,
-// 			       struct ttcphdr *th, unsigned len);
-// extern void ttcp_rcv_space_adjust(struct sock *sk);
-// extern void ttcp_cleanup_rbuf(struct sock *sk, int copied);
-// extern int ttcp_twsk_unique(struct sock *sk, struct sock *sktw, void *twp);
-// extern void ttcp_twsk_destructor(struct sock *sk);
-// extern ssize_t ttcp_splice_read(struct socket *sk, loff_t *ppos,
-// 			       struct pipe_inode_info *pipe, size_t len,
-// 			       unsigned int flags);
+extern struct inet_peer *ttcp_v4_get_peer(struct sock *sk, bool *release_it);
+extern void *ttcp_v4_tw_get_peer(struct sock *sk);
+extern int ttcp_v4_tw_remember_stamp(struct inet_timewait_sock *tw);
+extern int ttcp_sendmsg(struct kiocb *iocb, struct sock *sk, struct msghdr *msg,
+		       size_t size);
+extern int ttcp_sendpage(struct sock *sk, struct page *page, int offset,
+			size_t size, int flags);
+extern int ttcp_ioctl(struct sock *sk, int cmd, unsigned long arg);
+extern int ttcp_rcv_state_process(struct sock *sk, struct sk_buff *skb,
+				 struct ttcphdr *th, unsigned len);
+extern int ttcp_rcv_established(struct sock *sk, struct sk_buff *skb,
+			       struct ttcphdr *th, unsigned len);
+extern void ttcp_rcv_space_adjust(struct sock *sk);
+extern void ttcp_cleanup_rbuf(struct sock *sk, int copied);
+extern int ttcp_twsk_unique(struct sock *sk, struct sock *sktw, void *twp);
+extern void ttcp_twsk_destructor(struct sock *sk);
+extern ssize_t ttcp_splice_read(struct socket *sk, loff_t *ppos,
+			       struct pipe_inode_info *pipe, size_t len,
+			       unsigned int flags);
 
 static inline void ttcp_dec_quickack_mode(struct sock *sk,
 					 const unsigned int pkts)
@@ -683,25 +683,25 @@ struct ttcp_congestion_ops {
 	struct module 	*owner;
 };
 
-// extern int ttcp_register_congestion_control(struct ttcp_congestion_ops *type);
-// extern void ttcp_unregister_congestion_control(struct ttcp_congestion_ops *type);
+extern int ttcp_register_congestion_control(struct ttcp_congestion_ops *type);
+extern void ttcp_unregister_congestion_control(struct ttcp_congestion_ops *type);
 
-// extern void ttcp_init_congestion_control(struct sock *sk);
-// extern void ttcp_cleanup_congestion_control(struct sock *sk);
-// extern int ttcp_set_default_congestion_control(const char *name);
-// extern void ttcp_get_default_congestion_control(char *name);
-// extern void ttcp_get_available_congestion_control(char *buf, size_t len);
-// extern void ttcp_get_allowed_congestion_control(char *buf, size_t len);
-// extern int ttcp_set_allowed_congestion_control(char *allowed);
-// extern int ttcp_set_congestion_control(struct sock *sk, const char *name);
-// extern void ttcp_slow_start(struct ttcp_sock *tp);
-// extern void ttcp_cong_avoid_ai(struct ttcp_sock *tp, u32 w);
+extern void ttcp_init_congestion_control(struct sock *sk);
+extern void ttcp_cleanup_congestion_control(struct sock *sk);
+extern int ttcp_set_default_congestion_control(const char *name);
+extern void ttcp_get_default_congestion_control(char *name);
+extern void ttcp_get_available_congestion_control(char *buf, size_t len);
+extern void ttcp_get_allowed_congestion_control(char *buf, size_t len);
+extern int ttcp_set_allowed_congestion_control(char *allowed);
+extern int ttcp_set_congestion_control(struct sock *sk, const char *name);
+extern void ttcp_slow_start(struct ttcp_sock *tp);
+extern void ttcp_cong_avoid_ai(struct ttcp_sock *tp, u32 w);
 
-// extern struct ttcp_congestion_ops ttcp_init_congestion_ops;
-// extern u32 ttcp_reno_ssthresh(struct sock *sk);
-// extern void ttcp_reno_cong_avoid(struct sock *sk, u32 ack, u32 in_flight);
-// extern u32 ttcp_reno_min_cwnd(const struct sock *sk);
-// extern struct ttcp_congestion_ops ttcp_reno;
+extern struct ttcp_congestion_ops ttcp_init_congestion_ops;
+extern u32 ttcp_reno_ssthresh(struct sock *sk);
+extern void ttcp_reno_cong_avoid(struct sock *sk, u32 ack, u32 in_flight);
+extern u32 ttcp_reno_min_cwnd(const struct sock *sk);
+extern struct ttcp_congestion_ops ttcp_reno;
 
 static inline void ttcp_set_ca_state(struct sock *sk, const u8 ca_state)
 {

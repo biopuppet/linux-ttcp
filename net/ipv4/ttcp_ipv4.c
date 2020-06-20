@@ -217,7 +217,7 @@ int ttcp_v4_connect(struct sock *sk, struct sockaddr *uaddr, int addr_len)
 	sk_setup_caps(sk, &rt->dst);
 
 	if (!tp->write_seq)
-		tp->write_seq = secure_ttcp_sequence_number(inet->inet_saddr,
+		tp->write_seq = secure_tcp_sequence_number(inet->inet_saddr,
 							   inet->inet_daddr,
 							   inet->inet_sport,
 							   usin->sin_port);
@@ -608,7 +608,7 @@ static void ttcp_v4_send_reset(struct sock *sk, struct sk_buff *skb)
 				     ip_hdr(skb)->daddr, &rep.th);
 	}
 #endif
-	arg.csum = csum_ttcpudp_nofold(ip_hdr(skb)->daddr,
+	arg.csum = csum_tcpudp_nofold(ip_hdr(skb)->daddr,
 				      ip_hdr(skb)->saddr, /* XXX */
 				      arg.iov[0].iov_len, IPPROTO_TTCP, 0);
 	arg.csumoffset = offsetof(struct ttcphdr, check) / 2;
@@ -1317,8 +1317,8 @@ int ttcp_v4_conn_request(struct sock *sk, struct sk_buff *skb)
 		    (peer = rt_get_peer((struct rtable *)dst)) != NULL &&
 		    peer->daddr.addr.a4 == saddr) {
 			inet_peer_refcheck(peer);
-			if ((u32)get_seconds() - peer->ttcp_ts_stamp < TTCP_PAWS_MSL &&
-			    (s32)(peer->ttcp_ts - req->ts_recent) >
+			if ((u32)get_seconds() - peer->tcp_ts_stamp < TTCP_PAWS_MSL &&
+			    (s32)(peer->tcp_ts - req->ts_recent) >
 							TTCP_PAWS_WINDOW) {
 				NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_PAWSPASSIVEREJECTED);
 				goto drop_and_release;
@@ -1328,7 +1328,7 @@ int ttcp_v4_conn_request(struct sock *sk, struct sk_buff *skb)
 		else if (!sysctl_ttcp_syncookies &&
 			 (sysctl_max_syn_backlog - inet_csk_reqsk_queue_len(sk) <
 			  (sysctl_max_syn_backlog >> 2)) &&
-			 (!peer || !peer->ttcp_ts_stamp) &&
+			 (!peer || !peer->tcp_ts_stamp) &&
 			 (!dst || !dst_metric(dst, RTAX_RTT))) {
 			/* Without syncookies last quarter of
 			 * backlog is filled with destinations,
@@ -1820,7 +1820,7 @@ static int ttcp_v4_init_sock(struct sock *sk)
 	tp->mss_cache = TTCP_MSS_DEFAULT;
 
 	tp->reordering = sysctl_ttcp_reordering;
-	icsk->icsk_ca_ops = &ttcp_init_congestion_ops;
+	icsk->icsk_tca_ops = &ttcp_init_congestion_ops;
 
 	sk->sk_state = TTCP_CLOSE;
 

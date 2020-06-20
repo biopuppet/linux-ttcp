@@ -167,23 +167,23 @@ int ttcp_v4_connect(struct sock *sk, struct sockaddr *uaddr, int addr_len)
 		tp->write_seq		   = 0;
 	}
 
-	if (ttcp_death_row.sysctl_tw_recycle &&
-	    !tp->rx_opt.ts_recent_stamp && rt->rt_dst == daddr) {
-		struct inet_peer *peer = rt_get_peer(rt);
-		/*
-		 * VJ's idea. We save last timestamp seen from
-		 * the destination in peer table, when entering state
-		 * TIME-WAIT * and initialize rx_opt.ts_recent from it,
-		 * when trying new connection.
-		 */
-		if (peer) {
-			inet_peer_refcheck(peer);
-			if ((u32)get_seconds() - peer->tcp_ts_stamp <= TTCP_PAWS_MSL) {
-				tp->rx_opt.ts_recent_stamp = peer->tcp_ts_stamp;
-				tp->rx_opt.ts_recent = peer->tcp_ts;
-			}
-		}
-	}
+	// if (ttcp_death_row.sysctl_tw_recycle &&
+	//     !tp->rx_opt.ts_recent_stamp && rt->rt_dst == daddr) {
+	// 	struct inet_peer *peer = rt_get_peer(rt);
+	// 	/*
+	// 	 * VJ's idea. We save last timestamp seen from
+	// 	 * the destination in peer table, when entering state
+	// 	 * TIME-WAIT * and initialize rx_opt.ts_recent from it,
+	// 	 * when trying new connection.
+	// 	 */
+	// 	if (peer) {
+	// 		inet_peer_refcheck(peer);
+	// 		if ((u32)get_seconds() - peer->tcp_ts_stamp <= TTCP_PAWS_MSL) {
+	// 			tp->rx_opt.ts_recent_stamp = peer->tcp_ts_stamp;
+	// 			tp->rx_opt.ts_recent = peer->tcp_ts;
+	// 		}
+	// 	}
+	// }
 
 	inet->inet_dport = usin->sin_port;
 	inet->inet_daddr = daddr;
@@ -200,9 +200,9 @@ int ttcp_v4_connect(struct sock *sk, struct sockaddr *uaddr, int addr_len)
 	 * complete initialization after this.
 	 */
 	ttcp_set_state(sk, TTCP_SYN_SENT);
-	err = inet_hash_connect(&ttcp_death_row, sk);
-	if (err)
-		goto failure;
+	// err = inet_hash_connect(&ttcp_death_row, sk);
+	// if (err)
+	// 	goto failure;
 
 	rt = ip_route_newports(rt, IPPROTO_TTCP,
 			       orig_sport, orig_dport,
@@ -1230,14 +1230,14 @@ struct sock *ttcp_v4_syn_recv_sock(struct sock *sk, struct sk_buff *skb,
 		inet_csk(newsk)->icsk_ext_hdr_len = newinet->opt->optlen;
 	newinet->inet_id = newtp->write_seq ^ jiffies;
 
-	ttcp_mtup_init(newsk);
-	ttcp_sync_mss(newsk, dst_mtu(dst));
+	// ttcp_mtup_init(newsk);
+	// ttcp_sync_mss(newsk, dst_mtu(dst));
 	newtp->advmss = dst_metric_advmss(dst);
 	if (ttcp_sk(sk)->rx_opt.user_mss &&
 	    ttcp_sk(sk)->rx_opt.user_mss < newtp->advmss)
 		newtp->advmss = ttcp_sk(sk)->rx_opt.user_mss;
 
-	ttcp_initialize_rcv_mss(newsk);
+	// ttcp_initialize_rcv_mss(newsk);
 
 #ifdef CONFIG_TTCP_MD5SIG
 	/* Copy over the MD5 key from the original socket */

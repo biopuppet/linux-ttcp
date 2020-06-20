@@ -89,7 +89,7 @@ struct tcp_mib {
 };
 
 // TTCP
-#define TTCP_MIB_MAX	__TTCP_MIB_MAX
+#define TTCP_MIB_MAX	__TCP_MIB_MAX
 struct ttcp_mib {
 	unsigned long	mibs[TTCP_MIB_MAX];
 };

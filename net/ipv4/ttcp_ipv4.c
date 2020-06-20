@@ -1641,7 +1641,7 @@ static int ttcp_v4_init_sock(struct sock *sk)
 	tp->mss_cache = TTCP_MSS_DEFAULT;
 
 	tp->reordering = sysctl_tcp_reordering;
-	icsk->icsk_tca_ops = &tcp_init_congestion_ops;
+	// icsk->icsk_tca_ops = &tcp_init_congestion_ops;
 
 	sk->sk_state = TTCP_CLOSE;
 
@@ -1671,7 +1671,7 @@ static int ttcp_v4_init_sock(struct sock *sk)
 	sk->sk_rcvbuf = sysctl_tcp_rmem[1];
 
 	local_bh_disable();
-	percpu_counter_inc(&tcp_sockets_allocated);
+	// percpu_counter_inc(&tcp_sockets_allocated);
 	local_bh_enable();
 
 	return 0;
@@ -1720,14 +1720,14 @@ void ttcp_v4_destroy_sock(struct sock *sk)
 		sk->sk_sndmsg_page = NULL;
 	}
 
-	/* TTCP Cookie Transactions */
-	if (tp->cookie_values != NULL) {
-		kref_put(&tp->cookie_values->kref,
-			 ttcp_cookie_values_release);
-		tp->cookie_values = NULL;
-	}
+	// /* TTCP Cookie Transactions */
+	// if (tp->cookie_values != NULL) {
+	// 	kref_put(&tp->cookie_values->kref,
+	// 		 ttcp_cookie_values_release);
+	// 	tp->cookie_values = NULL;
+	// }
 
-	percpu_counter_dec(&ttcp_sockets_allocated);
+	// percpu_counter_dec(&ttcp_sockets_allocated);
 }
 EXPORT_SYMBOL(ttcp_v4_destroy_sock);
 

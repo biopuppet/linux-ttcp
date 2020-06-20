@@ -707,8 +707,8 @@ static inline void ttcp_set_ca_state(struct sock *sk, const u8 ca_state)
 {
 	struct inet_connection_sock *icsk = inet_csk(sk);
 
-	if (icsk->icsk_ca_ops->set_state)
-		icsk->icsk_ca_ops->set_state(sk, ca_state);
+	if (icsk->icsk_tca_ops->set_state)
+		icsk->icsk_tca_ops->set_state(sk, ca_state);
 	icsk->icsk_ca_state = ca_state;
 }
 
@@ -716,8 +716,8 @@ static inline void ttcp_ca_event(struct sock *sk, const enum ttcp_ca_event event
 {
 	const struct inet_connection_sock *icsk = inet_csk(sk);
 
-	if (icsk->icsk_ca_ops->cwnd_event)
-		icsk->icsk_ca_ops->cwnd_event(sk, event);
+	if (icsk->icsk_tca_ops->cwnd_event)
+		icsk->icsk_tca_ops->cwnd_event(sk, event);
 }
 
 /* These functions determine how the current flow behaves in respect of SACK

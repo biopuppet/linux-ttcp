@@ -1545,6 +1545,7 @@ do_time_wait:
 	}
 	goto discard_it;
 }
+#endif /* if 0 */
 
 struct inet_peer *ttcp_v4_get_peer(struct sock *sk, bool *release_it)
 {
@@ -1577,7 +1578,7 @@ EXPORT_SYMBOL(ttcp_v4_tw_get_peer);
 static struct timewait_sock_ops ttcp_timewait_sock_ops = {
 	.twsk_obj_size	= sizeof(struct ttcp_timewait_sock),
 	.twsk_unique	= ttcp_twsk_unique,
-	.twsk_destructor= ttcp_twsk_destructor,
+	// .twsk_destructor= tcp_twsk_destructor,
 	.twsk_getpeer	= ttcp_v4_tw_get_peer,
 };
 
@@ -1609,7 +1610,6 @@ static const struct ttcp_sock_af_ops ttcp_sock_ipv4_specific = {
 	.md5_parse		= ttcp_v4_parse_md5_keys,
 };
 #endif
-#endif /* if 0 */
 
 /* NOTE: A lot of things set to zero explicitly by call to
  *       sk_alloc() so need not be done here.
@@ -2368,17 +2368,17 @@ struct proto ttcp_prot = {
 	// .unhash			= inet_unhash,
 	// .get_port		= inet_csk_get_port,
 	// .enter_memory_pressure	= ttcp_enter_memory_pressure,
-	.sockets_allocated	= &tcp_sockets_allocated,
-	.orphan_count		= &tcp_orphan_count,
-	.memory_allocated	= &tcp_memory_allocated,
-	.memory_pressure	= &tcp_memory_pressure,
+	// .sockets_allocated	= &tcp_sockets_allocated,
+	// .orphan_count		= &tcp_orphan_count,
+	// .memory_allocated	= &tcp_memory_allocated,
+	// .memory_pressure	= &tcp_memory_pressure,
 	.sysctl_mem		= sysctl_tcp_mem,
 	.sysctl_wmem		= sysctl_tcp_wmem,
 	.sysctl_rmem		= sysctl_tcp_rmem,
 	.max_header		= MAX_TTCP_HEADER,
 	.obj_size		= sizeof(struct ttcp_sock),
 	.slab_flags		= SLAB_DESTROY_BY_RCU,
-	.twsk_prot		= &tcp_timewait_sock_ops,
+	.twsk_prot		= &ttcp_timewait_sock_ops,
 	.rsk_prot		= &ttcp_request_sock_ops,
 	.h.hashinfo		= &ttcp_hashinfo,
 	.no_autobind		= true,

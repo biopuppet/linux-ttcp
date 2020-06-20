@@ -102,6 +102,7 @@
 #include <net/route.h>
 #include <net/ip_fib.h>
 #include <net/inet_connection_sock.h>
+#include <net/ttcp.h>
 #include <net/tcp.h>
 #include <net/udp.h>
 #include <net/udplite.h>
@@ -1671,6 +1672,8 @@ static int __init inet_init(void)
 		printk(KERN_CRIT "inet_init: Cannot add UDP protocol\n");
 	if (inet_add_protocol(&tcp_protocol, IPPROTO_TCP) < 0)
 		printk(KERN_CRIT "inet_init: Cannot add TCP protocol\n");
+    if (inet_add_protocol(&ttcp_protocol, IPPROTO_TTCP) < 0)
+		printk(KERN_CRIT "inet_init: Cannot add TTCP protocol\n");
 #ifdef CONFIG_IP_MULTICAST
 	if (inet_add_protocol(&igmp_protocol, IPPROTO_IGMP) < 0)
 		printk(KERN_CRIT "inet_init: Cannot add IGMP protocol\n");

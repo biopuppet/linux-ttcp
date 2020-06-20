@@ -1184,186 +1184,6 @@ static const struct ttcp_request_sock_ops ttcp_request_sock_ipv4_ops = {
 };
 #endif
 
-int ttcp_v4_conn_request(struct sock *sk, struct sk_buff *skb)
-{
-	struct ttcp_extend_values tmp_ext;
-	struct ttcp_options_received tmp_opt;
-	u8 *hash_location;
-	struct request_sock *req;
-	struct inet_request_sock *ireq;
-	struct ttcp_sock *tp = ttcp_sk(sk);
-	struct dst_entry *dst = NULL;
-	__be32 saddr = ip_hdr(skb)->saddr;
-	__be32 daddr = ip_hdr(skb)->daddr;
-	__u32 isn = TTCP_SKB_CB(skb)->when;
-#ifdef CONFIG_SYN_COOKIES
-	int want_cookie = 0;
-#else
-#define want_cookie 0 /* Argh, why doesn't gcc optimize this :( */
-#endif
-
-	/* Never answer to SYNs send to broadcast or multicast */
-	if (skb_rtable(skb)->rt_flags & (RTCF_BROADCAST | RTCF_MULTICAST))
-		goto drop;
-
-	/* TW buckets are converted to open requests without
-	 * limitations, they conserve resources and peer is
-	 * evidently real one.
-	 */
-	if (inet_csk_reqsk_queue_is_full(sk) && !isn) {
-		if (net_ratelimit())
-			syn_flood_warning(skb);
-#ifdef CONFIG_SYN_COOKIES
-		if (sysctl_tcp_syncookies) {
-			want_cookie = 1;
-		} else
-#endif
-		goto drop;
-	}
-
-	/* Accept backlog is full. If we have already queued enough
-	 * of warm entries in syn queue, drop request. It is better than
-	 * clogging syn queue with openreqs with exponentially increasing
-	 * timeout.
-	 */
-	if (sk_acceptq_is_full(sk) && inet_csk_reqsk_queue_young(sk) > 1)
-		goto drop;
-
-	req = inet_reqsk_alloc(&ttcp_request_sock_ops);
-	if (!req)
-		goto drop;
-
-#ifdef CONFIG_TTCP_MD5SIG
-	ttcp_rsk(req)->af_specific = &ttcp_request_sock_ipv4_ops;
-#endif
-
-	ttcp_clear_options(&tmp_opt);
-	tmp_opt.mss_clamp = TTCP_MSS_DEFAULT;
-	tmp_opt.user_mss  = tp->rx_opt.user_mss;
-	ttcp_parse_options(skb, &tmp_opt, &hash_location, 0);
-
-	if (tmp_opt.cookie_plus > 0 &&
-	    tmp_opt.saw_tstamp &&
-	    !tp->rx_opt.cookie_out_never &&
-	    (sysctl_tcp_cookie_size > 0 ||
-	     (tp->cookie_values != NULL &&
-	      tp->cookie_values->cookie_desired > 0))) {
-		u8 *c;
-		u32 *mess = &tmp_ext.cookie_bakery[COOKIE_DIGEST_WORDS];
-		int l = tmp_opt.cookie_plus - TTCPOLEN_COOKIE_BASE;
-
-		if (ttcp_cookie_generator(&tmp_ext.cookie_bakery[0]) != 0)
-			goto drop_and_release;
-
-		/* Secret recipe starts with IP addresses */
-		*mess++ ^= (__force u32)daddr;
-		*mess++ ^= (__force u32)saddr;
-
-		/* plus variable length Initiator Cookie */
-		c = (u8 *)mess;
-		while (l-- > 0)
-			*c++ ^= *hash_location++;
-
-#ifdef CONFIG_SYN_COOKIES
-		want_cookie = 0;	/* not our kind of cookie */
-#endif
-		tmp_ext.cookie_out_never = 0; /* false */
-		tmp_ext.cookie_plus = tmp_opt.cookie_plus;
-	} else if (!tp->rx_opt.cookie_in_always) {
-		/* redundant indications, but ensure initialization. */
-		tmp_ext.cookie_out_never = 1; /* true */
-		tmp_ext.cookie_plus = 0;
-	} else {
-		goto drop_and_release;
-	}
-	tmp_ext.cookie_in_always = tp->rx_opt.cookie_in_always;
-
-	if (want_cookie && !tmp_opt.saw_tstamp)
-		ttcp_clear_options(&tmp_opt);
-
-	tmp_opt.tstamp_ok = tmp_opt.saw_tstamp;
-	ttcp_openreq_init(req, &tmp_opt, skb);
-
-	ireq = inet_rsk(req);
-	ireq->loc_addr = daddr;
-	ireq->rmt_addr = saddr;
-	ireq->no_srccheck = inet_sk(sk)->transparent;
-	ireq->opt = ttcp_v4_save_options(sk, skb);
-
-	if (security_inet_conn_request(sk, skb, req))
-		goto drop_and_free;
-
-	if (!want_cookie || tmp_opt.tstamp_ok)
-		TTCP_ECN_create_request(req, ttcp_hdr(skb));
-
-	if (want_cookie) {
-		isn = cookie_v4_init_sequence(sk, skb, &req->mss);
-		req->cookie_ts = tmp_opt.tstamp_ok;
-	} else if (!isn) {
-		struct inet_peer *peer = NULL;
-
-		/* VJ's idea. We save last timestamp seen
-		 * from the destination in peer table, when entering
-		 * state TIME-WAIT, and check against it before
-		 * accepting new connection request.
-		 *
-		 * If "isn" is not zero, this request hit alive
-		 * timewait bucket, so that all the necessary checks
-		 * are made in the function processing timewait state.
-		 */
-		if (tmp_opt.saw_tstamp &&
-		    ttcp_death_row.sysctl_tw_recycle &&
-		    (dst = inet_csk_route_req(sk, req)) != NULL &&
-		    (peer = rt_get_peer((struct rtable *)dst)) != NULL &&
-		    peer->daddr.addr.a4 == saddr) {
-			inet_peer_refcheck(peer);
-			if ((u32)get_seconds() - peer->tcp_ts_stamp < TTCP_PAWS_MSL &&
-			    (s32)(peer->tcp_ts - req->ts_recent) >
-							TTCP_PAWS_WINDOW) {
-				NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_PAWSPASSIVEREJECTED);
-				goto drop_and_release;
-			}
-		}
-		/* Kill the following clause, if you dislike this way. */
-		else if (!sysctl_tcp_syncookies &&
-			 (sysctl_max_syn_backlog - inet_csk_reqsk_queue_len(sk) <
-			  (sysctl_max_syn_backlog >> 2)) &&
-			 (!peer || !peer->tcp_ts_stamp) &&
-			 (!dst || !dst_metric(dst, RTAX_RTT))) {
-			/* Without syncookies last quarter of
-			 * backlog is filled with destinations,
-			 * proven to be alive.
-			 * It means that we continue to communicate
-			 * to destinations, already remembered
-			 * to the moment of synflood.
-			 */
-			LIMIT_NETDEBUG(KERN_DEBUG "TTCP: drop open request from %pI4/%u\n",
-				       &saddr, ntohs(ttcp_hdr(skb)->source));
-			goto drop_and_release;
-		}
-
-		isn = ttcp_v4_init_sequence(skb);
-	}
-	ttcp_rsk(req)->snt_isn = isn;
-
-	if (ttcp_v4_send_synack(sk, dst, req,
-			       (struct request_values *)&tmp_ext) ||
-	    want_cookie)
-		goto drop_and_free;
-
-	inet_csk_reqsk_queue_hash_add(sk, req, TTCP_TIMEOUT_INIT);
-	return 0;
-
-drop_and_release:
-	dst_release(dst);
-drop_and_free:
-	reqsk_free(req);
-drop:
-	return 0;
-}
-EXPORT_SYMBOL(ttcp_v4_conn_request);
-
-
 /*
  * The three way handshake has completed - we got a valid synack -
  * now create the new socket.
@@ -2548,17 +2368,17 @@ struct proto ttcp_prot = {
 	// .unhash			= inet_unhash,
 	// .get_port		= inet_csk_get_port,
 	// .enter_memory_pressure	= ttcp_enter_memory_pressure,
-	.sockets_allocated	= &ttcp_sockets_allocated,
-	.orphan_count		= &ttcp_orphan_count,
-	.memory_allocated	= &ttcp_memory_allocated,
-	.memory_pressure	= &ttcp_memory_pressure,
+	.sockets_allocated	= &tcp_sockets_allocated,
+	.orphan_count		= &tcp_orphan_count,
+	.memory_allocated	= &tcp_memory_allocated,
+	.memory_pressure	= &tcp_memory_pressure,
 	.sysctl_mem		= sysctl_tcp_mem,
 	.sysctl_wmem		= sysctl_tcp_wmem,
 	.sysctl_rmem		= sysctl_tcp_rmem,
 	.max_header		= MAX_TTCP_HEADER,
 	.obj_size		= sizeof(struct ttcp_sock),
 	.slab_flags		= SLAB_DESTROY_BY_RCU,
-	.twsk_prot		= &ttcp_timewait_sock_ops,
+	.twsk_prot		= &tcp_timewait_sock_ops,
 	.rsk_prot		= &ttcp_request_sock_ops,
 	.h.hashinfo		= &ttcp_hashinfo,
 	.no_autobind		= true,

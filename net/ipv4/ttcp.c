@@ -1591,12 +1591,12 @@ void ttcp_set_state(struct sock *sk, int state)
 	switch (state) {
 	case TTCP_ESTABLISHED:
 		if (oldstate != TTCP_ESTABLISHED)
-			TTCP_INC_STATS(sock_net(sk), TTCP_MIB_CURRESTAB);
+			TTCP_INC_STATS(sock_net(sk), TCP_MIB_CURRESTAB);
 		break;
 
 	case TTCP_CLOSE:
 		if (oldstate == TTCP_CLOSE_WAIT || oldstate == TTCP_ESTABLISHED)
-			TTCP_INC_STATS(sock_net(sk), TTCP_MIB_ESTABRESETS);
+			TTCP_INC_STATS(sock_net(sk), TCP_MIB_ESTABRESETS);
 
 		sk->sk_prot->unhash(sk);
 		if (inet_csk(sk)->icsk_bind_hash &&
@@ -1605,7 +1605,7 @@ void ttcp_set_state(struct sock *sk, int state)
 		/* fall through */
 	default:
 		if (oldstate == TTCP_ESTABLISHED)
-			TTCP_DEC_STATS(sock_net(sk), TTCP_MIB_CURRESTAB);
+			TTCP_DEC_STATS(sock_net(sk), TCP_MIB_CURRESTAB);
 	}
 
 	/* Change state AFTER socket is unhashed to avoid closed
@@ -2993,7 +2993,7 @@ EXPORT_SYMBOL(ttcp_cookie_generator);
 void ttcp_done(struct sock *sk)
 {
 	if (sk->sk_state == TTCP_SYN_SENT || sk->sk_state == TTCP_SYN_RECV)
-		TTCP_INC_STATS_BH(sock_net(sk), TTCP_MIB_ATTEMPTFAILS);
+		TTCP_INC_STATS_BH(sock_net(sk), TCP_MIB_ATTEMPTFAILS);
 
 	ttcp_set_state(sk, TTCP_CLOSE);
 	ttcp_clear_xmit_timers(sk);

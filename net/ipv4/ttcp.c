@@ -3075,8 +3075,8 @@ void __init ttcp_init(void)
 
 	cnt = ttcp_hashinfo.ehash_mask + 1;
 
-	ttcp_death_row.sysctl_max_tw_buckets = cnt / 2;
-	sysctl_ttcp_max_orphans = cnt / 2;
+	// ttcp_death_row.sysctl_max_tw_buckets = cnt / 2;
+	// sysctl_ttcp_max_orphans = cnt / 2;
 	sysctl_max_syn_backlog = max(128, cnt / 256);
 
 	/* Set the pressure threshold to be a fraction of global memory that

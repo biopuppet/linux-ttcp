@@ -2394,31 +2394,31 @@ struct proto ttcp_prot = {
 EXPORT_SYMBOL(ttcp_prot);
 
 
-static int __net_init ttcp_sk_init(struct net *net)
-{
-	return inet_ctl_sock_create(&net->ipv4.ttcp_sock,
-				    PF_INET, SOCK_RAW, IPPROTO_TTCP, net);
-}
+// static int __net_init ttcp_sk_init(struct net *net)
+// {
+// 	return inet_ctl_sock_create(&net->ipv4.ttcp_sock,
+// 				    PF_INET, SOCK_RAW, IPPROTO_TTCP, net);
+// }
 
-static void __net_exit ttcp_sk_exit(struct net *net)
-{
-	inet_ctl_sock_destroy(net->ipv4.ttcp_sock);
-}
+// static void __net_exit ttcp_sk_exit(struct net *net)
+// {
+// 	inet_ctl_sock_destroy(net->ipv4.ttcp_sock);
+// }
 
-static void __net_exit ttcp_sk_exit_batch(struct list_head *net_exit_list)
-{
-	inet_twsk_purge(&ttcp_hashinfo, &ttcp_death_row, AF_INET);
-}
+// static void __net_exit ttcp_sk_exit_batch(struct list_head *net_exit_list)
+// {
+// 	inet_twsk_purge(&ttcp_hashinfo, &ttcp_death_row, AF_INET);
+// }
 
-static struct pernet_operations __net_initdata ttcp_sk_ops = {
-       .init	   = ttcp_sk_init,
-       .exit	   = ttcp_sk_exit,
-       .exit_batch = ttcp_sk_exit_batch,
-};
+// static struct pernet_operations __net_initdata ttcp_sk_ops = {
+//        .init	   = ttcp_sk_init,
+//        .exit	   = ttcp_sk_exit,
+//        .exit_batch = ttcp_sk_exit_batch,
+// };
 
-void __init ttcp_v4_init(void)
-{
-	inet_hashinfo_init(&ttcp_hashinfo);
-	if (register_pernet_subsys(&ttcp_sk_ops))
-		panic("Failed to create the TTCP control socket.\n");
-}
+// void __init ttcp_v4_init(void)
+// {
+// 	inet_hashinfo_init(&ttcp_hashinfo);
+// 	if (register_pernet_subsys(&ttcp_sk_ops))
+// 		panic("Failed to create the TTCP control socket.\n");
+// }

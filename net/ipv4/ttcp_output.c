@@ -35,7 +35,7 @@ int sysctl_ttcp_slow_start_after_idle __read_mostly = 1;
 int sysctl_ttcp_cookie_size __read_mostly = 0; /* TTCP_COOKIE_MAX */
 EXPORT_SYMBOL_GPL(sysctl_ttcp_cookie_size);
 
-
+#if 0
 /* Account for new data that has been sent to the network. */
 static void ttcp_event_new_data_sent(struct sock *sk, struct sk_buff *skb)
 {
@@ -2825,3 +2825,4 @@ void ttcp_send_probe0(struct sock *sk)
 					  TTCP_RTO_MAX);
 	}
 }
+#endif

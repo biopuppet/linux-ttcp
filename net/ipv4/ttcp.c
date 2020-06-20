@@ -163,6 +163,7 @@ static int retrans_to_secs(u8 retrans, int timeout, int rto_max)
 	return period;
 }
 
+#if 0
 /*
  *	Wait for a TTCP event.
  *
@@ -3116,3 +3117,4 @@ void __init ttcp_init(void)
 	ttcp_secret_retiring = &ttcp_secret_two;
 	ttcp_secret_secondary = &ttcp_secret_two;
 }
+#endif

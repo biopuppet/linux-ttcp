@@ -1328,7 +1328,6 @@ static __sum16 ttcp_v4_checksum_init(struct sk_buff *skb)
 	return 0;
 }
 
-#if 0
 /* The socket must have it's spinlock held when we get
  * here.
  *
@@ -1401,6 +1400,7 @@ csum_err:
 }
 EXPORT_SYMBOL(ttcp_v4_do_rcv);
 
+#if 0
 /*
  *	From ttcp_input.c
  */
@@ -2346,10 +2346,10 @@ struct proto ttcp_prot = {
 	// .recvmsg		= ttcp_recvmsg,
 	// .sendmsg		= ttcp_sendmsg,
 	// .sendpage		= ttcp_sendpage,
-	// .backlog_rcv		= ttcp_v4_do_rcv,
-	// .hash			= inet_hash,
-	// .unhash			= inet_unhash,
-	// .get_port		= inet_csk_get_port,
+	.backlog_rcv		= ttcp_v4_do_rcv,
+	.hash			= inet_hash,
+	.unhash			= inet_unhash,
+	.get_port		= inet_csk_get_port,
 	// .enter_memory_pressure	= ttcp_enter_memory_pressure,
 	// .sockets_allocated	= &tcp_sockets_allocated,
 	// .orphan_count		= &tcp_orphan_count,

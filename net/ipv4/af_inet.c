@@ -347,6 +347,9 @@ lookup_protocol:
 
 	WARN_ON(answer_prot->slab == NULL);
 
+    if (answer->protocol == IPPROTO_TTCP) {
+        return 0;
+    }
 	err = -ENOBUFS;
 	sk = sk_alloc(net, PF_INET, GFP_KERNEL, answer_prot);
 	if (sk == NULL)

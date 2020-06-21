@@ -1275,7 +1275,6 @@ exit:
 	return NULL;
 }
 EXPORT_SYMBOL(ttcp_v4_syn_recv_sock);
-#endif
 static struct sock *ttcp_v4_hnd_req(struct sock *sk, struct sk_buff *skb)
 {
 	struct ttcphdr *th = ttcp_hdr(skb);
@@ -1327,6 +1326,7 @@ static __sum16 ttcp_v4_checksum_init(struct sk_buff *skb)
 	}
 	return 0;
 }
+#endif
 
 /* The socket must have it's spinlock held when we get
  * here.
@@ -1359,28 +1359,28 @@ int ttcp_v4_do_rcv(struct sock *sk, struct sk_buff *skb)
 		return 0;
 	}
 
-	if (skb->len < ttcp_hdrlen(skb) || ttcp_checksum_complete(skb))
-		goto csum_err;
+	// if (skb->len < ttcp_hdrlen(skb) || ttcp_checksum_complete(skb))
+	// 	goto csum_err;
 
-	if (sk->sk_state == TTCP_LISTEN) {
-		struct sock *nsk = ttcp_v4_hnd_req(sk, skb);
-		if (!nsk)
-			goto discard;
+	// if (sk->sk_state == TTCP_LISTEN) {
+	// 	struct sock *nsk = ttcp_v4_hnd_req(sk, skb);
+	// 	if (!nsk)
+	// 		goto discard;
 
-		if (nsk != sk) {
-			if (ttcp_child_process(sk, nsk, skb)) {
-				rsk = nsk;
-				goto reset;
-			}
-			return 0;
-		}
-	} else
-		sock_rps_save_rxhash(sk, skb->rxhash);
+	// 	if (nsk != sk) {
+	// 		if (ttcp_child_process(sk, nsk, skb)) {
+	// 			rsk = nsk;
+	// 			goto reset;
+	// 		}
+	// 		return 0;
+	// 	}
+	// } else
+	// 	sock_rps_save_rxhash(sk, skb->rxhash);
 
-	if (ttcp_rcv_state_process(sk, skb, ttcp_hdr(skb), skb->len)) {
-		rsk = sk;
-		goto reset;
-	}
+	// if (ttcp_rcv_state_process(sk, skb, ttcp_hdr(skb), skb->len)) {
+	// 	rsk = sk;
+	// 	goto reset;
+	// }
 	return 0;
 
 reset:

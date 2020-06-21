@@ -1352,10 +1352,10 @@ int ttcp_v4_do_rcv(struct sock *sk, struct sk_buff *skb)
 
 	if (sk->sk_state == TTCP_ESTABLISHED) { /* Fast path */
 		sock_rps_save_rxhash(sk, skb->rxhash);
-		if (tcp_rcv_established(sk, skb, ttcp_hdr(skb), skb->len)) {
-			rsk = sk;
-			goto reset;
-		}
+		// if (ttcp_rcv_established(sk, skb, ttcp_hdr(skb), skb->len)) {
+		// 	rsk = sk;
+		// 	goto reset;
+		// }
 		return 0;
 	}
 

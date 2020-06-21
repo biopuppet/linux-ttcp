@@ -275,7 +275,7 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
 	char answer_no_check;
 	int try_loading_module = 0;
 	int err;
-    printk(KERN_INFO "inet_init: inside\n");
+    printk(KERN_INFO "inet_init: start prot: %d\n", protocol);
 
     if (unlikely(!inet_ehash_secret))
 		if (sock->type != SOCK_RAW && sock->type != SOCK_DGRAM)
@@ -288,6 +288,7 @@ lookup_protocol:
 	err = -ESOCKTNOSUPPORT;
 	rcu_read_lock();
 	list_for_each_entry_rcu(answer, &inetsw[sock->type], list) {
+        printk(KERN_INFO "inet_init: checking answer: %d.\n", answer->protocol);
 
 		err = 0;
 		/* Check the non-wild match. */

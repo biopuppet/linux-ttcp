@@ -1665,7 +1665,7 @@ static int __init inet_init(void)
 
     rc = proto_register(&tcp_prot, 1);
 	if (rc)
-		goto out_free_ttcp_ports;
+		goto out_unregister_ttcp_ports;
 
 	rc = proto_register(&udp_prot, 1);
 	if (rc)

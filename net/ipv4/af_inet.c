@@ -338,7 +338,7 @@ lookup_protocol:
 	err = -EAFNOSUPPORT;
 	if (!inet_netns_ok(net, protocol))
 		goto out_rcu_unlock;
-    printk(KERN_INFO "inet_init: netnsok.\n");
+    printk(KERN_INFO "inet_init: netns ok.\n");
 
 	sock->ops = answer->ops;
 	answer_prot = answer->prot;
@@ -348,8 +348,9 @@ lookup_protocol:
         printk(KERN_INFO "inet_create: TTCP forwarding...\n");
 		// goto out_rcu_unlock;
     }
-    
-	rcu_read_unlock();
+    else {
+	    rcu_read_unlock();
+    }
 
 	WARN_ON(answer_prot->slab == NULL);
 
@@ -418,6 +419,9 @@ lookup_protocol:
 		if (err)
 			sk_common_release(sk);
 	}
+    if (answer->protocol == IPPROTO_TTCP) {
+        goto out_rcu_unlock;
+    }
 out:
 	return err;
 out_rcu_unlock:

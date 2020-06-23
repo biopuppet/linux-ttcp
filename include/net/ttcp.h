@@ -713,7 +713,7 @@ static inline void ttcp_set_ca_state(struct sock *sk, const u8 ca_state)
 	icsk->icsk_ca_state = ca_state;
 }
 
-static inline void ttcp_ca_event(struct sock *sk, const enum ttcp_ca_event event)
+static inline void ttcp_ca_event(struct sock *sk, const enum tcp_ca_event event)
 {
 	const struct inet_connection_sock *icsk = inet_csk(sk);
 

@@ -339,16 +339,18 @@ lookup_protocol:
 	if (!inet_netns_ok(net, protocol))
 		goto out_rcu_unlock;
     printk(KERN_INFO "inet_init: netnsok.\n");
-    if (answer->protocol == IPPROTO_TTCP) {
-        printk(KERN_INFO "inet_create: TTCP forwarding...\n");
-        goto out_rcu_unlock;
-    }
+
 	sock->ops = answer->ops;
 	answer_prot = answer->prot;
 	answer_no_check = answer->no_check;
 	answer_flags = answer->flags;
-	rcu_read_unlock();
 
+	rcu_read_unlock();
+    if (answer->protocol == IPPROTO_TTCP) {
+        printk(KERN_INFO "inet_create: TTCP forwarding...\n");
+        return 0;
+    }
+    
 	WARN_ON(answer_prot->slab == NULL);
 
     

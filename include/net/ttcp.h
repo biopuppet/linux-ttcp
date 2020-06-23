@@ -251,17 +251,17 @@ extern int ttcp_memory_pressure;
  * and worry about wraparound (automatic with unsigned arithmetic).
  */
 
-static inline int before(__u32 seq1, __u32 seq2)
-{
-        return (__s32)(seq1-seq2) < 0;
-}
-#define after(seq2, seq1) 	before(seq1, seq2)
+// static inline int before(__u32 seq1, __u32 seq2)
+// {
+//         return (__s32)(seq1-seq2) < 0;
+// }
+// #define after(seq2, seq1) 	before(seq1, seq2)
 
-/* is s2<=s1<=s3 ? */
-static inline int between(__u32 seq1, __u32 seq2, __u32 seq3)
-{
-	return seq3 - seq2 >= seq1 - seq2;
-}
+// /* is s2<=s1<=s3 ? */
+// static inline int between(__u32 seq1, __u32 seq2, __u32 seq3)
+// {
+// 	return seq3 - seq2 >= seq1 - seq2;
+// }
 
 // static inline bool ttcp_too_many_orphans(struct sock *sk, int shift)
 // {
@@ -424,7 +424,7 @@ extern __u32 cookie_v4_init_sequence(struct sock *sk, struct sk_buff *skb,
 				     __u16 *mss);
 
 extern __u32 cookie_init_timestamp(struct request_sock *req);
-extern bool cookie_check_timestamp(struct ttcp_options_received *opt, bool *);
+// extern bool cookie_check_timestamp(struct ttcp_options_received *opt, bool *);
 
 /* From net/ipv6/syncookies.c */
 extern struct sock *cookie_v6_check(struct sock *sk, struct sk_buff *skb);
@@ -493,8 +493,8 @@ static inline int ttcp_bound_to_half_wnd(struct ttcp_sock *tp, int pktsize)
 extern void ttcp_get_info(struct sock *, struct ttcp_info *);
 
 /* Read 'sendfile()'-style from a TTCP socket */
-typedef int (*sk_read_actor_t)(read_descriptor_t *, struct sk_buff *,
-				unsigned int, size_t);
+// typedef int (*sk_read_actor_t)(read_descriptor_t *, struct sk_buff *,
+// 				unsigned int, size_t);
 extern int ttcp_read_sock(struct sock *sk, read_descriptor_t *desc,
 			 sk_read_actor_t recv_actor);
 
@@ -633,15 +633,15 @@ static inline int ttcp_skb_mss(const struct sk_buff *skb)
 }
 
 /* Events passed to congestion control interface */
-enum ttcp_ca_event {
-	CA_EVENT_TX_START,	/* first transmit when no packets in flight */
-	CA_EVENT_CWND_RESTART,	/* congestion window restart */
-	CA_EVENT_COMPLETE_CWR,	/* end of congestion recovery */
-	CA_EVENT_FRTO,		/* fast recovery timeout */
-	CA_EVENT_LOSS,		/* loss timeout */
-	CA_EVENT_FAST_ACK,	/* in sequence ack */
-	CA_EVENT_SLOW_ACK,	/* other ack */
-};
+// enum ttcp_ca_event {
+// 	CA_EVENT_TX_START,	/* first transmit when no packets in flight */
+// 	CA_EVENT_CWND_RESTART,	/* congestion window restart */
+// 	CA_EVENT_COMPLETE_CWR,	/* end of congestion recovery */
+// 	CA_EVENT_FRTO,		/* fast recovery timeout */
+// 	CA_EVENT_LOSS,		/* loss timeout */
+// 	CA_EVENT_FAST_ACK,	/* in sequence ack */
+// 	CA_EVENT_SLOW_ACK,	/* other ack */
+// };
 
 /*
  * Interface for adding new TTCP congestion control handlers
@@ -989,28 +989,28 @@ static inline void ttcp_openreq_init(struct request_sock *req,
 
 extern void ttcp_enter_memory_pressure(struct sock *sk);
 
-static inline int keepalive_intvl_when(const struct ttcp_sock *tp)
-{
-	return tp->keepalive_intvl ? : sysctl_ttcp_keepalive_intvl;
-}
+// static inline int keepalive_intvl_when(const struct ttcp_sock *tp)
+// {
+// 	return tp->keepalive_intvl ? : sysctl_ttcp_keepalive_intvl;
+// }
 
-static inline int keepalive_time_when(const struct ttcp_sock *tp)
-{
-	return tp->keepalive_time ? : sysctl_ttcp_keepalive_time;
-}
+// static inline int keepalive_time_when(const struct ttcp_sock *tp)
+// {
+// 	return tp->keepalive_time ? : sysctl_ttcp_keepalive_time;
+// }
 
-static inline int keepalive_probes(const struct ttcp_sock *tp)
-{
-	return tp->keepalive_probes ? : sysctl_ttcp_keepalive_probes;
-}
+// static inline int keepalive_probes(const struct ttcp_sock *tp)
+// {
+// 	return tp->keepalive_probes ? : sysctl_ttcp_keepalive_probes;
+// }
 
-static inline u32 keepalive_time_elapsed(const struct ttcp_sock *tp)
-{
-	const struct inet_connection_sock *icsk = &tp->inet_conn;
+// static inline u32 keepalive_time_elapsed(const struct ttcp_sock *tp)
+// {
+// 	const struct inet_connection_sock *icsk = &tp->inet_conn;
 
-	return min_t(u32, ttcp_time_stamp - icsk->icsk_ack.lrcvtime,
-			  ttcp_time_stamp - tp->rcv_tstamp);
-}
+// 	return min_t(u32, ttcp_time_stamp - icsk->icsk_ack.lrcvtime,
+// 			  ttcp_time_stamp - tp->rcv_tstamp);
+// }
 
 static inline int ttcp_fin_time(const struct sock *sk)
 {

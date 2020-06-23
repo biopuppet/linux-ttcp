@@ -333,7 +333,11 @@ lookup_protocol:
 	err = -EPERM;
 	if (sock->type == SOCK_RAW && !kern && !capable(CAP_NET_RAW))
 		goto out_rcu_unlock;
-
+    
+    if (answer->protocol == IPPROTO_TTCP) {
+        printk(KERN_INFO "inet_create: TTCP forwarding...\n");
+        goto out_rcu_unlock;
+    }
 	err = -EAFNOSUPPORT;
 	if (!inet_netns_ok(net, protocol))
 		goto out_rcu_unlock;
@@ -347,10 +351,7 @@ lookup_protocol:
 
 	WARN_ON(answer_prot->slab == NULL);
 
-    if (answer->protocol == IPPROTO_TTCP) {
-        printk(KERN_INFO "inet_create: TTCP forwarding...\n");
-        return 0;
-    }
+    
 	err = -ENOBUFS;
 	sk = sk_alloc(net, PF_INET, GFP_KERNEL, answer_prot);
 	if (sk == NULL)

@@ -35,6 +35,7 @@
 #include <net/sock.h>
 #include <net/snmp.h>
 #include <net/ip.h>
+#include <net/tcp.h>
 #include <net/ttcp_states.h>
 #include <net/inet_ecn.h>
 #include <net/dst.h>
@@ -495,8 +496,8 @@ extern void ttcp_get_info(struct sock *, struct ttcp_info *);
 /* Read 'sendfile()'-style from a TTCP socket */
 // typedef int (*sk_read_actor_t)(read_descriptor_t *, struct sk_buff *,
 // 				unsigned int, size_t);
-extern int ttcp_read_sock(struct sock *sk, read_descriptor_t *desc,
-			 sk_read_actor_t recv_actor);
+// extern int ttcp_read_sock(struct sock *sk, read_descriptor_t *desc,
+// 			 sk_read_actor_t recv_actor);
 
 extern void ttcp_initialize_rcv_mss(struct sock *sk);
 
@@ -671,7 +672,7 @@ struct ttcp_congestion_ops {
 	/* call before changing ca_state (optional) */
 	void (*set_state)(struct sock *sk, u8 new_state);
 	/* call when cwnd event occurs (optional) */
-	void (*cwnd_event)(struct sock *sk, enum ttcp_ca_event ev);
+	void (*cwnd_event)(struct sock *sk, enum tcp_ca_event ev);
 	/* new value of cwnd after loss (optional) */
 	u32  (*undo_cwnd)(struct sock *sk);
 	/* hook for packet ack accounting (optional) */

@@ -344,13 +344,13 @@ lookup_protocol:
 	answer_prot = answer->prot;
 	answer_no_check = answer->no_check;
 	answer_flags = answer->flags;
-
-	rcu_read_unlock();
     if (answer->protocol == IPPROTO_TTCP) {
         printk(KERN_INFO "inet_create: TTCP forwarding...\n");
-        return 0;
+		// goto out_rcu_unlock;
     }
     
+	rcu_read_unlock();
+
 	WARN_ON(answer_prot->slab == NULL);
 
     

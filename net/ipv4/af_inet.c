@@ -121,7 +121,6 @@
 extern void ttcp_v4_init(void);
 extern void ttcp_init(void);
 
-extern struct proto ttcp_prot;
 /* The inetsw table contains everything that inet_create needs to
  * build a new socket.
  */
@@ -352,7 +351,6 @@ lookup_protocol:
 	rcu_read_unlock();
 
 	WARN_ON(answer_prot->slab == NULL);
-
     
 	err = -ENOBUFS;
 	sk = sk_alloc(net, PF_INET, GFP_KERNEL, answer_prot);
@@ -1033,17 +1031,15 @@ static struct inet_protosw inetsw_array[] =
 		.ops =        &inet_dgram_ops,
 		.no_check =   UDP_CSUM_DEFAULT,
 		.flags =      INET_PROTOSW_PERMANENT,
-       },
-
-
-       {
-	       .type =       SOCK_RAW,
-	       .protocol =   IPPROTO_IP,	/* wild card */
-	       .prot =       &raw_prot,
-	       .ops =        &inet_sockraw_ops,
-	       .no_check =   UDP_CSUM_DEFAULT,
-	       .flags =      INET_PROTOSW_REUSE,
-       }
+    },
+    {
+        .type =       SOCK_RAW,
+        .protocol =   IPPROTO_IP,	/* wild card */
+        .prot =       &raw_prot,
+        .ops =        &inet_sockraw_ops,
+        .no_check =   UDP_CSUM_DEFAULT,
+        .flags =      INET_PROTOSW_REUSE,
+    }
 };
 
 #define INETSW_ARRAY_LEN ARRAY_SIZE(inetsw_array)
@@ -1559,6 +1555,10 @@ static const struct net_protocol icmp_protocol = {
 
 static __net_init int ipv4_mib_init_net(struct net *net)
 {
+    if (snmp_mib_init((void __percpu **)net->mib.ttcp_statistics,
+			  sizeof(struct ttcp_mib),
+			  __alignof__(struct ttcp_mib)) < 0)
+		goto err_ttcp_mib;
 	if (snmp_mib_init((void __percpu **)net->mib.tcp_statistics,
 			  sizeof(struct tcp_mib),
 			  __alignof__(struct tcp_mib)) < 0)
@@ -1604,6 +1604,8 @@ err_net_mib:
 err_ip_mib:
 	snmp_mib_free((void __percpu **)net->mib.tcp_statistics);
 err_tcp_mib:
+    snmp_mib_free((void __percpu **)net->mib.ttcp_statistics);
+err_ttcp_mib:
 	return -ENOMEM;
 }
 
@@ -1616,6 +1618,7 @@ static __net_exit void ipv4_mib_exit_net(struct net *net)
 	snmp_mib_free((void __percpu **)net->mib.net_statistics);
 	snmp_mib_free((void __percpu **)net->mib.ip_statistics);
 	snmp_mib_free((void __percpu **)net->mib.tcp_statistics);
+	snmp_mib_free((void __percpu **)net->mib.ttcp_statistics);
 }
 
 static __net_initdata struct pernet_operations ipv4_mib_ops = {
@@ -1656,13 +1659,13 @@ static int __init inet_init(void)
 	if (!sysctl_local_reserved_ports)
 		goto out;
 
-	rc = proto_register(&tcp_prot, 1);
+	rc = proto_register(&ttcp_prot, 1);
 	if (rc)
 		goto out_free_reserved_ports;
 
-    rc = proto_register(&ttcp_prot, 1);
+    rc = proto_register(&tcp_prot, 1);
 	if (rc)
-		goto out_free_reserved_ports;
+		goto out_free_ttcp_ports;
 
 	rc = proto_register(&udp_prot, 1);
 	if (rc)
@@ -1718,6 +1721,7 @@ static int __init inet_init(void)
 
 	ip_init();
 
+	ttcp_v4_init();
 	tcp_v4_init();
 
 	/* Setup TCP slab cache for open requests. */
@@ -1764,6 +1768,8 @@ out_unregister_udp_proto:
 	proto_unregister(&udp_prot);
 out_unregister_tcp_proto:
 	proto_unregister(&tcp_prot);
+out_unregister_ttcp_proto:
+	proto_unregister(&ttcp_prot);
 out_free_reserved_ports:
 	kfree(sysctl_local_reserved_ports);
 	goto out;

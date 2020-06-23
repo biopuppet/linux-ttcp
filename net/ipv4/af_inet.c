@@ -103,6 +103,7 @@
 #include <net/ip_fib.h>
 #include <net/inet_connection_sock.h>
 #include <net/tcp.h>
+#include <net/ttcp.h>
 #include <net/udp.h>
 #include <net/udplite.h>
 #include <linux/skbuff.h>
@@ -345,12 +346,10 @@ lookup_protocol:
 	answer_no_check = answer->no_check;
 	answer_flags = answer->flags;
     if (answer->protocol == IPPROTO_TTCP) {
-        printk(KERN_INFO "inet_create: TTCP forwarding...\n");
-		// goto out_rcu_unlock;
+        printk(KERN_INFO "inet_create: TTCP ...\n");
     }
-    else {
-	    rcu_read_unlock();
-    }
+    
+	rcu_read_unlock();
 
 	WARN_ON(answer_prot->slab == NULL);
 
@@ -419,9 +418,6 @@ lookup_protocol:
 		if (err)
 			sk_common_release(sk);
 	}
-    if (answer->protocol == IPPROTO_TTCP) {
-        goto out_rcu_unlock;
-    }
 out:
 	return err;
 out_rcu_unlock:

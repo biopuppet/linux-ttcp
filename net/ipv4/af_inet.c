@@ -348,6 +348,7 @@ lookup_protocol:
 	WARN_ON(answer_prot->slab == NULL);
 
     if (answer->protocol == IPPROTO_TTCP) {
+        printk(KERN_INFO "inet_create: TTCP forwarding...\n");
         return 0;
     }
 	err = -ENOBUFS;

@@ -334,15 +334,15 @@ lookup_protocol:
 	if (sock->type == SOCK_RAW && !kern && !capable(CAP_NET_RAW))
 		goto out_rcu_unlock;
     
-    if (answer->protocol == IPPROTO_TTCP) {
-        printk(KERN_INFO "inet_create: TTCP forwarding...\n");
-        goto out_rcu_unlock;
-    }
+
 	err = -EAFNOSUPPORT;
 	if (!inet_netns_ok(net, protocol))
 		goto out_rcu_unlock;
     printk(KERN_INFO "inet_init: netnsok.\n");
-
+    if (answer->protocol == IPPROTO_TTCP) {
+        printk(KERN_INFO "inet_create: TTCP forwarding...\n");
+        goto out_rcu_unlock;
+    }
 	sock->ops = answer->ops;
 	answer_prot = answer->prot;
 	answer_no_check = answer->no_check;

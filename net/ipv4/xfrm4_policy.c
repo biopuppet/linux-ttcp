@@ -114,6 +114,7 @@ _decode_session4(struct sk_buff *skb, struct flowi *fl, int reverse)
 		case IPPROTO_UDP:
 		case IPPROTO_UDPLITE:
 		case IPPROTO_TCP:
+		case IPPROTO_TTCP:
 		case IPPROTO_SCTP:
 		case IPPROTO_DCCP:
 			if (xprth + 4 < skb->data ||

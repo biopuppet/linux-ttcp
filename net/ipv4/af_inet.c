@@ -275,7 +275,8 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
 	char answer_no_check;
 	int try_loading_module = 0;
 	int err;
-    printk(KERN_INFO "inet_init: start prot: %d\n", protocol);
+    	int answer_protocol = -1;
+	printk(KERN_INFO "inet_init: start prot: %d\n", protocol);
 
     if (unlikely(!inet_ehash_secret))
 		if (sock->type != SOCK_RAW && sock->type != SOCK_DGRAM)
@@ -344,9 +345,7 @@ lookup_protocol:
 	answer_prot = answer->prot;
 	answer_no_check = answer->no_check;
 	answer_flags = answer->flags;
-    if (answer->protocol == IPPROTO_TTCP) {
-        printk(KERN_INFO "inet_create: TTCP ...\n");
-    }
+	answer_protocol = answer->protocol;
     
 	rcu_read_unlock();
 
@@ -363,6 +362,7 @@ lookup_protocol:
 	if (INET_PROTOSW_REUSE & answer_flags)
 		sk->sk_reuse = 1;
 
+	
 	inet = inet_sk(sk);
 	inet->is_icsk = (INET_PROTOSW_ICSK & answer_flags) != 0;
 
@@ -381,9 +381,15 @@ lookup_protocol:
 
 	inet->inet_id = 0;
 
-    printk(KERN_INFO "inet_init: init_data...\n");
+    printk(KERN_INFO "inet_init: init_data...sk_prot: %s\n", sk->sk_prot->name);
 	sock_init_data(sock, sk);
-    printk(KERN_INFO "inet_init: init_data ok.\n");
+    //printk(KERN_INFO "inet_init: init_data ok.\n");
+
+    	if (answer_protocol == IPPROTO_TTCP) {
+        	printk(KERN_INFO "inet_create: TTCP ...\n");
+	//	goto out_rcu_unlock;
+    		return 0;
+	}
 
 	sk->sk_destruct	   = inet_sock_destruct;
 	sk->sk_protocol	   = protocol;
@@ -1015,15 +1021,6 @@ static struct inet_protosw inetsw_array[] =
 		.flags =      INET_PROTOSW_PERMANENT |
 			      INET_PROTOSW_ICSK,
 	},
-    {
-		.type =       SOCK_STREAM,
-		.protocol =   IPPROTO_TTCP,
-		.prot =       &ttcp_prot,
-		.ops =        &inet_stream_ops,
-		.no_check =   0,
-		.flags =      INET_PROTOSW_PERMANENT |
-			      INET_PROTOSW_ICSK,
-	},
 	{
 		.type =       SOCK_DGRAM,
 		.protocol =   IPPROTO_UDP,
@@ -1039,7 +1036,16 @@ static struct inet_protosw inetsw_array[] =
         .ops =        &inet_sockraw_ops,
         .no_check =   UDP_CSUM_DEFAULT,
         .flags =      INET_PROTOSW_REUSE,
-    }
+    },
+    {
+		.type =       SOCK_STREAM,
+		.protocol =   IPPROTO_TTCP,
+		.prot =       &ttcp_prot,
+		.ops =        &inet_stream_ops,
+		.no_check =   0,
+		.flags =      INET_PROTOSW_PERMANENT |
+			      INET_PROTOSW_ICSK,
+	},
 };
 
 #define INETSW_ARRAY_LEN ARRAY_SIZE(inetsw_array)
@@ -1789,6 +1795,8 @@ static int __init ipv4_proc_init(void)
 		goto out_raw;
 	if (tcp4_proc_init())
 		goto out_tcp;
+	if (ttcp4_proc_init())
+		goto out_ttcp;
 	if (udp4_proc_init())
 		goto out_udp;
 	if (ip_misc_proc_init())
@@ -1798,6 +1806,8 @@ out:
 out_misc:
 	udp4_proc_exit();
 out_udp:
+	ttcp4_proc_exit();
+out_ttcp:
 	tcp4_proc_exit();
 out_tcp:
 	raw_proc_exit();

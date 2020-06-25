@@ -167,23 +167,23 @@ int ttcp_v4_connect(struct sock *sk, struct sockaddr *uaddr, int addr_len)
 		tp->write_seq		   = 0;
 	}
 
-	// if (ttcp_death_row.sysctl_tw_recycle &&
-	//     !tp->rx_opt.ts_recent_stamp && rt->rt_dst == daddr) {
-	// 	struct inet_peer *peer = rt_get_peer(rt);
-	// 	/*
-	// 	 * VJ's idea. We save last timestamp seen from
-	// 	 * the destination in peer table, when entering state
-	// 	 * TIME-WAIT * and initialize rx_opt.ts_recent from it,
-	// 	 * when trying new connection.
-	// 	 */
-	// 	if (peer) {
-	// 		inet_peer_refcheck(peer);
-	// 		if ((u32)get_seconds() - peer->tcp_ts_stamp <= TTCP_PAWS_MSL) {
-	// 			tp->rx_opt.ts_recent_stamp = peer->tcp_ts_stamp;
-	// 			tp->rx_opt.ts_recent = peer->tcp_ts;
-	// 		}
-	// 	}
-	// }
+	if (ttcp_death_row.sysctl_tw_recycle &&
+	    !tp->rx_opt.ts_recent_stamp && rt->rt_dst == daddr) {
+		struct inet_peer *peer = rt_get_peer(rt);
+		/*
+		 * VJ's idea. We save last timestamp seen from
+		 * the destination in peer table, when entering state
+		 * TIME-WAIT * and initialize rx_opt.ts_recent from it,
+		 * when trying new connection.
+		 */
+		if (peer) {
+			inet_peer_refcheck(peer);
+			if ((u32)get_seconds() - peer->tcp_ts_stamp <= TTCP_PAWS_MSL) {
+				tp->rx_opt.ts_recent_stamp = peer->tcp_ts_stamp;
+				tp->rx_opt.ts_recent = peer->tcp_ts;
+			}
+		}
+	}
 
 	inet->inet_dport = usin->sin_port;
 	inet->inet_daddr = daddr;
@@ -200,9 +200,9 @@ int ttcp_v4_connect(struct sock *sk, struct sockaddr *uaddr, int addr_len)
 	 * complete initialization after this.
 	 */
 	ttcp_set_state(sk, TTCP_SYN_SENT);
-	// err = inet_hash_connect(&ttcp_death_row, sk);
-	// if (err)
-	// 	goto failure;
+	err = inet_hash_connect(&ttcp_death_row, sk);
+	if (err)
+		goto failure;
 
 	rt = ip_route_newports(rt, IPPROTO_TTCP,
 			       orig_sport, orig_dport,
@@ -2334,7 +2334,7 @@ struct proto ttcp_prot = {
 	.name			= "TTCP",
 	.owner			= THIS_MODULE,
 	.close			= tcp_close,
-	.connect		= tcp_v4_connect,
+	.connect		= ttcp_v4_connect,
 	.disconnect		= tcp_disconnect,
 	.accept			= inet_csk_accept,
 	.ioctl			= tcp_ioctl,

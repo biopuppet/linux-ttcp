@@ -383,12 +383,12 @@ lookup_protocol:
 
     printk(KERN_INFO "inet_init: init_data...sk_prot: %s\n", sk->sk_prot->name);
 	sock_init_data(sock, sk);
-    //printk(KERN_INFO "inet_init: init_data ok.\n");
+    printk(KERN_INFO "inet_init: init_data ok.\n");
 
-    	if (answer_protocol == IPPROTO_TTCP) {
-        	printk(KERN_INFO "inet_create: TTCP ...\n");
-	//	goto out_rcu_unlock;
-    		return 0;
+    if (answer_protocol == IPPROTO_TTCP) {
+    	printk(KERN_INFO "inet_create: TTCP ...\n");
+	    //	goto out_rcu_unlock;
+    	//	return 0;
 	}
 
 	sk->sk_destruct	   = inet_sock_destruct;

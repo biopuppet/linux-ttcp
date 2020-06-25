@@ -35,7 +35,6 @@ int sysctl_ttcp_slow_start_after_idle __read_mostly = 1;
 int sysctl_ttcp_cookie_size __read_mostly = 0; /* TTCP_COOKIE_MAX */
 EXPORT_SYMBOL_GPL(sysctl_ttcp_cookie_size);
 
-#if 0
 /* Account for new data that has been sent to the network. */
 static void ttcp_event_new_data_sent(struct sock *sk, struct sk_buff *skb)
 {
@@ -280,7 +279,7 @@ static inline void TTCP_ECN_send_syn(struct sock *sk, struct sk_buff *skb)
 	struct ttcp_sock *tp = ttcp_sk(sk);
 
 	tp->ecn_flags = 0;
-	if (sysctl_tttcp_ecn == 1) {
+	if (sysctl_ttcp_ecn == 1) {
 		TTCP_SKB_CB(skb)->flags |= TTCPHDR_ECE | TTCPHDR_CWR;
 		tp->ecn_flags = TTCP_ECN_OK;
 	}
@@ -309,7 +308,7 @@ static inline void TTCP_ECN_send(struct sock *sk, struct sk_buff *skb,
 			if (tp->ecn_flags & TTCP_ECN_QUEUE_CWR) {
 				tp->ecn_flags &= ~TTCP_ECN_QUEUE_CWR;
 				ttcp_hdr(skb)->cwr = 1;
-				skb_shinfo(skb)->gso_type |= SKB_GSO_TTCP_ECN;
+				skb_shinfo(skb)->gso_type |= SKB_GSO_TCP_ECN;
 			}
 		} else {
 			/* ACK or retransmitted segment: clear ECT|CE */
@@ -868,7 +867,7 @@ static int ttcp_transmit_skb(struct sock *sk, struct sk_buff *skb, int clone_it,
 		ttcp_event_data_sent(tp, skb, sk);
 
 	if (after(tcb->end_seq, tp->snd_nxt) || tcb->seq == tcb->end_seq)
-		TTCP_ADD_STATS(sock_net(sk), TTCP_MIB_OUTSEGS,
+		TTCP_ADD_STATS(sock_net(sk), TCP_MIB_OUTSEGS,
 			      ttcp_skb_pcount(skb));
 
 	err = icsk->icsk_af_ops->queue_xmit(skb);
@@ -2116,7 +2115,7 @@ int ttcp_retransmit_skb(struct sock *sk, struct sk_buff *skb)
 
 	if (err == 0) {
 		/* Update global TTCP statistics. */
-		TTCP_INC_STATS(sock_net(sk), TTCP_MIB_RETRANSSEGS);
+		TTCP_INC_STATS(sock_net(sk), TCP_MIB_RETRANSSEGS);
 
 		tp->total_retrans++;
 
@@ -2232,7 +2231,7 @@ void ttcp_xmit_retransmit_queue(struct sock *sk)
 begin_fwd:
 			if (!before(TTCP_SKB_CB(skb)->seq, ttcp_highest_sack_seq(tp)))
 				break;
-			mib_idx = LINUX_MIB_TTCPFORWARDRETRANS;
+			mib_idx = LINUX_MIB_TCPFORWARDRETRANS;
 
 		} else if (!before(TTCP_SKB_CB(skb)->seq, tp->retransmit_high)) {
 			tp->retransmit_high = last_lost;
@@ -2254,9 +2253,9 @@ begin_fwd:
 		} else {
 			last_lost = TTCP_SKB_CB(skb)->end_seq;
 			if (icsk->icsk_ca_state != TTCP_CA_Loss)
-				mib_idx = LINUX_MIB_TTCPFASTRETRANS;
+				mib_idx = LINUX_MIB_TCPFASTRETRANS;
 			else
-				mib_idx = LINUX_MIB_TTCPSLOWSTARTRETRANS;
+				mib_idx = LINUX_MIB_TCPSLOWSTARTRETRANS;
 		}
 
 		if (sacked & (TTCPCB_SACKED_ACKED|TTCPCB_SACKED_RETRANS))
@@ -2324,7 +2323,7 @@ void ttcp_send_active_reset(struct sock *sk, gfp_t priority)
 	/* NOTE: No TTCP options attached and we never retransmit this. */
 	skb = alloc_skb(MAX_TTCP_HEADER, priority);
 	if (!skb) {
-		NET_INC_STATS(sock_net(sk), LINUX_MIB_TTCPABORTFAILED);
+		NET_INC_STATS(sock_net(sk), LINUX_MIB_TCPABORTFAILED);
 		return;
 	}
 
@@ -2335,9 +2334,9 @@ void ttcp_send_active_reset(struct sock *sk, gfp_t priority)
 	/* Send it off. */
 	TTCP_SKB_CB(skb)->when = ttcp_time_stamp;
 	if (ttcp_transmit_skb(sk, skb, 0, priority))
-		NET_INC_STATS(sock_net(sk), LINUX_MIB_TTCPABORTFAILED);
+		NET_INC_STATS(sock_net(sk), LINUX_MIB_TCPABORTFAILED);
 
-	TTCP_INC_STATS(sock_net(sk), TTCP_MIB_OUTRSTS);
+	TTCP_INC_STATS(sock_net(sk), TCP_MIB_OUTRSTS);
 }
 
 /* Send a crossed SYN-ACK during socket establishment.
@@ -2497,7 +2496,7 @@ struct sk_buff *ttcp_make_synack(struct sock *sk, struct dst_entry *dst,
 	th->window = htons(min(req->rcv_wnd, 65535U));
 	ttcp_options_write((__be32 *)(th + 1), tp, &opts);
 	th->doff = (ttcp_header_size >> 2);
-	TTCP_ADD_STATS(sock_net(sk), TTCP_MIB_OUTSEGS, ttcp_skb_pcount(skb));
+	TTCP_ADD_STATS(sock_net(sk), TCP_MIB_OUTSEGS, ttcp_skb_pcount(skb));
 
 #ifdef CONFIG_TTCP_MD5SIG
 	/* Okay, we have all we need - do the md5 hash if needed */
@@ -2584,7 +2583,6 @@ int ttcp_connect(struct sock *sk)
 	int err;
 
 	ttcp_connect_init(sk);
-
 	buff = alloc_skb_fclone(MAX_TTCP_HEADER + 15, sk->sk_allocation);
 	if (unlikely(buff == NULL))
 		return -ENOBUFS;
@@ -2613,7 +2611,7 @@ int ttcp_connect(struct sock *sk)
 	 */
 	tp->snd_nxt = tp->write_seq;
 	tp->pushed_seq = tp->write_seq;
-	TTCP_INC_STATS(sock_net(sk), TTCP_MIB_ACTIVEOPENS);
+	TTCP_INC_STATS(sock_net(sk), TCP_MIB_ACTIVEOPENS);
 
 	/* Timer for repeating the SYN until an answer. */
 	inet_csk_reset_xmit_timer(sk, ICSK_TIME_RETRANS,
@@ -2622,6 +2620,7 @@ int ttcp_connect(struct sock *sk)
 }
 EXPORT_SYMBOL(ttcp_connect);
 
+#if 0
 /* Send out a delayed ack, the caller does the policy checking
  * to see if we should even be here.  See ttcp_input.c:ttcp_ack_snd_check()
  * for details.
@@ -2825,4 +2824,4 @@ void ttcp_send_probe0(struct sock *sk)
 					  TTCP_RTO_MAX);
 	}
 }
-#endif
+#endif // if 0

@@ -49,7 +49,7 @@
 
 #include <linux/crypto.h>
 #include <linux/scatterlist.h>
-
+extern int ttcp_connect(struct sock *);
 int sysctl_ttcp_tw_reuse __read_mostly;
 int sysctl_ttcp_low_latency __read_mostly;
 EXPORT_SYMBOL(sysctl_ttcp_low_latency);
@@ -122,6 +122,7 @@ int ttcp_v4_connect(struct sock *sk, struct sockaddr *uaddr, int addr_len)
 	__be32 daddr, nexthop;
 	int err;
 
+	printk(KERN_INFO "ttcp_v4_connect: begin\n");
 	if (addr_len < sizeof(struct sockaddr_in))
 		return -EINVAL;
 
@@ -141,6 +142,7 @@ int ttcp_v4_connect(struct sock *sk, struct sockaddr *uaddr, int addr_len)
 			      RT_CONN_FLAGS(sk), sk->sk_bound_dev_if,
 			      IPPROTO_TTCP,
 			      orig_sport, orig_dport, sk, true);
+	printk(KERN_INFO "\tip_route_connect done.\n");
 	if (IS_ERR(rt)) {
 		err = PTR_ERR(rt);
 		if (err == -ENETUNREACH)
@@ -224,14 +226,17 @@ int ttcp_v4_connect(struct sock *sk, struct sockaddr *uaddr, int addr_len)
 
 	inet->inet_id = tp->write_seq ^ jiffies;
 
-	// err = ttcp_connect(sk);
+	err = ttcp_connect(sk);
+	//err = 0;
 	rt = NULL;
 	if (err)
 		goto failure;
 
+	printk(KERN_INFO "\tcheckpoint end.\n");
 	return 0;
 
 failure:
+	printk(KERN_INFO "\tcheckpoint failure.\n");
 	/*
 	 * This unhashes the socket and releases the local port,
 	 * if necessary.

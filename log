@@ -1,0 +1,3040 @@
+[    0.000000] Initializing cgroup subsys cpuset
+[    0.000000] Initializing cgroup subsys cpu
+[    0.000000] Linux version 2.6.39.2+ (root@bogon) (gcc version 4.4.7 20120313 (Red Hat 4.4.7-23) (GCC) ) #70 SMP Thu Jun 25 09:59:26 CST 2020
+[    0.000000] Command line: ro root=/dev/mapper/vg_cate-lv_root rd_LVM_LV=vg_cate/lv_root rd_LVM_LV=vg_cate/lv_swap rd_NO_LUKS rd_NO_MD rd_NO_DM LANG=en_US.UTF-8 SYSFONT=latarcyrheb-sun16 KEYBOARDTYPE=pc KEYTABLE=us crashkernel=auto rhgb quiet kgdboc=ttyS1,115200
+[    0.000000] BIOS-provided physical RAM map:
+[    0.000000]  BIOS-e820: 0000000000000000 - 000000000009f800 (usable)
+[    0.000000]  BIOS-e820: 000000000009f800 - 00000000000a0000 (reserved)
+[    0.000000]  BIOS-e820: 00000000000dc000 - 0000000000100000 (reserved)
+[    0.000000]  BIOS-e820: 0000000000100000 - 00000000bfee0000 (usable)
+[    0.000000]  BIOS-e820: 00000000bfee0000 - 00000000bfeff000 (ACPI data)
+[    0.000000]  BIOS-e820: 00000000bfeff000 - 00000000bff00000 (ACPI NVS)
+[    0.000000]  BIOS-e820: 00000000bff00000 - 00000000c0000000 (usable)
+[    0.000000]  BIOS-e820: 00000000f0000000 - 00000000f8000000 (reserved)
+[    0.000000]  BIOS-e820: 00000000fec00000 - 00000000fec10000 (reserved)
+[    0.000000]  BIOS-e820: 00000000fee00000 - 00000000fee01000 (reserved)
+[    0.000000]  BIOS-e820: 00000000fffe0000 - 0000000100000000 (reserved)
+[    0.000000]  BIOS-e820: 0000000100000000 - 0000000140000000 (usable)
+[    0.000000] NX (Execute Disable) protection: active
+[    0.000000] DMI present.
+[    0.000000] DMI: VMware, Inc. VMware Virtual Platform/440BX Desktop Reference Platform, BIOS 6.00 07/29/2019
+[    0.000000] Hypervisor detected: VMware
+[    0.000000] e820 update range: 0000000000000000 - 0000000000010000 (usable) ==> (reserved)
+[    0.000000] e820 remove range: 00000000000a0000 - 0000000000100000 (usable)
+[    0.000000] No AGP bridge found
+[    0.000000] last_pfn = 0x140000 max_arch_pfn = 0x400000000
+[    0.000000] MTRR default type: uncachable
+[    0.000000] MTRR fixed ranges enabled:
+[    0.000000]   00000-9FFFF write-back
+[    0.000000]   A0000-BFFFF uncachable
+[    0.000000]   C0000-CBFFF write-protect
+[    0.000000]   CC000-EFFFF uncachable
+[    0.000000]   F0000-FFFFF write-protect
+[    0.000000] MTRR variable ranges enabled:
+[    0.000000]   0 base 00000000000 mask 7FE00000000 write-back
+[    0.000000]   1 base 000C0000000 mask 7FFC0000000 uncachable
+[    0.000000]   2 disabled
+[    0.000000]   3 disabled
+[    0.000000]   4 disabled
+[    0.000000]   5 disabled
+[    0.000000]   6 disabled
+[    0.000000]   7 disabled
+[    0.000000] x86 PAT enabled: cpu 0, old 0x7040600070406, new 0x7010600070106
+[    0.000000] original variable MTRRs
+[    0.000000] reg 0, base: 0GB, range: 8GB, type WB
+[    0.000000] reg 1, base: 3GB, range: 1GB, type UC
+[    0.000000] total RAM covered: 7168M
+[    0.000000] Found optimal setting for mtrr clean up
+[    0.000000]  gran_size: 64K 	chunk_size: 64K 	num_reg: 3  	lose cover RAM: 0G
+[    0.000000] New variable MTRRs
+[    0.000000] reg 0, base: 0GB, range: 2GB, type WB
+[    0.000000] reg 1, base: 2GB, range: 1GB, type WB
+[    0.000000] reg 2, base: 4GB, range: 4GB, type WB
+[    0.000000] e820 update range: 00000000c0000000 - 0000000100000000 (usable) ==> (reserved)
+[    0.000000] last_pfn = 0xc0000 max_arch_pfn = 0x400000000
+[    0.000000] found SMP MP-table at [ffff8800000f6a70] f6a70
+[    0.000000] initial memory mapped : 0 - 20000000
+[    0.000000] Base memory trampoline at [ffff88000009a000] 9a000 size 20480
+[    0.000000] Using GB pages for direct mapping
+[    0.000000] init_memory_mapping: 0000000000000000-00000000c0000000
+[    0.000000]  0000000000 - 00c0000000 page 1G
+[    0.000000] kernel direct mapping tables up to c0000000 @ bffff000-c0000000
+[    0.000000] init_memory_mapping: 0000000100000000-0000000140000000
+[    0.000000]  0100000000 - 0140000000 page 1G
+[    0.000000] kernel direct mapping tables up to 140000000 @ 13ffff000-140000000
+[    0.000000] RAMDISK: 3722c000 - 37ff0000
+[    0.000000] crashkernel: memory value expected
+[    0.000000] ACPI: RSDP 00000000000f6a00 00024 (v02 PTLTD )
+[    0.000000] ACPI: XSDT 00000000bfeee8fb 0005C (v01 INTEL  440BX    06040000 VMW  01324272)
+[    0.000000] ACPI: FACP 00000000bfefee73 000F4 (v04 INTEL  440BX    06040000 PTL  000F4240)
+[    0.000000] ACPI: DSDT 00000000bfeeebbd 102B6 (v01 PTLTD  Custom   06040000 MSFT 03000001)
+[    0.000000] ACPI: FACS 00000000bfefffc0 00040
+[    0.000000] ACPI: BOOT 00000000bfeeeb95 00028 (v01 PTLTD  $SBFTBL$ 06040000  LTP 00000001)
+[    0.000000] ACPI: APIC 00000000bfeeeb1b 0007A (v01 PTLTD  ? APIC   06040000  LTP 00000000)
+[    0.000000] ACPI: MCFG 00000000bfeeeadf 0003C (v01 PTLTD  $PCITBL$ 06040000  LTP 00000001)
+[    0.000000] ACPI: SRAT 00000000bfeee9f7 000E8 (v02 VMWARE MEMPLUG  06040000 VMW  00000001)
+[    0.000000] ACPI: HPET 00000000bfeee9bf 00038 (v01 VMWARE VMW HPET 06040000 VMW  00000001)
+[    0.000000] ACPI: WAET 00000000bfeee997 00028 (v01 VMWARE VMW WAET 06040000 VMW  00000001)
+[    0.000000] ACPI: Local APIC address 0xfee00000
+[    0.000000] SRAT: PXM 0 -> APIC 0x00 -> Node 0
+[    0.000000] SRAT: PXM 0 -> APIC 0x02 -> Node 0
+[    0.000000] SRAT: PXM 0 -> APIC 0x04 -> Node 0
+[    0.000000] SRAT: PXM 0 -> APIC 0x06 -> Node 0
+[    0.000000] SRAT: Node 0 PXM 0 0-a0000
+[    0.000000] SRAT: Node 0 PXM 0 100000-c0000000
+[    0.000000] SRAT: Node 0 PXM 0 100000000-140000000
+[    0.000000] NUMA: Node 0 [0,a0000) + [100000,c0000000) -> [0,c0000000)
+[    0.000000] NUMA: Node 0 [0,c0000000) + [100000000,140000000) -> [0,140000000)
+[    0.000000] NUMA: Using 63 for the hash shift.
+[    0.000000] Initmem setup node 0 0000000000000000-0000000140000000
+[    0.000000]   NODE_DATA [000000013ffd9000 - 000000013fffffff]
+[    0.000000]  [ffffea0000000000-ffffea00045fffff] PMD -> [ffff88013b600000-ffff88013edfffff] on node 0
+[    0.000000] Zone PFN ranges:
+[    0.000000]   DMA      0x00000010 -> 0x00001000
+[    0.000000]   DMA32    0x00001000 -> 0x00100000
+[    0.000000]   Normal   0x00100000 -> 0x00140000
+[    0.000000] Movable zone start PFN for each node
+[    0.000000] early_node_map[4] active PFN ranges
+[    0.000000]     0: 0x00000010 -> 0x0000009f
+[    0.000000]     0: 0x00000100 -> 0x000bfee0
+[    0.000000]     0: 0x000bff00 -> 0x000c0000
+[    0.000000]     0: 0x00100000 -> 0x00140000
+[    0.000000] On node 0 totalpages: 1048431
+[    0.000000]   DMA zone: 56 pages used for memmap
+[    0.000000]   DMA zone: 5 pages reserved
+[    0.000000]   DMA zone: 3922 pages, LIFO batch:0
+[    0.000000]   DMA32 zone: 14280 pages used for memmap
+[    0.000000]   DMA32 zone: 768024 pages, LIFO batch:31
+[    0.000000]   Normal zone: 3584 pages used for memmap
+[    0.000000]   Normal zone: 258560 pages, LIFO batch:31
+[    0.000000] ACPI: PM-Timer IO Port: 0x1008
+[    0.000000] ACPI: Local APIC address 0xfee00000
+[    0.000000] ACPI: LAPIC (acpi_id[0x00] lapic_id[0x00] enabled)
+[    0.000000] ACPI: LAPIC (acpi_id[0x01] lapic_id[0x02] enabled)
+[    0.000000] ACPI: LAPIC (acpi_id[0x02] lapic_id[0x04] enabled)
+[    0.000000] ACPI: LAPIC (acpi_id[0x03] lapic_id[0x06] enabled)
+[    0.000000] ACPI: LAPIC_NMI (acpi_id[0x00] high edge lint[0x1])
+[    0.000000] ACPI: LAPIC_NMI (acpi_id[0x01] high edge lint[0x1])
+[    0.000000] ACPI: LAPIC_NMI (acpi_id[0x02] high edge lint[0x1])
+[    0.000000] ACPI: LAPIC_NMI (acpi_id[0x03] high edge lint[0x1])
+[    0.000000] ACPI: IOAPIC (id[0x01] address[0xfec00000] gsi_base[0])
+[    0.000000] IOAPIC[0]: apic_id 1, version 32, address 0xfec00000, GSI 0-23
+[    0.000000] ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 high edge)
+[    0.000000] ACPI: IRQ0 used by override.
+[    0.000000] ACPI: IRQ2 used by override.
+[    0.000000] ACPI: IRQ9 used by override.
+[    0.000000] Using ACPI (MADT) for SMP configuration information
+[    0.000000] ACPI: HPET id: 0x8086af01 base: 0xfed00000
+[    0.000000] SMP: Allowing 4 CPUs, 0 hotplug CPUs
+[    0.000000] nr_irqs_gsi: 40
+[    0.000000] PM: Registered nosave memory: 000000000009f000 - 00000000000a0000
+[    0.000000] PM: Registered nosave memory: 00000000000a0000 - 00000000000dc000
+[    0.000000] PM: Registered nosave memory: 00000000000dc000 - 0000000000100000
+[    0.000000] PM: Registered nosave memory: 00000000bfee0000 - 00000000bfeff000
+[    0.000000] PM: Registered nosave memory: 00000000bfeff000 - 00000000bff00000
+[    0.000000] PM: Registered nosave memory: 00000000c0000000 - 00000000f0000000
+[    0.000000] PM: Registered nosave memory: 00000000f0000000 - 00000000f8000000
+[    0.000000] PM: Registered nosave memory: 00000000f8000000 - 00000000fec00000
+[    0.000000] PM: Registered nosave memory: 00000000fec00000 - 00000000fec10000
+[    0.000000] PM: Registered nosave memory: 00000000fec10000 - 00000000fee00000
+[    0.000000] PM: Registered nosave memory: 00000000fee00000 - 00000000fee01000
+[    0.000000] PM: Registered nosave memory: 00000000fee01000 - 00000000fffe0000
+[    0.000000] PM: Registered nosave memory: 00000000fffe0000 - 0000000100000000
+[    0.000000] Allocating PCI resources starting at c0000000 (gap: c0000000:30000000)
+[    0.000000] Booting paravirtualized kernel on bare hardware
+[    0.000000] setup_percpu: NR_CPUS:4096 nr_cpumask_bits:4 nr_cpu_ids:4 nr_node_ids:1
+[    0.000000] PERCPU: Embedded 29 pages/cpu @ffff88013fc00000 s89152 r8192 d21440 u524288
+[    0.000000] pcpu-alloc: s89152 r8192 d21440 u524288 alloc=1*2097152
+[    0.000000] pcpu-alloc: [0] 0 1 2 3 
+[    0.000000] Built 1 zonelists in Node order, mobility grouping on.  Total pages: 1030506
+[    0.000000] Policy zone: Normal
+[    0.000000] Kernel command line: ro root=/dev/mapper/vg_cate-lv_root rd_LVM_LV=vg_cate/lv_root rd_LVM_LV=vg_cate/lv_swap rd_NO_LUKS rd_NO_MD rd_NO_DM LANG=en_US.UTF-8 SYSFONT=latarcyrheb-sun16 KEYBOARDTYPE=pc KEYTABLE=us crashkernel=auto rhgb quiet kgdboc=ttyS1,115200
+[    0.000000] PID hash table entries: 4096 (order: 3, 32768 bytes)
+[    0.000000] xsave/xrstor: enabled xstate_bv 0x7, cntxt size 0x340
+[    0.000000] Checking aperture...
+[    0.000000] No AGP bridge found
+[    0.000000] Memory: 4039484k/5242880k available (4767k kernel code, 1049156k absent, 154240k reserved, 7539k data, 1484k init)
+[    0.000000] Hierarchical RCU implementation.
+[    0.000000] 	RCU-based detection of stalled CPUs is disabled.
+[    0.000000] NR_IRQS:262400 nr_irqs:712 16
+[    0.000000] Extended CMOS year: 2000
+[    0.000000] Console: colour VGA+ 80x25
+[    0.000000] console [tty0] enabled
+[    0.000000] allocated 33554432 bytes of page_cgroup
+[    0.000000] please try 'cgroup_disable=memory' option if you don't want memory cgroups
+[    0.000000] hpet clockevent registered
+[    0.000000] TSC freq read from hypervisor : 2807.999 MHz
+[    0.000000] Detected 2807.999 MHz processor.
+[    0.000002] Calibrating delay loop (skipped) preset value.. 5615.99 BogoMIPS (lpj=2807999)
+[    0.000004] pid_max: default: 32768 minimum: 301
+[    0.000182] Security Framework initialized
+[    0.000457] Dentry cache hash table entries: 524288 (order: 10, 4194304 bytes)
+[    0.001588] Inode-cache hash table entries: 262144 (order: 9, 2097152 bytes)
+[    0.002133] Mount-cache hash table entries: 256
+[    0.002258] Initializing cgroup subsys ns
+[    0.002260] ns_cgroup deprecated: consider using the 'clone_children' flag without the ns_cgroup.
+[    0.002262] Initializing cgroup subsys cpuacct
+[    0.002264] Initializing cgroup subsys memory
+[    0.002275] Initializing cgroup subsys devices
+[    0.002278] Initializing cgroup subsys freezer
+[    0.002279] Initializing cgroup subsys net_cls
+[    0.002280] Initializing cgroup subsys blkio
+[    0.002344] CPU: Physical Processor ID: 0
+[    0.002350] mce: CPU supports 8 MCE banks
+[    0.004126] ACPI: Core revision 20110316
+[    0.018878] ftrace: allocating 18616 entries in 74 pages
+[    0.029767] Not enabling x2apic, Intr-remapping init failed.
+[    0.029769] Setting APIC routing to flat
+[    0.030021] ..TIMER: vector=0x30 apic1=0 pin1=2 apic2=-1 pin2=-1
+[    0.040764] CPU0: Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz stepping 09
+[    0.141643] Performance Events: generic architected perfmon, core PMU driver.
+[    0.141653] ... version:                1
+[    0.141654] ... bit width:              48
+[    0.141655] ... generic registers:      4
+[    0.141656] ... value mask:             0000ffffffffffff
+[    0.141656] ... max period:             000000007fffffff
+[    0.141657] ... fixed-purpose events:   0
+[    0.141658] ... event mask:             000000000000000f
+[    0.141829] Booting Node   0, Processors  #1
+[    0.141831] smpboot cpu 1: start_ip = 9a000
+[    0.153272]  #2
+[    0.153273] smpboot cpu 2: start_ip = 9a000
+[    0.164749]  #3 Ok.
+[    0.164750] smpboot cpu 3: start_ip = 9a000
+[    0.176034] Skipped synchronization checks as TSC is reliable.
+[    0.176051] Brought up 4 CPUs
+[    0.176052] Total of 4 processors activated (22463.99 BogoMIPS).
+[    0.177004] devtmpfs: initialized
+[    0.179262] PM: Registering ACPI NVS region at bfeff000 (4096 bytes)
+[    0.179912] print_constraints: dummy: 
+[    0.180459] NET: Registered protocol family 16
+[    0.180607] ACPI: bus type pci registered
+[    0.180705] PCI: MMCONFIG for domain 0000 [bus 00-7f] at [mem 0xf0000000-0xf7ffffff] (base 0xf0000000)
+[    0.180707] PCI: MMCONFIG at [mem 0xf0000000-0xf7ffffff] reserved in E820
+[    0.195428] PCI: Using configuration type 1 for base access
+[    0.197908] bio: create slab <bio-0> at 0
+[    0.201578] ACPI: EC: Look up EC in DSDT
+[    0.209014] [Firmware Bug]: ACPI: BIOS _OSI(Linux) query ignored
+[    0.228557] ACPI: Interpreter enabled
+[    0.228559] ACPI: (supports S0 S1 S4 S5)
+[    0.228570] ACPI: Using IOAPIC for interrupt routing
+[    0.270050] ACPI: No dock devices found.
+[    0.270055] PCI: Using host bridge windows from ACPI; if necessary, use "pci=nocrs" and report a bug
+[    0.271603] ACPI: PCI Root Bridge [PCI0] (domain 0000 [bus 00-7f])
+[    0.274084] pci_root PNP0A03:00: host bridge window [mem 0x000a0000-0x000bffff]
+[    0.274087] pci_root PNP0A03:00: host bridge window [mem 0x000cc000-0x000cffff]
+[    0.274088] pci_root PNP0A03:00: host bridge window [mem 0x000d0000-0x000d3fff]
+[    0.274090] pci_root PNP0A03:00: host bridge window [mem 0x000d4000-0x000d7fff]
+[    0.274092] pci_root PNP0A03:00: host bridge window [mem 0x000d8000-0x000dbfff]
+[    0.274094] pci_root PNP0A03:00: host bridge window [mem 0xc0000000-0xfebfffff]
+[    0.274096] pci_root PNP0A03:00: host bridge window [io  0x0000-0x0cf7]
+[    0.274097] pci_root PNP0A03:00: host bridge window [io  0x0d00-0xfeff]
+[    0.274169] pci 0000:00:00.0: [8086:7190] type 0 class 0x000600
+[    0.274654] pci 0000:00:01.0: [8086:7191] type 1 class 0x000604
+[    0.275213] pci 0000:00:07.0: [8086:7110] type 0 class 0x000601
+[    0.276130] pci 0000:00:07.1: [8086:7111] type 0 class 0x000101
+[    0.279064] pci 0000:00:07.1: reg 20: [io  0x1060-0x106f]
+[    0.280494] pci 0000:00:07.3: [8086:7113] type 0 class 0x000680
+[    0.283747] pci 0000:00:07.3: quirk: [io  0x1000-0x103f] claimed by PIIX4 ACPI
+[    0.283763] pci 0000:00:07.3: quirk: [io  0x1040-0x104f] claimed by PIIX4 SMB
+[    0.284010] pci 0000:00:07.7: [15ad:0740] type 0 class 0x000880
+[    0.285034] pci 0000:00:07.7: reg 10: [io  0x1080-0x10bf]
+[    0.286602] pci 0000:00:07.7: reg 14: [mem 0xfebfe000-0xfebfffff 64bit]
+[    0.293020] pci 0000:00:0f.0: [15ad:0405] type 0 class 0x000300
+[    0.295557] pci 0000:00:0f.0: reg 10: [io  0x1070-0x107f]
+[    0.297954] pci 0000:00:0f.0: reg 14: [mem 0xe8000000-0xefffffff pref]
+[    0.300001] pci 0000:00:0f.0: reg 18: [mem 0xfe000000-0xfe7fffff]
+[    0.308583] pci 0000:00:0f.0: reg 30: [mem 0x00000000-0x00007fff pref]
+[    0.309003] pci 0000:00:11.0: [15ad:0790] type 1 class 0x000604
+[    0.309725] pci 0000:00:15.0: [15ad:07a0] type 1 class 0x000604
+[    0.310332] pci 0000:00:15.0: PME# supported from D0 D3hot D3cold
+[    0.310357] pci 0000:00:15.0: PME# disabled
+[    0.310656] pci 0000:00:15.1: [15ad:07a0] type 1 class 0x000604
+[    0.311200] pci 0000:00:15.1: PME# supported from D0 D3hot D3cold
+[    0.311222] pci 0000:00:15.1: PME# disabled
+[    0.311450] pci 0000:00:15.2: [15ad:07a0] type 1 class 0x000604
+[    0.312011] pci 0000:00:15.2: PME# supported from D0 D3hot D3cold
+[    0.312030] pci 0000:00:15.2: PME# disabled
+[    0.312232] pci 0000:00:15.3: [15ad:07a0] type 1 class 0x000604
+[    0.312798] pci 0000:00:15.3: PME# supported from D0 D3hot D3cold
+[    0.312820] pci 0000:00:15.3: PME# disabled
+[    0.313022] pci 0000:00:15.4: [15ad:07a0] type 1 class 0x000604
+[    0.313500] pci 0000:00:15.4: PME# supported from D0 D3hot D3cold
+[    0.313519] pci 0000:00:15.4: PME# disabled
+[    0.313807] pci 0000:00:15.5: [15ad:07a0] type 1 class 0x000604
+[    0.314288] pci 0000:00:15.5: PME# supported from D0 D3hot D3cold
+[    0.314308] pci 0000:00:15.5: PME# disabled
+[    0.314508] pci 0000:00:15.6: [15ad:07a0] type 1 class 0x000604
+[    0.315111] pci 0000:00:15.6: PME# supported from D0 D3hot D3cold
+[    0.315130] pci 0000:00:15.6: PME# disabled
+[    0.315331] pci 0000:00:15.7: [15ad:07a0] type 1 class 0x000604
+[    0.315935] pci 0000:00:15.7: PME# supported from D0 D3hot D3cold
+[    0.315954] pci 0000:00:15.7: PME# disabled
+[    0.316155] pci 0000:00:16.0: [15ad:07a0] type 1 class 0x000604
+[    0.316719] pci 0000:00:16.0: PME# supported from D0 D3hot D3cold
+[    0.316738] pci 0000:00:16.0: PME# disabled
+[    0.316945] pci 0000:00:16.1: [15ad:07a0] type 1 class 0x000604
+[    0.317432] pci 0000:00:16.1: PME# supported from D0 D3hot D3cold
+[    0.317451] pci 0000:00:16.1: PME# disabled
+[    0.317842] pci 0000:00:16.2: [15ad:07a0] type 1 class 0x000604
+[    0.318415] pci 0000:00:16.2: PME# supported from D0 D3hot D3cold
+[    0.318434] pci 0000:00:16.2: PME# disabled
+[    0.318750] pci 0000:00:16.3: [15ad:07a0] type 1 class 0x000604
+[    0.319220] pci 0000:00:16.3: PME# supported from D0 D3hot D3cold
+[    0.319239] pci 0000:00:16.3: PME# disabled
+[    0.319435] pci 0000:00:16.4: [15ad:07a0] type 1 class 0x000604
+[    0.319992] pci 0000:00:16.4: PME# supported from D0 D3hot D3cold
+[    0.320011] pci 0000:00:16.4: PME# disabled
+[    0.320207] pci 0000:00:16.5: [15ad:07a0] type 1 class 0x000604
+[    0.320812] pci 0000:00:16.5: PME# supported from D0 D3hot D3cold
+[    0.320831] pci 0000:00:16.5: PME# disabled
+[    0.321031] pci 0000:00:16.6: [15ad:07a0] type 1 class 0x000604
+[    0.321515] pci 0000:00:16.6: PME# supported from D0 D3hot D3cold
+[    0.321568] pci 0000:00:16.6: PME# disabled
+[    0.321807] pci 0000:00:16.7: [15ad:07a0] type 1 class 0x000604
+[    0.322272] pci 0000:00:16.7: PME# supported from D0 D3hot D3cold
+[    0.322291] pci 0000:00:16.7: PME# disabled
+[    0.322506] pci 0000:00:17.0: [15ad:07a0] type 1 class 0x000604
+[    0.323046] pci 0000:00:17.0: PME# supported from D0 D3hot D3cold
+[    0.323065] pci 0000:00:17.0: PME# disabled
+[    0.323261] pci 0000:00:17.1: [15ad:07a0] type 1 class 0x000604
+[    0.323855] pci 0000:00:17.1: PME# supported from D0 D3hot D3cold
+[    0.323874] pci 0000:00:17.1: PME# disabled
+[    0.324070] pci 0000:00:17.2: [15ad:07a0] type 1 class 0x000604
+[    0.324609] pci 0000:00:17.2: PME# supported from D0 D3hot D3cold
+[    0.324664] pci 0000:00:17.2: PME# disabled
+[    0.324878] pci 0000:00:17.3: [15ad:07a0] type 1 class 0x000604
+[    0.325343] pci 0000:00:17.3: PME# supported from D0 D3hot D3cold
+[    0.325362] pci 0000:00:17.3: PME# disabled
+[    0.325645] pci 0000:00:17.4: [15ad:07a0] type 1 class 0x000604
+[    0.326113] pci 0000:00:17.4: PME# supported from D0 D3hot D3cold
+[    0.326132] pci 0000:00:17.4: PME# disabled
+[    0.326330] pci 0000:00:17.5: [15ad:07a0] type 1 class 0x000604
+[    0.326895] pci 0000:00:17.5: PME# supported from D0 D3hot D3cold
+[    0.326914] pci 0000:00:17.5: PME# disabled
+[    0.327110] pci 0000:00:17.6: [15ad:07a0] type 1 class 0x000604
+[    0.327802] pci 0000:00:17.6: PME# supported from D0 D3hot D3cold
+[    0.327827] pci 0000:00:17.6: PME# disabled
+[    0.328110] pci 0000:00:17.7: [15ad:07a0] type 1 class 0x000604
+[    0.328692] pci 0000:00:17.7: PME# supported from D0 D3hot D3cold
+[    0.328713] pci 0000:00:17.7: PME# disabled
+[    0.328923] pci 0000:00:18.0: [15ad:07a0] type 1 class 0x000604
+[    0.329401] pci 0000:00:18.0: PME# supported from D0 D3hot D3cold
+[    0.329421] pci 0000:00:18.0: PME# disabled
+[    0.329703] pci 0000:00:18.1: [15ad:07a0] type 1 class 0x000604
+[    0.330184] pci 0000:00:18.1: PME# supported from D0 D3hot D3cold
+[    0.330204] pci 0000:00:18.1: PME# disabled
+[    0.330406] pci 0000:00:18.2: [15ad:07a0] type 1 class 0x000604
+[    0.330972] pci 0000:00:18.2: PME# supported from D0 D3hot D3cold
+[    0.330992] pci 0000:00:18.2: PME# disabled
+[    0.331194] pci 0000:00:18.3: [15ad:07a0] type 1 class 0x000604
+[    0.331765] pci 0000:00:18.3: PME# supported from D0 D3hot D3cold
+[    0.331788] pci 0000:00:18.3: PME# disabled
+[    0.331991] pci 0000:00:18.4: [15ad:07a0] type 1 class 0x000604
+[    0.332512] pci 0000:00:18.4: PME# supported from D0 D3hot D3cold
+[    0.332536] pci 0000:00:18.4: PME# disabled
+[    0.332913] pci 0000:00:18.5: [15ad:07a0] type 1 class 0x000604
+[    0.333432] pci 0000:00:18.5: PME# supported from D0 D3hot D3cold
+[    0.333499] pci 0000:00:18.5: PME# disabled
+[    0.333739] pci 0000:00:18.6: [15ad:07a0] type 1 class 0x000604
+[    0.334221] pci 0000:00:18.6: PME# supported from D0 D3hot D3cold
+[    0.334241] pci 0000:00:18.6: PME# disabled
+[    0.334482] pci 0000:00:18.7: [15ad:07a0] type 1 class 0x000604
+[    0.335002] pci 0000:00:18.7: PME# supported from D0 D3hot D3cold
+[    0.335022] pci 0000:00:18.7: PME# disabled
+[    0.335288] pci 0000:00:01.0: PCI bridge to [bus 01-01]
+[    0.335307] pci 0000:00:01.0:   bridge window [io  0xf000-0x0000] (disabled)
+[    0.335327] pci 0000:00:01.0:   bridge window [mem 0xfff00000-0x000fffff] (disabled)
+[    0.335346] pci 0000:00:01.0:   bridge window [mem 0xfff00000-0x000fffff pref] (disabled)
+[    0.335682] pci 0000:02:00.0: [15ad:0774] type 0 class 0x000c03
+[    0.338271] pci 0000:02:00.0: reg 20: [io  0x20c0-0x20df]
+[    0.339388] pci 0000:02:01.0: [1022:2000] type 0 class 0x000200
+[    0.340018] pci 0000:02:01.0: reg 10: [io  0x2000-0x207f]
+[    0.342680] pci 0000:02:01.0: reg 30: [mem 0x00000000-0x0000ffff pref]
+[    0.342855] pci 0000:02:02.0: [1274:1371] type 0 class 0x000401
+[    0.343351] pci 0000:02:02.0: reg 10: [io  0x2080-0x20bf]
+[    0.345876] pci 0000:02:03.0: [15ad:0770] type 0 class 0x000c03
+[    0.346331] pci 0000:02:03.0: reg 10: [mem 0xfd5ff000-0xfd5fffff]
+[    0.349441] pci 0000:00:11.0: PCI bridge to [bus 02-02] (subtractive decode)
+[    0.349466] pci 0000:00:11.0:   bridge window [io  0x2000-0x3fff]
+[    0.349491] pci 0000:00:11.0:   bridge window [mem 0xfd500000-0xfdffffff]
+[    0.349539] pci 0000:00:11.0:   bridge window [mem 0xe7b00000-0xe7ffffff 64bit pref]
+[    0.349541] pci 0000:00:11.0:   bridge window [mem 0x000a0000-0x000bffff] (subtractive decode)
+[    0.349543] pci 0000:00:11.0:   bridge window [mem 0x000cc000-0x000cffff] (subtractive decode)
+[    0.349545] pci 0000:00:11.0:   bridge window [mem 0x000d0000-0x000d3fff] (subtractive decode)
+[    0.349546] pci 0000:00:11.0:   bridge window [mem 0x000d4000-0x000d7fff] (subtractive decode)
+[    0.349548] pci 0000:00:11.0:   bridge window [mem 0x000d8000-0x000dbfff] (subtractive decode)
+[    0.349549] pci 0000:00:11.0:   bridge window [mem 0xc0000000-0xfebfffff] (subtractive decode)
+[    0.349551] pci 0000:00:11.0:   bridge window [io  0x0000-0x0cf7] (subtractive decode)
+[    0.349552] pci 0000:00:11.0:   bridge window [io  0x0d00-0xfeff] (subtractive decode)
+[    0.350076] pci 0000:00:15.0: PCI bridge to [bus 03-03]
+[    0.350100] pci 0000:00:15.0:   bridge window [io  0x4000-0x4fff]
+[    0.350125] pci 0000:00:15.0:   bridge window [mem 0xfd400000-0xfd4fffff]
+[    0.350173] pci 0000:00:15.0:   bridge window [mem 0xe7a00000-0xe7afffff 64bit pref]
+[    0.350690] pci 0000:00:15.1: PCI bridge to [bus 04-04]
+[    0.350714] pci 0000:00:15.1:   bridge window [io  0x8000-0x8fff]
+[    0.350743] pci 0000:00:15.1:   bridge window [mem 0xfd000000-0xfd0fffff]
+[    0.350791] pci 0000:00:15.1:   bridge window [mem 0xe7600000-0xe76fffff 64bit pref]
+[    0.351309] pci 0000:00:15.2: PCI bridge to [bus 05-05]
+[    0.351333] pci 0000:00:15.2:   bridge window [io  0xc000-0xcfff]
+[    0.351360] pci 0000:00:15.2:   bridge window [mem 0xfcc00000-0xfccfffff]
+[    0.351411] pci 0000:00:15.2:   bridge window [mem 0xe7200000-0xe72fffff 64bit pref]
+[    0.351856] pci 0000:00:15.3: PCI bridge to [bus 06-06]
+[    0.351875] pci 0000:00:15.3:   bridge window [io  0xf000-0x0000] (disabled)
+[    0.351895] pci 0000:00:15.3:   bridge window [mem 0xfc800000-0xfc8fffff]
+[    0.351933] pci 0000:00:15.3:   bridge window [mem 0xe6e00000-0xe6efffff 64bit pref]
+[    0.352342] pci 0000:00:15.4: PCI bridge to [bus 07-07]
+[    0.352408] pci 0000:00:15.4:   bridge window [io  0xf000-0x0000] (disabled)
+[    0.352433] pci 0000:00:15.4:   bridge window [mem 0xfc400000-0xfc4fffff]
+[    0.352481] pci 0000:00:15.4:   bridge window [mem 0xe6a00000-0xe6afffff 64bit pref]
+[    0.352963] pci 0000:00:15.5: PCI bridge to [bus 08-08]
+[    0.352982] pci 0000:00:15.5:   bridge window [io  0xf000-0x0000] (disabled)
+[    0.353002] pci 0000:00:15.5:   bridge window [mem 0xfc000000-0xfc0fffff]
+[    0.353040] pci 0000:00:15.5:   bridge window [mem 0xe6600000-0xe66fffff 64bit pref]
+[    0.353543] pci 0000:00:15.6: PCI bridge to [bus 09-09]
+[    0.353562] pci 0000:00:15.6:   bridge window [io  0xf000-0x0000] (disabled)
+[    0.353582] pci 0000:00:15.6:   bridge window [mem 0xfbc00000-0xfbcfffff]
+[    0.353620] pci 0000:00:15.6:   bridge window [mem 0xe6200000-0xe62fffff 64bit pref]
+[    0.354035] pci 0000:00:15.7: PCI bridge to [bus 0a-0a]
+[    0.354054] pci 0000:00:15.7:   bridge window [io  0xf000-0x0000] (disabled)
+[    0.354074] pci 0000:00:15.7:   bridge window [mem 0xfb800000-0xfb8fffff]
+[    0.354112] pci 0000:00:15.7:   bridge window [mem 0xe5e00000-0xe5efffff 64bit pref]
+[    0.354675] pci 0000:00:16.0: PCI bridge to [bus 0b-0b]
+[    0.354734] pci 0000:00:16.0:   bridge window [io  0x5000-0x5fff]
+[    0.354789] pci 0000:00:16.0:   bridge window [mem 0xfd300000-0xfd3fffff]
+[    0.354866] pci 0000:00:16.0:   bridge window [mem 0xe7900000-0xe79fffff 64bit pref]
+[    0.355594] pci 0000:00:16.1: PCI bridge to [bus 0c-0c]
+[    0.355614] pci 0000:00:16.1:   bridge window [io  0x9000-0x9fff]
+[    0.355633] pci 0000:00:16.1:   bridge window [mem 0xfcf00000-0xfcffffff]
+[    0.355672] pci 0000:00:16.1:   bridge window [mem 0xe7500000-0xe75fffff 64bit pref]
+[    0.356096] pci 0000:00:16.2: PCI bridge to [bus 0d-0d]
+[    0.356115] pci 0000:00:16.2:   bridge window [io  0xd000-0xdfff]
+[    0.356135] pci 0000:00:16.2:   bridge window [mem 0xfcb00000-0xfcbfffff]
+[    0.356173] pci 0000:00:16.2:   bridge window [mem 0xe7100000-0xe71fffff 64bit pref]
+[    0.356673] pci 0000:00:16.3: PCI bridge to [bus 0e-0e]
+[    0.356692] pci 0000:00:16.3:   bridge window [io  0xf000-0x0000] (disabled)
+[    0.356712] pci 0000:00:16.3:   bridge window [mem 0xfc700000-0xfc7fffff]
+[    0.356754] pci 0000:00:16.3:   bridge window [mem 0xe6d00000-0xe6dfffff 64bit pref]
+[    0.357165] pci 0000:00:16.4: PCI bridge to [bus 0f-0f]
+[    0.357184] pci 0000:00:16.4:   bridge window [io  0xf000-0x0000] (disabled)
+[    0.357204] pci 0000:00:16.4:   bridge window [mem 0xfc300000-0xfc3fffff]
+[    0.357242] pci 0000:00:16.4:   bridge window [mem 0xe6900000-0xe69fffff 64bit pref]
+[    0.357791] pci 0000:00:16.5: PCI bridge to [bus 10-10]
+[    0.357814] pci 0000:00:16.5:   bridge window [io  0xf000-0x0000] (disabled)
+[    0.357837] pci 0000:00:16.5:   bridge window [mem 0xfbf00000-0xfbffffff]
+[    0.357900] pci 0000:00:16.5:   bridge window [mem 0xe6500000-0xe65fffff 64bit pref]
+[    0.358431] pci 0000:00:16.6: PCI bridge to [bus 11-11]
+[    0.358488] pci 0000:00:16.6:   bridge window [io  0xf000-0x0000] (disabled)
+[    0.358514] pci 0000:00:16.6:   bridge window [mem 0xfbb00000-0xfbbfffff]
+[    0.358563] pci 0000:00:16.6:   bridge window [mem 0xe6100000-0xe61fffff 64bit pref]
+[    0.359007] pci 0000:00:16.7: PCI bridge to [bus 12-12]
+[    0.359027] pci 0000:00:16.7:   bridge window [io  0xf000-0x0000] (disabled)
+[    0.359047] pci 0000:00:16.7:   bridge window [mem 0xfb700000-0xfb7fffff]
+[    0.359085] pci 0000:00:16.7:   bridge window [mem 0xe5d00000-0xe5dfffff 64bit pref]
+[    0.359585] pci 0000:00:17.0: PCI bridge to [bus 13-13]
+[    0.359605] pci 0000:00:17.0:   bridge window [io  0x6000-0x6fff]
+[    0.359625] pci 0000:00:17.0:   bridge window [mem 0xfd200000-0xfd2fffff]
+[    0.359663] pci 0000:00:17.0:   bridge window [mem 0xe7800000-0xe78fffff 64bit pref]
+[    0.360077] pci 0000:00:17.1: PCI bridge to [bus 14-14]
+[    0.360096] pci 0000:00:17.1:   bridge window [io  0xa000-0xafff]
+[    0.360116] pci 0000:00:17.1:   bridge window [mem 0xfce00000-0xfcefffff]
+[    0.360154] pci 0000:00:17.1:   bridge window [mem 0xe7400000-0xe74fffff 64bit pref]
+[    0.360652] pci 0000:00:17.2: PCI bridge to [bus 15-15]
+[    0.360671] pci 0000:00:17.2:   bridge window [io  0xe000-0xefff]
+[    0.360691] pci 0000:00:17.2:   bridge window [mem 0xfca00000-0xfcafffff]
+[    0.360733] pci 0000:00:17.2:   bridge window [mem 0xe7000000-0xe70fffff 64bit pref]
+[    0.361143] pci 0000:00:17.3: PCI bridge to [bus 16-16]
+[    0.361163] pci 0000:00:17.3:   bridge window [io  0xf000-0x0000] (disabled)
+[    0.361182] pci 0000:00:17.3:   bridge window [mem 0xfc600000-0xfc6fffff]
+[    0.361221] pci 0000:00:17.3:   bridge window [mem 0xe6c00000-0xe6cfffff 64bit pref]
+[    0.361723] pci 0000:00:17.4: PCI bridge to [bus 17-17]
+[    0.361742] pci 0000:00:17.4:   bridge window [io  0xf000-0x0000] (disabled)
+[    0.361762] pci 0000:00:17.4:   bridge window [mem 0xfc200000-0xfc2fffff]
+[    0.361800] pci 0000:00:17.4:   bridge window [mem 0xe6800000-0xe68fffff 64bit pref]
+[    0.362211] pci 0000:00:17.5: PCI bridge to [bus 18-18]
+[    0.362231] pci 0000:00:17.5:   bridge window [io  0xf000-0x0000] (disabled)
+[    0.362250] pci 0000:00:17.5:   bridge window [mem 0xfbe00000-0xfbefffff]
+[    0.362288] pci 0000:00:17.5:   bridge window [mem 0xe6400000-0xe64fffff 64bit pref]
+[    0.362999] pci 0000:00:17.6: PCI bridge to [bus 19-19]
+[    0.363018] pci 0000:00:17.6:   bridge window [io  0xf000-0x0000] (disabled)
+[    0.363038] pci 0000:00:17.6:   bridge window [mem 0xfba00000-0xfbafffff]
+[    0.363076] pci 0000:00:17.6:   bridge window [mem 0xe6000000-0xe60fffff 64bit pref]
+[    0.363689] pci 0000:00:17.7: PCI bridge to [bus 1a-1a]
+[    0.363717] pci 0000:00:17.7:   bridge window [io  0xf000-0x0000] (disabled)
+[    0.363742] pci 0000:00:17.7:   bridge window [mem 0xfb600000-0xfb6fffff]
+[    0.363787] pci 0000:00:17.7:   bridge window [mem 0xe5c00000-0xe5cfffff 64bit pref]
+[    0.364415] pci 0000:00:18.0: PCI bridge to [bus 1b-1b]
+[    0.364446] pci 0000:00:18.0:   bridge window [io  0x7000-0x7fff]
+[    0.364500] pci 0000:00:18.0:   bridge window [mem 0xfd100000-0xfd1fffff]
+[    0.364546] pci 0000:00:18.0:   bridge window [mem 0xe7700000-0xe77fffff 64bit pref]
+[    0.365189] pci 0000:00:18.1: PCI bridge to [bus 1c-1c]
+[    0.365211] pci 0000:00:18.1:   bridge window [io  0xb000-0xbfff]
+[    0.365234] pci 0000:00:18.1:   bridge window [mem 0xfcd00000-0xfcdfffff]
+[    0.365277] pci 0000:00:18.1:   bridge window [mem 0xe7300000-0xe73fffff 64bit pref]
+[    0.365862] pci 0000:00:18.2: PCI bridge to [bus 1d-1d]
+[    0.365882] pci 0000:00:18.2:   bridge window [io  0xf000-0x0000] (disabled)
+[    0.365901] pci 0000:00:18.2:   bridge window [mem 0xfc900000-0xfc9fffff]
+[    0.365939] pci 0000:00:18.2:   bridge window [mem 0xe6f00000-0xe6ffffff 64bit pref]
+[    0.366425] pci 0000:00:18.3: PCI bridge to [bus 1e-1e]
+[    0.366457] pci 0000:00:18.3:   bridge window [io  0xf000-0x0000] (disabled)
+[    0.366477] pci 0000:00:18.3:   bridge window [mem 0xfc500000-0xfc5fffff]
+[    0.366515] pci 0000:00:18.3:   bridge window [mem 0xe6b00000-0xe6bfffff 64bit pref]
+[    0.366929] pci 0000:00:18.4: PCI bridge to [bus 1f-1f]
+[    0.366948] pci 0000:00:18.4:   bridge window [io  0xf000-0x0000] (disabled)
+[    0.366968] pci 0000:00:18.4:   bridge window [mem 0xfc100000-0xfc1fffff]
+[    0.367006] pci 0000:00:18.4:   bridge window [mem 0xe6700000-0xe67fffff 64bit pref]
+[    0.367542] pci 0000:00:18.5: PCI bridge to [bus 20-20]
+[    0.367577] pci 0000:00:18.5:   bridge window [io  0xf000-0x0000] (disabled)
+[    0.367600] pci 0000:00:18.5:   bridge window [mem 0xfbd00000-0xfbdfffff]
+[    0.367645] pci 0000:00:18.5:   bridge window [mem 0xe6300000-0xe63fffff 64bit pref]
+[    0.368125] pci 0000:00:18.6: PCI bridge to [bus 21-21]
+[    0.368144] pci 0000:00:18.6:   bridge window [io  0xf000-0x0000] (disabled)
+[    0.368163] pci 0000:00:18.6:   bridge window [mem 0xfb900000-0xfb9fffff]
+[    0.368200] pci 0000:00:18.6:   bridge window [mem 0xe5f00000-0xe5ffffff 64bit pref]
+[    0.368733] pci 0000:00:18.7: PCI bridge to [bus 22-22]
+[    0.368752] pci 0000:00:18.7:   bridge window [io  0xf000-0x0000] (disabled)
+[    0.368771] pci 0000:00:18.7:   bridge window [mem 0xfb500000-0xfb5fffff]
+[    0.368808] pci 0000:00:18.7:   bridge window [mem 0xe5b00000-0xe5bfffff 64bit pref]
+[    0.370811] ACPI: PCI Interrupt Routing Table [\_SB_.PCI0._PRT]
+[    0.371473]  pci0000:00: Requesting ACPI _OSC control (0x1d)
+[    0.371695]  pci0000:00: ACPI _OSC control (0x15) granted
+[    0.463758] ACPI: PCI Interrupt Link [LNKA] (IRQs 3 4 5 6 7 *9 10 11 14 15)
+[    0.463818] ACPI: PCI Interrupt Link [LNKB] (IRQs 3 4 5 6 *7 9 10 11 14 15)
+[    0.463927] ACPI: PCI Interrupt Link [LNKC] (IRQs 3 4 5 6 7 9 10 *11 14 15)
+[    0.464028] ACPI: PCI Interrupt Link [LNKD] (IRQs 3 4 5 6 7 9 *10 11 14 15)
+[    0.464170] vgaarb: device added: PCI:0000:00:0f.0,decodes=io+mem,owns=io+mem,locks=none
+[    0.464182] vgaarb: loaded
+[    0.465136] SCSI subsystem initialized
+[    0.465354] libata version 3.00 loaded.
+[    0.465391] usbcore: registered new interface driver usbfs
+[    0.465401] usbcore: registered new interface driver hub
+[    0.465615] usbcore: registered new device driver usb
+[    0.465754] PCI: Using ACPI for IRQ routing
+[    0.465756] PCI: pci_cache_line_size set to 64 bytes
+[    0.466704] reserve RAM buffer: 000000000009f800 - 000000000009ffff 
+[    0.466706] reserve RAM buffer: 00000000bfee0000 - 00000000bfffffff 
+[    0.466767] NetLabel: Initializing
+[    0.466768] NetLabel:  domain hash size = 128
+[    0.466769] NetLabel:  protocols = UNLABELED CIPSOv4
+[    0.466777] NetLabel:  unlabeled traffic allowed by default
+[    0.466903] hpet0: at MMIO 0xfed00000, IRQs 2, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+[    0.466910] hpet0: 16 comparators, 64-bit 14.318180 MHz counter
+[    0.470005] Switching to clocksource hpet
+[    0.470938] Switched to NOHz mode on CPU #3
+[    0.470940] Switched to NOHz mode on CPU #1
+[    0.470942] Switched to NOHz mode on CPU #0
+[    0.470944] Switched to NOHz mode on CPU #2
+[    0.475083] pnp: PnP ACPI init
+[    0.475108] ACPI: bus type pnp registered
+[    0.475739] pnp 00:00: [bus 00-7f]
+[    0.475741] pnp 00:00: [mem 0x000a0000-0x000bffff window]
+[    0.475742] pnp 00:00: [mem 0x000c0000-0x000c3fff window]
+[    0.475743] pnp 00:00: [mem 0x000c4000-0x000c7fff window]
+[    0.475744] pnp 00:00: [mem 0x000c8000-0x000cbfff window]
+[    0.475745] pnp 00:00: [mem 0x000cc000-0x000cffff window]
+[    0.475747] pnp 00:00: [mem 0x000d0000-0x000d3fff window]
+[    0.475748] pnp 00:00: [mem 0x000d4000-0x000d7fff window]
+[    0.475749] pnp 00:00: [mem 0x000d8000-0x000dbfff window]
+[    0.475750] pnp 00:00: [mem 0x000dc000-0x000dffff window]
+[    0.475751] pnp 00:00: [mem 0x000e0000-0x000e3fff window]
+[    0.475754] pnp 00:00: [mem 0x000e4000-0x000e7fff window]
+[    0.475755] pnp 00:00: [mem 0x000e8000-0x000ebfff window]
+[    0.475756] pnp 00:00: [mem 0x000ec000-0x000effff window]
+[    0.475757] pnp 00:00: [mem 0xc0000000-0xfebfffff window]
+[    0.475759] pnp 00:00: [mem 0x00000000 window]
+[    0.475760] pnp 00:00: [io  0x0cf8-0x0cff]
+[    0.475761] pnp 00:00: [io  0x0000-0x0cf7 window]
+[    0.475762] pnp 00:00: [io  0x0d00-0xfeff window]
+[    0.475793] pnp 00:00: Plug and Play ACPI device, IDs PNP0a03 PNP0a08 (active)
+[    0.475870] pnp 00:01: [io  0x0010-0x001f]
+[    0.475871] pnp 00:01: [io  0x0024-0x0025]
+[    0.475872] pnp 00:01: [io  0x0028-0x0029]
+[    0.475873] pnp 00:01: [io  0x002c-0x002d]
+[    0.475874] pnp 00:01: [io  0x002e-0x002f]
+[    0.475875] pnp 00:01: [io  0x0030-0x0031]
+[    0.475876] pnp 00:01: [io  0x0034-0x0035]
+[    0.475876] pnp 00:01: [io  0x0038-0x0039]
+[    0.475877] pnp 00:01: [io  0x003c-0x003d]
+[    0.475878] pnp 00:01: [io  0x0050-0x0053]
+[    0.475879] pnp 00:01: [io  0x0072-0x0077]
+[    0.475880] pnp 00:01: [io  0x0080]
+[    0.475881] pnp 00:01: [io  0x0090-0x009f]
+[    0.475882] pnp 00:01: [io  0x00a4-0x00a5]
+[    0.475883] pnp 00:01: [io  0x00a8-0x00a9]
+[    0.475884] pnp 00:01: [io  0x00ac-0x00ad]
+[    0.475885] pnp 00:01: [io  0x00b0-0x00b5]
+[    0.475886] pnp 00:01: [io  0x00b8-0x00b9]
+[    0.475887] pnp 00:01: [io  0x00bc-0x00bd]
+[    0.475888] pnp 00:01: [io  0x1000-0x103f]
+[    0.475889] pnp 00:01: [io  0x1040-0x104f]
+[    0.475889] pnp 00:01: [io  0x0cf0-0x0cf1]
+[    0.475983] system 00:01: [io  0x1000-0x103f] has been reserved
+[    0.475985] system 00:01: [io  0x1040-0x104f] has been reserved
+[    0.475986] system 00:01: [io  0x0cf0-0x0cf1] has been reserved
+[    0.475988] system 00:01: Plug and Play ACPI device, IDs PNP0c02 (active)
+[    0.475995] pnp 00:02: [io  0x0000-0x000f]
+[    0.475996] pnp 00:02: [io  0x0081-0x008f]
+[    0.475997] pnp 00:02: [io  0x00c0-0x00df]
+[    0.475999] pnp 00:02: [dma 4]
+[    0.476010] pnp 00:02: Plug and Play ACPI device, IDs PNP0200 (active)
+[    0.476015] pnp 00:03: [io  0x0020-0x0021]
+[    0.476016] pnp 00:03: [io  0x00a0-0x00a1]
+[    0.476017] pnp 00:03: [io  0x04d0-0x04d1]
+[    0.476018] pnp 00:03: [irq 2 disabled]
+[    0.476027] pnp 00:03: Plug and Play ACPI device, IDs PNP0001 (active)
+[    0.476033] pnp 00:04: [io  0x0070-0x0071]
+[    0.476040] pnp 00:04: [irq 8]
+[    0.476052] pnp 00:04: Plug and Play ACPI device, IDs PNP0b00 (active)
+[    0.476056] pnp 00:05: [io  0x0061]
+[    0.476066] pnp 00:05: Plug and Play ACPI device, IDs PNP0800 (active)
+[    0.476072] pnp 00:06: [io  0x0060]
+[    0.476073] pnp 00:06: [io  0x0064]
+[    0.476076] pnp 00:06: [irq 1]
+[    0.476088] pnp 00:06: Plug and Play ACPI device, IDs PNP0303 (active)
+[    0.476095] pnp 00:07: [irq 12]
+[    0.476105] pnp 00:07: Plug and Play ACPI device, IDs VMW0003 PNP0f13 (active)
+[    0.476261] pnp 00:08: [mem 0xfed00000-0xfed003ff]
+[    0.476294] system 00:08: [mem 0xfed00000-0xfed003ff] has been reserved
+[    0.476295] system 00:08: Plug and Play ACPI device, IDs PNP0103 PNP0c01 (active)
+[    0.477648] pnp 00:09: [io  0x03f8-0x03ff]
+[    0.477653] pnp 00:09: [irq 4]
+[    0.477716] pnp 00:09: Plug and Play ACPI device, IDs PNP0501 (active)
+[    0.477989] pnp 00:0a: [io  0x02f8-0x02ff]
+[    0.477994] pnp 00:0a: [irq 3]
+[    0.478065] pnp 00:0a: Plug and Play ACPI device, IDs PNP0501 (active)
+[    0.478338] pnp 00:0b: [mem 0xf0000000-0xf7ffffff]
+[    0.478339] pnp 00:0b: [io  0xfce0-0xfcff]
+[    0.478340] pnp 00:0b: [mem 0xfe800000-0xfe9fffff]
+[    0.478375] system 00:0b: [io  0xfce0-0xfcff] has been reserved
+[    0.478377] system 00:0b: [mem 0xf0000000-0xf7ffffff] has been reserved
+[    0.478379] system 00:0b: [mem 0xfe800000-0xfe9fffff] has been reserved
+[    0.478380] system 00:0b: Plug and Play ACPI device, IDs PNP0c02 (active)
+[    0.482356] pnp: PnP ACPI: found 12 devices
+[    0.482357] ACPI: ACPI bus type pnp unregistered
+[    0.489788] pci 0000:00:0f.0: BAR 6: assigned [mem 0xc0000000-0xc0007fff pref]
+[    0.489792] pci 0000:00:18.7: BAR 13: can't assign io (size 0x1000)
+[    0.489793] pci 0000:00:18.6: BAR 13: can't assign io (size 0x1000)
+[    0.489795] pci 0000:00:18.5: BAR 13: can't assign io (size 0x1000)
+[    0.489796] pci 0000:00:18.4: BAR 13: can't assign io (size 0x1000)
+[    0.489797] pci 0000:00:18.3: BAR 13: can't assign io (size 0x1000)
+[    0.489799] pci 0000:00:18.2: BAR 13: can't assign io (size 0x1000)
+[    0.489800] pci 0000:00:17.7: BAR 13: can't assign io (size 0x1000)
+[    0.489801] pci 0000:00:17.6: BAR 13: can't assign io (size 0x1000)
+[    0.489803] pci 0000:00:17.5: BAR 13: can't assign io (size 0x1000)
+[    0.489804] pci 0000:00:17.4: BAR 13: can't assign io (size 0x1000)
+[    0.489805] pci 0000:00:17.3: BAR 13: can't assign io (size 0x1000)
+[    0.489807] pci 0000:00:16.7: BAR 13: can't assign io (size 0x1000)
+[    0.489808] pci 0000:00:16.6: BAR 13: can't assign io (size 0x1000)
+[    0.489809] pci 0000:00:16.5: BAR 13: can't assign io (size 0x1000)
+[    0.489811] pci 0000:00:16.4: BAR 13: can't assign io (size 0x1000)
+[    0.489812] pci 0000:00:16.3: BAR 13: can't assign io (size 0x1000)
+[    0.489813] pci 0000:00:15.7: BAR 13: can't assign io (size 0x1000)
+[    0.489814] pci 0000:00:15.6: BAR 13: can't assign io (size 0x1000)
+[    0.489816] pci 0000:00:15.5: BAR 13: can't assign io (size 0x1000)
+[    0.489817] pci 0000:00:15.4: BAR 13: can't assign io (size 0x1000)
+[    0.489818] pci 0000:00:15.3: BAR 13: can't assign io (size 0x1000)
+[    0.489820] pci 0000:00:01.0: PCI bridge to [bus 01-01]
+[    0.489821] pci 0000:00:01.0:   bridge window [io  disabled]
+[    0.489885] pci 0000:00:01.0:   bridge window [mem disabled]
+[    0.489922] pci 0000:00:01.0:   bridge window [mem pref disabled]
+[    0.489974] pci 0000:02:01.0: BAR 6: assigned [mem 0xe7b00000-0xe7b0ffff pref]
+[    0.489976] pci 0000:00:11.0: PCI bridge to [bus 02-02]
+[    0.489986] pci 0000:00:11.0:   bridge window [io  0x2000-0x3fff]
+[    0.490014] pci 0000:00:11.0:   bridge window [mem 0xfd500000-0xfdffffff]
+[    0.490034] pci 0000:00:11.0:   bridge window [mem 0xe7b00000-0xe7ffffff 64bit pref]
+[    0.490071] pci 0000:00:15.0: PCI bridge to [bus 03-03]
+[    0.490081] pci 0000:00:15.0:   bridge window [io  0x4000-0x4fff]
+[    0.490109] pci 0000:00:15.0:   bridge window [mem 0xfd400000-0xfd4fffff]
+[    0.490134] pci 0000:00:15.0:   bridge window [mem 0xe7a00000-0xe7afffff 64bit pref]
+[    0.490198] pci 0000:00:15.1: PCI bridge to [bus 04-04]
+[    0.490209] pci 0000:00:15.1:   bridge window [io  0x8000-0x8fff]
+[    0.490237] pci 0000:00:15.1:   bridge window [mem 0xfd000000-0xfd0fffff]
+[    0.490256] pci 0000:00:15.1:   bridge window [mem 0xe7600000-0xe76fffff 64bit pref]
+[    0.490304] pci 0000:00:15.2: PCI bridge to [bus 05-05]
+[    0.490314] pci 0000:00:15.2:   bridge window [io  0xc000-0xcfff]
+[    0.490342] pci 0000:00:15.2:   bridge window [mem 0xfcc00000-0xfccfffff]
+[    0.490362] pci 0000:00:15.2:   bridge window [mem 0xe7200000-0xe72fffff 64bit pref]
+[    0.490408] pci 0000:00:15.3: PCI bridge to [bus 06-06]
+[    0.490409] pci 0000:00:15.3:   bridge window [io  disabled]
+[    0.490437] pci 0000:00:15.3:   bridge window [mem 0xfc800000-0xfc8fffff]
+[    0.490456] pci 0000:00:15.3:   bridge window [mem 0xe6e00000-0xe6efffff 64bit pref]
+[    0.490502] pci 0000:00:15.4: PCI bridge to [bus 07-07]
+[    0.490503] pci 0000:00:15.4:   bridge window [io  disabled]
+[    0.490532] pci 0000:00:15.4:   bridge window [mem 0xfc400000-0xfc4fffff]
+[    0.490551] pci 0000:00:15.4:   bridge window [mem 0xe6a00000-0xe6afffff 64bit pref]
+[    0.490597] pci 0000:00:15.5: PCI bridge to [bus 08-08]
+[    0.490598] pci 0000:00:15.5:   bridge window [io  disabled]
+[    0.490626] pci 0000:00:15.5:   bridge window [mem 0xfc000000-0xfc0fffff]
+[    0.490646] pci 0000:00:15.5:   bridge window [mem 0xe6600000-0xe66fffff 64bit pref]
+[    0.490692] pci 0000:00:15.6: PCI bridge to [bus 09-09]
+[    0.490692] pci 0000:00:15.6:   bridge window [io  disabled]
+[    0.490721] pci 0000:00:15.6:   bridge window [mem 0xfbc00000-0xfbcfffff]
+[    0.490740] pci 0000:00:15.6:   bridge window [mem 0xe6200000-0xe62fffff 64bit pref]
+[    0.490786] pci 0000:00:15.7: PCI bridge to [bus 0a-0a]
+[    0.490787] pci 0000:00:15.7:   bridge window [io  disabled]
+[    0.490815] pci 0000:00:15.7:   bridge window [mem 0xfb800000-0xfb8fffff]
+[    0.490895] pci 0000:00:15.7:   bridge window [mem 0xe5e00000-0xe5efffff 64bit pref]
+[    0.490977] pci 0000:00:16.0: PCI bridge to [bus 0b-0b]
+[    0.490988] pci 0000:00:16.0:   bridge window [io  0x5000-0x5fff]
+[    0.491016] pci 0000:00:16.0:   bridge window [mem 0xfd300000-0xfd3fffff]
+[    0.491035] pci 0000:00:16.0:   bridge window [mem 0xe7900000-0xe79fffff 64bit pref]
+[    0.491081] pci 0000:00:16.1: PCI bridge to [bus 0c-0c]
+[    0.491092] pci 0000:00:16.1:   bridge window [io  0x9000-0x9fff]
+[    0.491120] pci 0000:00:16.1:   bridge window [mem 0xfcf00000-0xfcffffff]
+[    0.491147] pci 0000:00:16.1:   bridge window [mem 0xe7500000-0xe75fffff 64bit pref]
+[    0.491194] pci 0000:00:16.2: PCI bridge to [bus 0d-0d]
+[    0.491204] pci 0000:00:16.2:   bridge window [io  0xd000-0xdfff]
+[    0.491233] pci 0000:00:16.2:   bridge window [mem 0xfcb00000-0xfcbfffff]
+[    0.491252] pci 0000:00:16.2:   bridge window [mem 0xe7100000-0xe71fffff 64bit pref]
+[    0.491301] pci 0000:00:16.3: PCI bridge to [bus 0e-0e]
+[    0.491302] pci 0000:00:16.3:   bridge window [io  disabled]
+[    0.491330] pci 0000:00:16.3:   bridge window [mem 0xfc700000-0xfc7fffff]
+[    0.491350] pci 0000:00:16.3:   bridge window [mem 0xe6d00000-0xe6dfffff 64bit pref]
+[    0.491396] pci 0000:00:16.4: PCI bridge to [bus 0f-0f]
+[    0.491397] pci 0000:00:16.4:   bridge window [io  disabled]
+[    0.491425] pci 0000:00:16.4:   bridge window [mem 0xfc300000-0xfc3fffff]
+[    0.491444] pci 0000:00:16.4:   bridge window [mem 0xe6900000-0xe69fffff 64bit pref]
+[    0.491490] pci 0000:00:16.5: PCI bridge to [bus 10-10]
+[    0.491491] pci 0000:00:16.5:   bridge window [io  disabled]
+[    0.491520] pci 0000:00:16.5:   bridge window [mem 0xfbf00000-0xfbffffff]
+[    0.491539] pci 0000:00:16.5:   bridge window [mem 0xe6500000-0xe65fffff 64bit pref]
+[    0.491585] pci 0000:00:16.6: PCI bridge to [bus 11-11]
+[    0.491586] pci 0000:00:16.6:   bridge window [io  disabled]
+[    0.491614] pci 0000:00:16.6:   bridge window [mem 0xfbb00000-0xfbbfffff]
+[    0.491633] pci 0000:00:16.6:   bridge window [mem 0xe6100000-0xe61fffff 64bit pref]
+[    0.491679] pci 0000:00:16.7: PCI bridge to [bus 12-12]
+[    0.491680] pci 0000:00:16.7:   bridge window [io  disabled]
+[    0.491708] pci 0000:00:16.7:   bridge window [mem 0xfb700000-0xfb7fffff]
+[    0.491727] pci 0000:00:16.7:   bridge window [mem 0xe5d00000-0xe5dfffff 64bit pref]
+[    0.491773] pci 0000:00:17.0: PCI bridge to [bus 13-13]
+[    0.491784] pci 0000:00:17.0:   bridge window [io  0x6000-0x6fff]
+[    0.491812] pci 0000:00:17.0:   bridge window [mem 0xfd200000-0xfd2fffff]
+[    0.491840] pci 0000:00:17.0:   bridge window [mem 0xe7800000-0xe78fffff 64bit pref]
+[    0.491886] pci 0000:00:17.1: PCI bridge to [bus 14-14]
+[    0.491897] pci 0000:00:17.1:   bridge window [io  0xa000-0xafff]
+[    0.491925] pci 0000:00:17.1:   bridge window [mem 0xfce00000-0xfcefffff]
+[    0.491944] pci 0000:00:17.1:   bridge window [mem 0xe7400000-0xe74fffff 64bit pref]
+[    0.491990] pci 0000:00:17.2: PCI bridge to [bus 15-15]
+[    0.492000] pci 0000:00:17.2:   bridge window [io  0xe000-0xefff]
+[    0.492028] pci 0000:00:17.2:   bridge window [mem 0xfca00000-0xfcafffff]
+[    0.492047] pci 0000:00:17.2:   bridge window [mem 0xe7000000-0xe70fffff 64bit pref]
+[    0.492093] pci 0000:00:17.3: PCI bridge to [bus 16-16]
+[    0.492094] pci 0000:00:17.3:   bridge window [io  disabled]
+[    0.492129] pci 0000:00:17.3:   bridge window [mem 0xfc600000-0xfc6fffff]
+[    0.492149] pci 0000:00:17.3:   bridge window [mem 0xe6c00000-0xe6cfffff 64bit pref]
+[    0.492195] pci 0000:00:17.4: PCI bridge to [bus 17-17]
+[    0.492196] pci 0000:00:17.4:   bridge window [io  disabled]
+[    0.492225] pci 0000:00:17.4:   bridge window [mem 0xfc200000-0xfc2fffff]
+[    0.492244] pci 0000:00:17.4:   bridge window [mem 0xe6800000-0xe68fffff 64bit pref]
+[    0.492290] pci 0000:00:17.5: PCI bridge to [bus 18-18]
+[    0.492291] pci 0000:00:17.5:   bridge window [io  disabled]
+[    0.492319] pci 0000:00:17.5:   bridge window [mem 0xfbe00000-0xfbefffff]
+[    0.492338] pci 0000:00:17.5:   bridge window [mem 0xe6400000-0xe64fffff 64bit pref]
+[    0.492384] pci 0000:00:17.6: PCI bridge to [bus 19-19]
+[    0.492385] pci 0000:00:17.6:   bridge window [io  disabled]
+[    0.492413] pci 0000:00:17.6:   bridge window [mem 0xfba00000-0xfbafffff]
+[    0.492432] pci 0000:00:17.6:   bridge window [mem 0xe6000000-0xe60fffff 64bit pref]
+[    0.492478] pci 0000:00:17.7: PCI bridge to [bus 1a-1a]
+[    0.492479] pci 0000:00:17.7:   bridge window [io  disabled]
+[    0.492507] pci 0000:00:17.7:   bridge window [mem 0xfb600000-0xfb6fffff]
+[    0.492527] pci 0000:00:17.7:   bridge window [mem 0xe5c00000-0xe5cfffff 64bit pref]
+[    0.492573] pci 0000:00:18.0: PCI bridge to [bus 1b-1b]
+[    0.492583] pci 0000:00:18.0:   bridge window [io  0x7000-0x7fff]
+[    0.492611] pci 0000:00:18.0:   bridge window [mem 0xfd100000-0xfd1fffff]
+[    0.492630] pci 0000:00:18.0:   bridge window [mem 0xe7700000-0xe77fffff 64bit pref]
+[    0.492676] pci 0000:00:18.1: PCI bridge to [bus 1c-1c]
+[    0.492687] pci 0000:00:18.1:   bridge window [io  0xb000-0xbfff]
+[    0.492715] pci 0000:00:18.1:   bridge window [mem 0xfcd00000-0xfcdfffff]
+[    0.492734] pci 0000:00:18.1:   bridge window [mem 0xe7300000-0xe73fffff 64bit pref]
+[    0.492780] pci 0000:00:18.2: PCI bridge to [bus 1d-1d]
+[    0.492781] pci 0000:00:18.2:   bridge window [io  disabled]
+[    0.492809] pci 0000:00:18.2:   bridge window [mem 0xfc900000-0xfc9fffff]
+[    0.492860] pci 0000:00:18.2:   bridge window [mem 0xe6f00000-0xe6ffffff 64bit pref]
+[    0.492928] pci 0000:00:18.3: PCI bridge to [bus 1e-1e]
+[    0.492941] pci 0000:00:18.3:   bridge window [io  disabled]
+[    0.492970] pci 0000:00:18.3:   bridge window [mem 0xfc500000-0xfc5fffff]
+[    0.492989] pci 0000:00:18.3:   bridge window [mem 0xe6b00000-0xe6bfffff 64bit pref]
+[    0.493035] pci 0000:00:18.4: PCI bridge to [bus 1f-1f]
+[    0.493035] pci 0000:00:18.4:   bridge window [io  disabled]
+[    0.493064] pci 0000:00:18.4:   bridge window [mem 0xfc100000-0xfc1fffff]
+[    0.493083] pci 0000:00:18.4:   bridge window [mem 0xe6700000-0xe67fffff 64bit pref]
+[    0.493135] pci 0000:00:18.5: PCI bridge to [bus 20-20]
+[    0.493136] pci 0000:00:18.5:   bridge window [io  disabled]
+[    0.493165] pci 0000:00:18.5:   bridge window [mem 0xfbd00000-0xfbdfffff]
+[    0.493184] pci 0000:00:18.5:   bridge window [mem 0xe6300000-0xe63fffff 64bit pref]
+[    0.493231] pci 0000:00:18.6: PCI bridge to [bus 21-21]
+[    0.493231] pci 0000:00:18.6:   bridge window [io  disabled]
+[    0.493260] pci 0000:00:18.6:   bridge window [mem 0xfb900000-0xfb9fffff]
+[    0.493279] pci 0000:00:18.6:   bridge window [mem 0xe5f00000-0xe5ffffff 64bit pref]
+[    0.493325] pci 0000:00:18.7: PCI bridge to [bus 22-22]
+[    0.493326] pci 0000:00:18.7:   bridge window [io  disabled]
+[    0.493354] pci 0000:00:18.7:   bridge window [mem 0xfb500000-0xfb5fffff]
+[    0.493373] pci 0000:00:18.7:   bridge window [mem 0xe5b00000-0xe5bfffff 64bit pref]
+[    0.493449] pci 0000:00:01.0: setting latency timer to 64
+[    0.493524] pci 0000:00:15.0: setting latency timer to 64
+[    0.493570] pci 0000:00:15.1: setting latency timer to 64
+[    0.493616] pci 0000:00:15.2: setting latency timer to 64
+[    0.493662] pci 0000:00:15.3: setting latency timer to 64
+[    0.493708] pci 0000:00:15.4: setting latency timer to 64
+[    0.493754] pci 0000:00:15.5: setting latency timer to 64
+[    0.493799] pci 0000:00:15.6: setting latency timer to 64
+[    0.493869] pci 0000:00:15.7: setting latency timer to 64
+[    0.493928] pci 0000:00:16.0: setting latency timer to 64
+[    0.493975] pci 0000:00:16.1: setting latency timer to 64
+[    0.494021] pci 0000:00:16.2: setting latency timer to 64
+[    0.494067] pci 0000:00:16.3: setting latency timer to 64
+[    0.494113] pci 0000:00:16.4: setting latency timer to 64
+[    0.494166] pci 0000:00:16.5: setting latency timer to 64
+[    0.494212] pci 0000:00:16.6: setting latency timer to 64
+[    0.494258] pci 0000:00:16.7: setting latency timer to 64
+[    0.494303] pci 0000:00:17.0: setting latency timer to 64
+[    0.494349] pci 0000:00:17.1: setting latency timer to 64
+[    0.494395] pci 0000:00:17.2: setting latency timer to 64
+[    0.494445] pci 0000:00:17.3: setting latency timer to 64
+[    0.494491] pci 0000:00:17.4: setting latency timer to 64
+[    0.494537] pci 0000:00:17.5: setting latency timer to 64
+[    0.494583] pci 0000:00:17.6: setting latency timer to 64
+[    0.494629] pci 0000:00:17.7: setting latency timer to 64
+[    0.494675] pci 0000:00:18.0: setting latency timer to 64
+[    0.494721] pci 0000:00:18.1: setting latency timer to 64
+[    0.494767] pci 0000:00:18.2: setting latency timer to 64
+[    0.494844] pci 0000:00:18.3: setting latency timer to 64
+[    0.494949] pci 0000:00:18.4: setting latency timer to 64
+[    0.495009] pci 0000:00:18.5: setting latency timer to 64
+[    0.495055] pci 0000:00:18.6: setting latency timer to 64
+[    0.495101] pci 0000:00:18.7: setting latency timer to 64
+[    0.495112] pci_bus 0000:00: resource 4 [mem 0x000a0000-0x000bffff]
+[    0.495113] pci_bus 0000:00: resource 5 [mem 0x000cc000-0x000cffff]
+[    0.495114] pci_bus 0000:00: resource 6 [mem 0x000d0000-0x000d3fff]
+[    0.495115] pci_bus 0000:00: resource 7 [mem 0x000d4000-0x000d7fff]
+[    0.495116] pci_bus 0000:00: resource 8 [mem 0x000d8000-0x000dbfff]
+[    0.495117] pci_bus 0000:00: resource 9 [mem 0xc0000000-0xfebfffff]
+[    0.495118] pci_bus 0000:00: resource 10 [io  0x0000-0x0cf7]
+[    0.495119] pci_bus 0000:00: resource 11 [io  0x0d00-0xfeff]
+[    0.495120] pci_bus 0000:02: resource 0 [io  0x2000-0x3fff]
+[    0.495121] pci_bus 0000:02: resource 1 [mem 0xfd500000-0xfdffffff]
+[    0.495122] pci_bus 0000:02: resource 2 [mem 0xe7b00000-0xe7ffffff 64bit pref]
+[    0.495123] pci_bus 0000:02: resource 4 [mem 0x000a0000-0x000bffff]
+[    0.495124] pci_bus 0000:02: resource 5 [mem 0x000cc000-0x000cffff]
+[    0.495125] pci_bus 0000:02: resource 6 [mem 0x000d0000-0x000d3fff]
+[    0.495126] pci_bus 0000:02: resource 7 [mem 0x000d4000-0x000d7fff]
+[    0.495127] pci_bus 0000:02: resource 8 [mem 0x000d8000-0x000dbfff]
+[    0.495128] pci_bus 0000:02: resource 9 [mem 0xc0000000-0xfebfffff]
+[    0.495129] pci_bus 0000:02: resource 10 [io  0x0000-0x0cf7]
+[    0.495130] pci_bus 0000:02: resource 11 [io  0x0d00-0xfeff]
+[    0.495131] pci_bus 0000:03: resource 0 [io  0x4000-0x4fff]
+[    0.495132] pci_bus 0000:03: resource 1 [mem 0xfd400000-0xfd4fffff]
+[    0.495133] pci_bus 0000:03: resource 2 [mem 0xe7a00000-0xe7afffff 64bit pref]
+[    0.495134] pci_bus 0000:04: resource 0 [io  0x8000-0x8fff]
+[    0.495135] pci_bus 0000:04: resource 1 [mem 0xfd000000-0xfd0fffff]
+[    0.495136] pci_bus 0000:04: resource 2 [mem 0xe7600000-0xe76fffff 64bit pref]
+[    0.495137] pci_bus 0000:05: resource 0 [io  0xc000-0xcfff]
+[    0.495138] pci_bus 0000:05: resource 1 [mem 0xfcc00000-0xfccfffff]
+[    0.495139] pci_bus 0000:05: resource 2 [mem 0xe7200000-0xe72fffff 64bit pref]
+[    0.495141] pci_bus 0000:06: resource 1 [mem 0xfc800000-0xfc8fffff]
+[    0.495142] pci_bus 0000:06: resource 2 [mem 0xe6e00000-0xe6efffff 64bit pref]
+[    0.495143] pci_bus 0000:07: resource 1 [mem 0xfc400000-0xfc4fffff]
+[    0.495144] pci_bus 0000:07: resource 2 [mem 0xe6a00000-0xe6afffff 64bit pref]
+[    0.495145] pci_bus 0000:08: resource 1 [mem 0xfc000000-0xfc0fffff]
+[    0.495146] pci_bus 0000:08: resource 2 [mem 0xe6600000-0xe66fffff 64bit pref]
+[    0.495147] pci_bus 0000:09: resource 1 [mem 0xfbc00000-0xfbcfffff]
+[    0.495148] pci_bus 0000:09: resource 2 [mem 0xe6200000-0xe62fffff 64bit pref]
+[    0.495149] pci_bus 0000:0a: resource 1 [mem 0xfb800000-0xfb8fffff]
+[    0.495150] pci_bus 0000:0a: resource 2 [mem 0xe5e00000-0xe5efffff 64bit pref]
+[    0.495151] pci_bus 0000:0b: resource 0 [io  0x5000-0x5fff]
+[    0.495152] pci_bus 0000:0b: resource 1 [mem 0xfd300000-0xfd3fffff]
+[    0.495153] pci_bus 0000:0b: resource 2 [mem 0xe7900000-0xe79fffff 64bit pref]
+[    0.495154] pci_bus 0000:0c: resource 0 [io  0x9000-0x9fff]
+[    0.495155] pci_bus 0000:0c: resource 1 [mem 0xfcf00000-0xfcffffff]
+[    0.495156] pci_bus 0000:0c: resource 2 [mem 0xe7500000-0xe75fffff 64bit pref]
+[    0.495157] pci_bus 0000:0d: resource 0 [io  0xd000-0xdfff]
+[    0.495158] pci_bus 0000:0d: resource 1 [mem 0xfcb00000-0xfcbfffff]
+[    0.495159] pci_bus 0000:0d: resource 2 [mem 0xe7100000-0xe71fffff 64bit pref]
+[    0.495160] pci_bus 0000:0e: resource 1 [mem 0xfc700000-0xfc7fffff]
+[    0.495161] pci_bus 0000:0e: resource 2 [mem 0xe6d00000-0xe6dfffff 64bit pref]
+[    0.495162] pci_bus 0000:0f: resource 1 [mem 0xfc300000-0xfc3fffff]
+[    0.495163] pci_bus 0000:0f: resource 2 [mem 0xe6900000-0xe69fffff 64bit pref]
+[    0.495164] pci_bus 0000:10: resource 1 [mem 0xfbf00000-0xfbffffff]
+[    0.495165] pci_bus 0000:10: resource 2 [mem 0xe6500000-0xe65fffff 64bit pref]
+[    0.495166] pci_bus 0000:11: resource 1 [mem 0xfbb00000-0xfbbfffff]
+[    0.495167] pci_bus 0000:11: resource 2 [mem 0xe6100000-0xe61fffff 64bit pref]
+[    0.495168] pci_bus 0000:12: resource 1 [mem 0xfb700000-0xfb7fffff]
+[    0.495169] pci_bus 0000:12: resource 2 [mem 0xe5d00000-0xe5dfffff 64bit pref]
+[    0.495170] pci_bus 0000:13: resource 0 [io  0x6000-0x6fff]
+[    0.495171] pci_bus 0000:13: resource 1 [mem 0xfd200000-0xfd2fffff]
+[    0.495172] pci_bus 0000:13: resource 2 [mem 0xe7800000-0xe78fffff 64bit pref]
+[    0.495173] pci_bus 0000:14: resource 0 [io  0xa000-0xafff]
+[    0.495174] pci_bus 0000:14: resource 1 [mem 0xfce00000-0xfcefffff]
+[    0.495175] pci_bus 0000:14: resource 2 [mem 0xe7400000-0xe74fffff 64bit pref]
+[    0.495176] pci_bus 0000:15: resource 0 [io  0xe000-0xefff]
+[    0.495177] pci_bus 0000:15: resource 1 [mem 0xfca00000-0xfcafffff]
+[    0.495178] pci_bus 0000:15: resource 2 [mem 0xe7000000-0xe70fffff 64bit pref]
+[    0.495179] pci_bus 0000:16: resource 1 [mem 0xfc600000-0xfc6fffff]
+[    0.495180] pci_bus 0000:16: resource 2 [mem 0xe6c00000-0xe6cfffff 64bit pref]
+[    0.495181] pci_bus 0000:17: resource 1 [mem 0xfc200000-0xfc2fffff]
+[    0.495182] pci_bus 0000:17: resource 2 [mem 0xe6800000-0xe68fffff 64bit pref]
+[    0.495183] pci_bus 0000:18: resource 1 [mem 0xfbe00000-0xfbefffff]
+[    0.495184] pci_bus 0000:18: resource 2 [mem 0xe6400000-0xe64fffff 64bit pref]
+[    0.495185] pci_bus 0000:19: resource 1 [mem 0xfba00000-0xfbafffff]
+[    0.495186] pci_bus 0000:19: resource 2 [mem 0xe6000000-0xe60fffff 64bit pref]
+[    0.495187] pci_bus 0000:1a: resource 1 [mem 0xfb600000-0xfb6fffff]
+[    0.495188] pci_bus 0000:1a: resource 2 [mem 0xe5c00000-0xe5cfffff 64bit pref]
+[    0.495189] pci_bus 0000:1b: resource 0 [io  0x7000-0x7fff]
+[    0.495190] pci_bus 0000:1b: resource 1 [mem 0xfd100000-0xfd1fffff]
+[    0.495191] pci_bus 0000:1b: resource 2 [mem 0xe7700000-0xe77fffff 64bit pref]
+[    0.495192] pci_bus 0000:1c: resource 0 [io  0xb000-0xbfff]
+[    0.495193] pci_bus 0000:1c: resource 1 [mem 0xfcd00000-0xfcdfffff]
+[    0.495194] pci_bus 0000:1c: resource 2 [mem 0xe7300000-0xe73fffff 64bit pref]
+[    0.495195] pci_bus 0000:1d: resource 1 [mem 0xfc900000-0xfc9fffff]
+[    0.495196] pci_bus 0000:1d: resource 2 [mem 0xe6f00000-0xe6ffffff 64bit pref]
+[    0.495197] pci_bus 0000:1e: resource 1 [mem 0xfc500000-0xfc5fffff]
+[    0.495198] pci_bus 0000:1e: resource 2 [mem 0xe6b00000-0xe6bfffff 64bit pref]
+[    0.495199] pci_bus 0000:1f: resource 1 [mem 0xfc100000-0xfc1fffff]
+[    0.495200] pci_bus 0000:1f: resource 2 [mem 0xe6700000-0xe67fffff 64bit pref]
+[    0.495201] pci_bus 0000:20: resource 1 [mem 0xfbd00000-0xfbdfffff]
+[    0.495202] pci_bus 0000:20: resource 2 [mem 0xe6300000-0xe63fffff 64bit pref]
+[    0.495203] pci_bus 0000:21: resource 1 [mem 0xfb900000-0xfb9fffff]
+[    0.495204] pci_bus 0000:21: resource 2 [mem 0xe5f00000-0xe5ffffff 64bit pref]
+[    0.495206] pci_bus 0000:22: resource 1 [mem 0xfb500000-0xfb5fffff]
+[    0.495207] pci_bus 0000:22: resource 2 [mem 0xe5b00000-0xe5bfffff 64bit pref]
+[    0.496330] NET: Registered protocol family 2
+[    0.496731] IP route cache hash table entries: 131072 (order: 8, 1048576 bytes)
+[    0.498295] inet_init: start prot: 140
+[    0.498296] inet_init: checking answer: 0.
+[    0.498297] inet_init: lookup error: 0.
+[    0.498298] inet_init: netns ok.
+[    0.498302] inet_init: sk_alloc ok.
+[    0.498302] inet_init: init_data...
+[    0.498303] inet_init: init_data ok.
+[    0.498304] inet_init: Going down to init sock of prot: RAW.
+[    0.498308] inet_init: start prot: 6
+[    0.498309] inet_init: checking answer: 0.
+[    0.498310] inet_init: lookup error: 0.
+[    0.498311] inet_init: netns ok.
+[    0.498311] inet_init: sk_alloc ok.
+[    0.498312] inet_init: init_data...
+[    0.498313] inet_init: init_data ok.
+[    0.498314] inet_init: Going down to init sock of prot: RAW.
+[    0.498998] TCP established hash table entries: 524288 (order: 11, 8388608 bytes)
+[    0.500826] TCP bind hash table entries: 65536 (order: 8, 1048576 bytes)
+[    0.501093] TCP: Hash tables configured (established 524288 bind 65536)
+[    0.501094] TCP reno registered
+[    0.501667] TTCP established hash table entries: 524288 (order: 11, 8388608 bytes)
+[    0.503814] TTCP bind hash table entries: 65536 (order: 8, 1048576 bytes)
+[    0.504016] TTCP: Hash tables configured (established 524288 bind 65536)
+[    0.504023] UDP hash table entries: 2048 (order: 4, 65536 bytes)
+[    0.504041] UDP-Lite hash table entries: 2048 (order: 4, 65536 bytes)
+[    0.504164] inet_init: start prot: 1
+[    0.504165] inet_init: checking answer: 0.
+[    0.504166] inet_init: lookup error: 0.
+[    0.504167] inet_init: netns ok.
+[    0.504168] inet_init: sk_alloc ok.
+[    0.504169] inet_init: init_data...
+[    0.504169] inet_init: init_data ok.
+[    0.504170] inet_init: Going down to init sock of prot: RAW.
+[    0.504174] inet_init: start prot: 1
+[    0.504175] inet_init: checking answer: 0.
+[    0.504176] inet_init: lookup error: 0.
+[    0.504177] inet_init: netns ok.
+[    0.504178] inet_init: sk_alloc ok.
+[    0.504178] inet_init: init_data...
+[    0.504179] inet_init: init_data ok.
+[    0.504180] inet_init: Going down to init sock of prot: RAW.
+[    0.504181] inet_init: start prot: 1
+[    0.504182] inet_init: checking answer: 0.
+[    0.504183] inet_init: lookup error: 0.
+[    0.504183] inet_init: netns ok.
+[    0.504184] inet_init: sk_alloc ok.
+[    0.504185] inet_init: init_data...
+[    0.504186] inet_init: init_data ok.
+[    0.504186] inet_init: Going down to init sock of prot: RAW.
+[    0.504188] inet_init: start prot: 1
+[    0.504188] inet_init: checking answer: 0.
+[    0.504189] inet_init: lookup error: 0.
+[    0.504190] inet_init: netns ok.
+[    0.504191] inet_init: sk_alloc ok.
+[    0.504191] inet_init: init_data...
+[    0.504192] inet_init: init_data ok.
+[    0.504193] inet_init: Going down to init sock of prot: RAW.
+[    0.504489] NET: Registered protocol family 1
+[    0.504497] pci 0000:00:00.0: Limiting direct PCI/PCI transfers
+[    0.504610] pci 0000:00:0f.0: Boot video device
+[    0.505335] PCI: CLS 32 bytes, default 64
+[    0.505360] Trying to unpack rootfs image as initramfs...
+[    0.689179] Freeing initrd memory: 14096k freed
+[    0.690224] PCI-DMA: Using software bounce buffering for IO (SWIOTLB)
+[    0.690227] Placing 64MB software IO TLB between ffff8800bbee0000 - ffff8800bfee0000
+[    0.690228] software IO TLB at phys 0xbbee0000 - 0xbfee0000
+[    0.690441] Simple Boot Flag at 0x36 set to 0x80
+[    0.691768] audit: initializing netlink socket (disabled)
+[    0.691777] type=2000 audit(1593050460.572:1): initialized
+[    0.703405] HugeTLB registered 2 MB page size, pre-allocated 0 pages
+[    0.705924] VFS: Disk quotas dquot_6.5.2
+[    0.706077] Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+[    0.706409] msgmni has been set to 7917
+[    0.708807] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 253)
+[    0.708810] io scheduler noop registered
+[    0.708812] io scheduler deadline registered
+[    0.709283] io scheduler cfq registered (default)
+[    0.709504] pcieport 0000:00:15.0: setting latency timer to 64
+[    0.710067] pcieport 0000:00:15.0: irq 40 for MSI/MSI-X
+[    0.710535] pcieport 0000:00:15.1: setting latency timer to 64
+[    0.711066] pcieport 0000:00:15.1: irq 41 for MSI/MSI-X
+[    0.711521] pcieport 0000:00:15.2: setting latency timer to 64
+[    0.712070] pcieport 0000:00:15.2: irq 42 for MSI/MSI-X
+[    0.712527] pcieport 0000:00:15.3: setting latency timer to 64
+[    0.713065] pcieport 0000:00:15.3: irq 43 for MSI/MSI-X
+[    0.713522] pcieport 0000:00:15.4: setting latency timer to 64
+[    0.714129] pcieport 0000:00:15.4: irq 44 for MSI/MSI-X
+[    0.714588] pcieport 0000:00:15.5: setting latency timer to 64
+[    0.715129] pcieport 0000:00:15.5: irq 45 for MSI/MSI-X
+[    0.715589] pcieport 0000:00:15.6: setting latency timer to 64
+[    0.716129] pcieport 0000:00:15.6: irq 46 for MSI/MSI-X
+[    0.716585] pcieport 0000:00:15.7: setting latency timer to 64
+[    0.717171] pcieport 0000:00:15.7: irq 47 for MSI/MSI-X
+[    0.717717] pcieport 0000:00:16.0: setting latency timer to 64
+[    0.718253] pcieport 0000:00:16.0: irq 48 for MSI/MSI-X
+[    0.718716] pcieport 0000:00:16.1: setting latency timer to 64
+[    0.719252] pcieport 0000:00:16.1: irq 49 for MSI/MSI-X
+[    0.719714] pcieport 0000:00:16.2: setting latency timer to 64
+[    0.720247] pcieport 0000:00:16.2: irq 50 for MSI/MSI-X
+[    0.720712] pcieport 0000:00:16.3: setting latency timer to 64
+[    0.721244] pcieport 0000:00:16.3: irq 51 for MSI/MSI-X
+[    0.721710] pcieport 0000:00:16.4: setting latency timer to 64
+[    0.722517] pcieport 0000:00:16.4: irq 52 for MSI/MSI-X
+[    0.723075] pcieport 0000:00:16.5: setting latency timer to 64
+[    0.723522] pcieport 0000:00:16.5: irq 53 for MSI/MSI-X
+[    0.724096] pcieport 0000:00:16.6: setting latency timer to 64
+[    0.724546] pcieport 0000:00:16.6: irq 54 for MSI/MSI-X
+[    0.725104] pcieport 0000:00:16.7: setting latency timer to 64
+[    0.725550] pcieport 0000:00:16.7: irq 55 for MSI/MSI-X
+[    0.726107] pcieport 0000:00:17.0: setting latency timer to 64
+[    0.726555] pcieport 0000:00:17.0: irq 56 for MSI/MSI-X
+[    0.727133] pcieport 0000:00:17.1: setting latency timer to 64
+[    0.727681] pcieport 0000:00:17.1: irq 57 for MSI/MSI-X
+[    0.728215] pcieport 0000:00:17.2: setting latency timer to 64
+[    0.728652] pcieport 0000:00:17.2: irq 58 for MSI/MSI-X
+[    0.729190] pcieport 0000:00:17.3: setting latency timer to 64
+[    0.729624] pcieport 0000:00:17.3: irq 59 for MSI/MSI-X
+[    0.730182] pcieport 0000:00:17.4: setting latency timer to 64
+[    0.730617] pcieport 0000:00:17.4: irq 60 for MSI/MSI-X
+[    0.731160] pcieport 0000:00:17.5: setting latency timer to 64
+[    0.731595] pcieport 0000:00:17.5: irq 61 for MSI/MSI-X
+[    0.732142] pcieport 0000:00:17.6: setting latency timer to 64
+[    0.732578] pcieport 0000:00:17.6: irq 62 for MSI/MSI-X
+[    0.733137] pcieport 0000:00:17.7: setting latency timer to 64
+[    0.733577] pcieport 0000:00:17.7: irq 63 for MSI/MSI-X
+[    0.734122] pcieport 0000:00:18.0: setting latency timer to 64
+[    0.734561] pcieport 0000:00:18.0: irq 64 for MSI/MSI-X
+[    0.735109] pcieport 0000:00:18.1: setting latency timer to 64
+[    0.735543] pcieport 0000:00:18.1: irq 65 for MSI/MSI-X
+[    0.736092] pcieport 0000:00:18.2: setting latency timer to 64
+[    0.736527] pcieport 0000:00:18.2: irq 66 for MSI/MSI-X
+[    0.737189] pcieport 0000:00:18.3: setting latency timer to 64
+[    0.737796] pcieport 0000:00:18.3: irq 67 for MSI/MSI-X
+[    0.738255] pcieport 0000:00:18.4: setting latency timer to 64
+[    0.738698] pcieport 0000:00:18.4: irq 68 for MSI/MSI-X
+[    0.739188] pcieport 0000:00:18.5: setting latency timer to 64
+[    0.739622] pcieport 0000:00:18.5: irq 69 for MSI/MSI-X
+[    0.740153] pcieport 0000:00:18.6: setting latency timer to 64
+[    0.740590] pcieport 0000:00:18.6: irq 70 for MSI/MSI-X
+[    0.741080] pcieport 0000:00:18.7: setting latency timer to 64
+[    0.741514] pcieport 0000:00:18.7: irq 71 for MSI/MSI-X
+[    0.742071] pcieport 0000:00:15.0: Signaling PME through PCIe PME interrupt
+[    0.742091] pcie_pme 0000:00:15.0:pcie01: service driver pcie_pme loaded
+[    0.742189] pcieport 0000:00:15.1: Signaling PME through PCIe PME interrupt
+[    0.742209] pcie_pme 0000:00:15.1:pcie01: service driver pcie_pme loaded
+[    0.742306] pcieport 0000:00:15.2: Signaling PME through PCIe PME interrupt
+[    0.742325] pcie_pme 0000:00:15.2:pcie01: service driver pcie_pme loaded
+[    0.742424] pcieport 0000:00:15.3: Signaling PME through PCIe PME interrupt
+[    0.742443] pcie_pme 0000:00:15.3:pcie01: service driver pcie_pme loaded
+[    0.742540] pcieport 0000:00:15.4: Signaling PME through PCIe PME interrupt
+[    0.742560] pcie_pme 0000:00:15.4:pcie01: service driver pcie_pme loaded
+[    0.742657] pcieport 0000:00:15.5: Signaling PME through PCIe PME interrupt
+[    0.742683] pcie_pme 0000:00:15.5:pcie01: service driver pcie_pme loaded
+[    0.742860] pcieport 0000:00:15.6: Signaling PME through PCIe PME interrupt
+[    0.742879] pcie_pme 0000:00:15.6:pcie01: service driver pcie_pme loaded
+[    0.742978] pcieport 0000:00:15.7: Signaling PME through PCIe PME interrupt
+[    0.742998] pcie_pme 0000:00:15.7:pcie01: service driver pcie_pme loaded
+[    0.743095] pcieport 0000:00:16.0: Signaling PME through PCIe PME interrupt
+[    0.743114] pcie_pme 0000:00:16.0:pcie01: service driver pcie_pme loaded
+[    0.743212] pcieport 0000:00:16.1: Signaling PME through PCIe PME interrupt
+[    0.743231] pcie_pme 0000:00:16.1:pcie01: service driver pcie_pme loaded
+[    0.743331] pcieport 0000:00:16.2: Signaling PME through PCIe PME interrupt
+[    0.743350] pcie_pme 0000:00:16.2:pcie01: service driver pcie_pme loaded
+[    0.743447] pcieport 0000:00:16.3: Signaling PME through PCIe PME interrupt
+[    0.743467] pcie_pme 0000:00:16.3:pcie01: service driver pcie_pme loaded
+[    0.743564] pcieport 0000:00:16.4: Signaling PME through PCIe PME interrupt
+[    0.743583] pcie_pme 0000:00:16.4:pcie01: service driver pcie_pme loaded
+[    0.743690] pcieport 0000:00:16.5: Signaling PME through PCIe PME interrupt
+[    0.743753] pcie_pme 0000:00:16.5:pcie01: service driver pcie_pme loaded
+[    0.743851] pcieport 0000:00:16.6: Signaling PME through PCIe PME interrupt
+[    0.743870] pcie_pme 0000:00:16.6:pcie01: service driver pcie_pme loaded
+[    0.743968] pcieport 0000:00:16.7: Signaling PME through PCIe PME interrupt
+[    0.743987] pcie_pme 0000:00:16.7:pcie01: service driver pcie_pme loaded
+[    0.744084] pcieport 0000:00:17.0: Signaling PME through PCIe PME interrupt
+[    0.744104] pcie_pme 0000:00:17.0:pcie01: service driver pcie_pme loaded
+[    0.744203] pcieport 0000:00:17.1: Signaling PME through PCIe PME interrupt
+[    0.744222] pcie_pme 0000:00:17.1:pcie01: service driver pcie_pme loaded
+[    0.744320] pcieport 0000:00:17.2: Signaling PME through PCIe PME interrupt
+[    0.744340] pcie_pme 0000:00:17.2:pcie01: service driver pcie_pme loaded
+[    0.744438] pcieport 0000:00:17.3: Signaling PME through PCIe PME interrupt
+[    0.744457] pcie_pme 0000:00:17.3:pcie01: service driver pcie_pme loaded
+[    0.744556] pcieport 0000:00:17.4: Signaling PME through PCIe PME interrupt
+[    0.744575] pcie_pme 0000:00:17.4:pcie01: service driver pcie_pme loaded
+[    0.744679] pcieport 0000:00:17.5: Signaling PME through PCIe PME interrupt
+[    0.744728] pcie_pme 0000:00:17.5:pcie01: service driver pcie_pme loaded
+[    0.744838] pcieport 0000:00:17.6: Signaling PME through PCIe PME interrupt
+[    0.744858] pcie_pme 0000:00:17.6:pcie01: service driver pcie_pme loaded
+[    0.744957] pcieport 0000:00:17.7: Signaling PME through PCIe PME interrupt
+[    0.744977] pcie_pme 0000:00:17.7:pcie01: service driver pcie_pme loaded
+[    0.745074] pcieport 0000:00:18.0: Signaling PME through PCIe PME interrupt
+[    0.745093] pcie_pme 0000:00:18.0:pcie01: service driver pcie_pme loaded
+[    0.745191] pcieport 0000:00:18.1: Signaling PME through PCIe PME interrupt
+[    0.745210] pcie_pme 0000:00:18.1:pcie01: service driver pcie_pme loaded
+[    0.745308] pcieport 0000:00:18.2: Signaling PME through PCIe PME interrupt
+[    0.745327] pcie_pme 0000:00:18.2:pcie01: service driver pcie_pme loaded
+[    0.745426] pcieport 0000:00:18.3: Signaling PME through PCIe PME interrupt
+[    0.745446] pcie_pme 0000:00:18.3:pcie01: service driver pcie_pme loaded
+[    0.745545] pcieport 0000:00:18.4: Signaling PME through PCIe PME interrupt
+[    0.745565] pcie_pme 0000:00:18.4:pcie01: service driver pcie_pme loaded
+[    0.745669] pcieport 0000:00:18.5: Signaling PME through PCIe PME interrupt
+[    0.745710] pcie_pme 0000:00:18.5:pcie01: service driver pcie_pme loaded
+[    0.745827] pcieport 0000:00:18.6: Signaling PME through PCIe PME interrupt
+[    0.745847] pcie_pme 0000:00:18.6:pcie01: service driver pcie_pme loaded
+[    0.745944] pcieport 0000:00:18.7: Signaling PME through PCIe PME interrupt
+[    0.745964] pcie_pme 0000:00:18.7:pcie01: service driver pcie_pme loaded
+[    0.745976] pci_hotplug: PCI Hot Plug PCI Core version: 0.5
+[    0.746403] pciehp 0000:00:15.0:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.746459] pciehp 0000:00:15.0:pcie04: service driver pciehp loaded
+[    0.746516] pciehp 0000:00:15.1:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.746569] pciehp 0000:00:15.1:pcie04: service driver pciehp loaded
+[    0.746628] pciehp 0000:00:15.2:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.746738] pciehp 0000:00:15.2:pcie04: service driver pciehp loaded
+[    0.746832] pciehp 0000:00:15.3:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.746886] pciehp 0000:00:15.3:pcie04: service driver pciehp loaded
+[    0.746943] pciehp 0000:00:15.4:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.746996] pciehp 0000:00:15.4:pcie04: service driver pciehp loaded
+[    0.747053] pciehp 0000:00:15.5:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.747132] pciehp 0000:00:15.5:pcie04: service driver pciehp loaded
+[    0.747201] pciehp 0000:00:15.6:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.747265] pciehp 0000:00:15.6:pcie04: service driver pciehp loaded
+[    0.747333] pciehp 0000:00:15.7:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.747396] pciehp 0000:00:15.7:pcie04: service driver pciehp loaded
+[    0.747487] pciehp 0000:00:16.0:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.747573] pciehp 0000:00:16.0:pcie04: service driver pciehp loaded
+[    0.747630] pciehp 0000:00:16.1:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.747733] pciehp 0000:00:16.1:pcie04: service driver pciehp loaded
+[    0.747822] pciehp 0000:00:16.2:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.747878] pciehp 0000:00:16.2:pcie04: service driver pciehp loaded
+[    0.747936] pciehp 0000:00:16.3:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.747989] pciehp 0000:00:16.3:pcie04: service driver pciehp loaded
+[    0.748046] pciehp 0000:00:16.4:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.748099] pciehp 0000:00:16.4:pcie04: service driver pciehp loaded
+[    0.748156] pciehp 0000:00:16.5:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.748209] pciehp 0000:00:16.5:pcie04: service driver pciehp loaded
+[    0.748267] pciehp 0000:00:16.6:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.748320] pciehp 0000:00:16.6:pcie04: service driver pciehp loaded
+[    0.748377] pciehp 0000:00:16.7:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.748435] pciehp 0000:00:16.7:pcie04: service driver pciehp loaded
+[    0.748494] pciehp 0000:00:17.0:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.748548] pciehp 0000:00:17.0:pcie04: service driver pciehp loaded
+[    0.748605] pciehp 0000:00:17.1:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.748664] pciehp 0000:00:17.1:pcie04: service driver pciehp loaded
+[    0.748759] pciehp 0000:00:17.2:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.748814] pciehp 0000:00:17.2:pcie04: service driver pciehp loaded
+[    0.748872] pciehp 0000:00:17.3:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.748928] pciehp 0000:00:17.3:pcie04: service driver pciehp loaded
+[    0.748986] pciehp 0000:00:17.4:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.749039] pciehp 0000:00:17.4:pcie04: service driver pciehp loaded
+[    0.749097] pciehp 0000:00:17.5:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.749152] pciehp 0000:00:17.5:pcie04: service driver pciehp loaded
+[    0.749211] pciehp 0000:00:17.6:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.749265] pciehp 0000:00:17.6:pcie04: service driver pciehp loaded
+[    0.749322] pciehp 0000:00:17.7:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.749376] pciehp 0000:00:17.7:pcie04: service driver pciehp loaded
+[    0.749433] pciehp 0000:00:18.0:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.749487] pciehp 0000:00:18.0:pcie04: service driver pciehp loaded
+[    0.749544] pciehp 0000:00:18.1:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.749597] pciehp 0000:00:18.1:pcie04: service driver pciehp loaded
+[    0.749661] pciehp 0000:00:18.2:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.749762] pciehp 0000:00:18.2:pcie04: service driver pciehp loaded
+[    0.749819] pciehp 0000:00:18.3:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.749873] pciehp 0000:00:18.3:pcie04: service driver pciehp loaded
+[    0.749930] pciehp 0000:00:18.4:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.749987] pciehp 0000:00:18.4:pcie04: service driver pciehp loaded
+[    0.750045] pciehp 0000:00:18.5:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.750099] pciehp 0000:00:18.5:pcie04: service driver pciehp loaded
+[    0.750157] pciehp 0000:00:18.6:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.750210] pciehp 0000:00:18.6:pcie04: service driver pciehp loaded
+[    0.750268] pciehp 0000:00:18.7:pcie04: HPC vendor_id 15ad device_id 7a0 ss_vid 15ad ss_did 7a0
+[    0.750322] pciehp 0000:00:18.7:pcie04: service driver pciehp loaded
+[    0.750328] pciehp: PCI Express Hot Plug Controller Driver version: 0.4
+[    0.750329] acpiphp: ACPI Hot Plug PCI Controller Driver version: 0.5
+[    0.750564] acpiphp: Slot [32] registered
+[    0.750574] acpiphp: Slot [33] registered
+[    0.750584] acpiphp: Slot [34] registered
+[    0.750593] acpiphp: Slot [35] registered
+[    0.750603] acpiphp: Slot [36] registered
+[    0.750615] acpiphp: Slot [37] registered
+[    0.750627] acpiphp: Slot [38] registered
+[    0.750636] acpiphp: Slot [39] registered
+[    0.750647] acpiphp: Slot [40] registered
+[    0.750658] acpiphp: Slot [41] registered
+[    0.750708] acpiphp: Slot [42] registered
+[    0.750732] acpiphp: Slot [43] registered
+[    0.750742] acpiphp: Slot [44] registered
+[    0.750752] acpiphp: Slot [45] registered
+[    0.750762] acpiphp: Slot [46] registered
+[    0.750773] acpiphp: Slot [47] registered
+[    0.750784] acpiphp: Slot [48] registered
+[    0.750795] acpiphp: Slot [49] registered
+[    0.750805] acpiphp: Slot [50] registered
+[    0.750815] acpiphp: Slot [51] registered
+[    0.750827] acpiphp: Slot [52] registered
+[    0.750839] acpiphp: Slot [53] registered
+[    0.750849] acpiphp: Slot [54] registered
+[    0.750859] acpiphp: Slot [55] registered
+[    0.750870] acpiphp: Slot [56] registered
+[    0.750880] acpiphp: Slot [57] registered
+[    0.750892] acpiphp: Slot [58] registered
+[    0.750902] acpiphp: Slot [59] registered
+[    0.750912] acpiphp: Slot [60] registered
+[    0.750923] acpiphp: Slot [61] registered
+[    0.750934] acpiphp: Slot [62] registered
+[    0.750946] acpiphp: Slot [63] registered
+[    0.751041] acpiphp_glue: Slot 160 already registered by another hotplug driver
+[    0.751054] acpiphp_glue: Slot 192 already registered by another hotplug driver
+[    0.751068] acpiphp_glue: Slot 224 already registered by another hotplug driver
+[    0.751081] acpiphp_glue: Slot 256 already registered by another hotplug driver
+[    0.751105] acpiphp_glue: Slot 161 already registered by another hotplug driver
+[    0.751118] acpiphp_glue: Slot 162 already registered by another hotplug driver
+[    0.751131] acpiphp_glue: Slot 163 already registered by another hotplug driver
+[    0.751144] acpiphp_glue: Slot 164 already registered by another hotplug driver
+[    0.751156] acpiphp_glue: Slot 165 already registered by another hotplug driver
+[    0.751169] acpiphp_glue: Slot 166 already registered by another hotplug driver
+[    0.751183] acpiphp_glue: Slot 167 already registered by another hotplug driver
+[    0.751197] acpiphp_glue: Slot 193 already registered by another hotplug driver
+[    0.751210] acpiphp_glue: Slot 194 already registered by another hotplug driver
+[    0.751223] acpiphp_glue: Slot 195 already registered by another hotplug driver
+[    0.751237] acpiphp_glue: Slot 196 already registered by another hotplug driver
+[    0.751250] acpiphp_glue: Slot 197 already registered by another hotplug driver
+[    0.751263] acpiphp_glue: Slot 198 already registered by another hotplug driver
+[    0.751276] acpiphp_glue: Slot 199 already registered by another hotplug driver
+[    0.751289] acpiphp_glue: Slot 225 already registered by another hotplug driver
+[    0.751302] acpiphp_glue: Slot 226 already registered by another hotplug driver
+[    0.751316] acpiphp_glue: Slot 227 already registered by another hotplug driver
+[    0.751329] acpiphp_glue: Slot 228 already registered by another hotplug driver
+[    0.751342] acpiphp_glue: Slot 229 already registered by another hotplug driver
+[    0.751355] acpiphp_glue: Slot 230 already registered by another hotplug driver
+[    0.751369] acpiphp_glue: Slot 231 already registered by another hotplug driver
+[    0.751382] acpiphp_glue: Slot 257 already registered by another hotplug driver
+[    0.751395] acpiphp_glue: Slot 258 already registered by another hotplug driver
+[    0.751409] acpiphp_glue: Slot 259 already registered by another hotplug driver
+[    0.751423] acpiphp_glue: Slot 260 already registered by another hotplug driver
+[    0.751437] acpiphp_glue: Slot 261 already registered by another hotplug driver
+[    0.751451] acpiphp_glue: Slot 262 already registered by another hotplug driver
+[    0.751464] acpiphp_glue: Slot 263 already registered by another hotplug driver
+[    0.751636] ACPI: Deprecated procfs I/F for AC is loaded, please retry with CONFIG_ACPI_PROCFS_POWER cleared
+[    0.751831] ACPI: AC Adapter [ACAD] (on-line)
+[    0.752129] input: Power Button as /devices/LNXSYSTM:00/LNXPWRBN:00/input/input0
+[    0.752132] ACPI: Power Button [PWRF]
+[    0.752883] ACPI: acpi_idle registered with cpuidle
+[    0.817033] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
+[    1.084424] serial8250: ttyS0 at I/O 0x3f8 (irq = 4) is a 16550A
+[    1.364214] serial8250: ttyS1 at I/O 0x2f8 (irq = 3) is a 16550A
+[    1.432106] 00:09: ttyS0 at I/O 0x3f8 (irq = 4) is a 16550A
+[    1.470846] 00:0a: ttyS1 at I/O 0x2f8 (irq = 3) is a 16550A
+[    1.486535] kgdb: Registered I/O driver kgdboc.
+[    1.487763] Non-volatile memory driver v1.3
+[    1.487765] Linux agpgart interface v0.103
+[    1.487900] agpgart-intel 0000:00:00.0: Intel 440BX Chipset
+[    1.490384] agpgart-intel 0000:00:00.0: AGP aperture is 256M @ 0x0
+[    1.490968] brd: module loaded
+[    1.491228] loop: module loaded
+[    1.491285] Fixed MDIO Bus: probed
+[    1.491326] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    1.491409] ehci_hcd 0000:02:03.0: PCI INT A -> GSI 17 (level, low) -> IRQ 17
+[    1.491448] ehci_hcd 0000:02:03.0: EHCI Host Controller
+[    1.491484] ehci_hcd 0000:02:03.0: new USB bus registered, assigned bus number 1
+[    1.498548] ehci_hcd 0000:02:03.0: cache line size of 32 is not supported
+[    1.498583] ehci_hcd 0000:02:03.0: irq 17, io mem 0xfd5ff000
+[    1.504393] ehci_hcd 0000:02:03.0: USB 2.0 started, EHCI 1.00
+[    1.504487] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002
+[    1.504488] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    1.504490] usb usb1: Product: EHCI Host Controller
+[    1.504491] usb usb1: Manufacturer: Linux 2.6.39.2+ ehci_hcd
+[    1.504492] usb usb1: SerialNumber: 0000:02:03.0
+[    1.504590] hub 1-0:1.0: USB hub found
+[    1.504593] hub 1-0:1.0: 6 ports detected
+[    1.504698] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+[    1.504706] uhci_hcd: USB Universal Host Controller Interface driver
+[    1.504918] uhci_hcd 0000:02:00.0: PCI INT A -> GSI 18 (level, low) -> IRQ 18
+[    1.504952] uhci_hcd 0000:02:00.0: UHCI Host Controller
+[    1.504985] uhci_hcd 0000:02:00.0: new USB bus registered, assigned bus number 2
+[    1.509619] uhci_hcd 0000:02:00.0: irq 18, io base 0x000020c0
+[    1.509729] usb usb2: New USB device found, idVendor=1d6b, idProduct=0001
+[    1.509730] usb usb2: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    1.509732] usb usb2: Product: UHCI Host Controller
+[    1.509733] usb usb2: Manufacturer: Linux 2.6.39.2+ uhci_hcd
+[    1.509734] usb usb2: SerialNumber: 0000:02:00.0
+[    1.509809] hub 2-0:1.0: USB hub found
+[    1.509811] hub 2-0:1.0: 2 ports detected
+[    1.509957] i8042: PNP: PS/2 Controller [PNP0303:KBC,PNP0f13:MOUS] at 0x60,0x64 irq 1,12
+[    1.510551] serio: i8042 KBD port at 0x60,0x64 irq 1
+[    1.510556] serio: i8042 AUX port at 0x60,0x64 irq 12
+[    1.510622] mousedev: PS/2 mouse device common for all mice
+[    1.516598] input: AT Translated Set 2 keyboard as /devices/platform/i8042/serio0/input/input1
+[    1.520846] input: ImPS/2 Generic Wheel Mouse as /devices/platform/i8042/serio1/input/input2
+[    1.538465] rtc_cmos 00:04: rtc core: registered rtc_cmos as rtc0
+[    1.538580] rtc0: alarms up to one month, y3k, 114 bytes nvram, hpet irqs
+[    1.538590] cpuidle: using governor ladder
+[    1.538592] cpuidle: using governor menu
+[    1.538593] EFI Variables Facility v0.08 2004-May-17
+[    1.538756] usbcore: registered new interface driver usbhid
+[    1.538757] usbhid: USB HID core driver
+[    1.538909] IPv4 over IPv4 tunneling driver
+[    1.539009] TCP cubic registered
+[    1.539010] Initializing XFRM netlink socket
+[    1.539016] NET: Registered protocol family 17
+[    1.539025] Registering the dns_resolver key type
+[    1.539082] registered taskstats version 1
+[    1.539282] IMA: No TPM chip found, activating TPM-bypass!
+[    1.548004] rtc_cmos 00:04: setting system clock to 2020-06-25 02:01:02 UTC (1593050462)
+[    1.549498] Freeing unused kernel memory: 1484k freed
+[    1.549590] Write protecting the kernel read-only data: 10240k
+[    1.552396] Freeing unused kernel memory: 1360k freed
+[    1.555450] Freeing unused kernel memory: 1876k freed
+[    1.565578] dracut: dracut-004-32.el6
+[    1.570444] dracut: rd_NO_LUKS: removing cryptoluks activation
+[    1.581209] device-mapper: uevent: version 1.0.3
+[    1.581418] device-mapper: ioctl: 4.20.0-ioctl (2011-02-02) initialised: dm-devel@redhat.com
+[    1.583371] udev: starting version 147
+[    1.583408] udevd (72): /proc/72/oom_adj is deprecated, please use /proc/72/oom_score_adj instead.
+[    1.600598] dracut: Starting plymouth daemon
+[    1.689493] Refined TSC clocksource calibration: 2807.998 MHz.
+[    1.689497] Switching to clocksource tsc
+[    1.693807] ata_piix 0000:00:07.1: version 2.13
+[    1.694254] scsi0 : ata_piix
+[    1.694582] scsi1 : ata_piix
+[    1.694640] ata1: PATA max UDMA/33 cmd 0x1f0 ctl 0x3f6 bmdma 0x1060 irq 14
+[    1.694642] ata2: PATA max UDMA/33 cmd 0x170 ctl 0x376 bmdma 0x1068 irq 15
+[    1.811999] usb 2-1: new full speed USB device number 2 using uhci_hcd
+[    1.845123] ata1.00: ATA-4: VMware Virtual IDE Hard Drive, 00000001, max UDMA/33
+[    1.845125] ata1.00: 41943040 sectors, multi 16: LBA 
+[    1.845129] ata1.01: ATAPI: VMware Virtual IDE CDROM Drive, 00000001, max UDMA/33
+[    1.845521] ata1.00: configured for UDMA/33
+[    1.856609] ata1.01: configured for UDMA/33
+[    1.856911] scsi 0:0:0:0: Direct-Access     ATA      VMware Virtual I 0000 PQ: 0 ANSI: 5
+[    1.857147] scsi 0:0:1:0: CD-ROM            NECVMWar VMware IDE CDR01 1.00 PQ: 0 ANSI: 5
+[    1.872493] sr0: scsi3-mmc drive: 1x/1x writer dvd-ram cd/rw xa/form2 cdda tray
+[    1.872495] cdrom: Uniform CD-ROM driver Revision: 3.20
+[    1.872688] sr 0:0:1:0: Attached scsi CD-ROM sr0
+[    1.877018] sd 0:0:0:0: [sda] 41943040 512-byte logical blocks: (21.4 GB/20.0 GiB)
+[    1.877040] sd 0:0:0:0: [sda] Write Protect is off
+[    1.877042] sd 0:0:0:0: [sda] Mode Sense: 00 3a 00 00
+[    1.877071] sd 0:0:0:0: [sda] Write cache: disabled, read cache: enabled, doesn't support DPO or FUA
+[    1.877610]  sda: sda1 sda2
+[    1.877897] sd 0:0:0:0: [sda] Attached SCSI disk
+[    1.949390] usb 2-1: New USB device found, idVendor=0e0f, idProduct=0003
+[    1.949392] usb 2-1: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[    1.949394] usb 2-1: Product: VMware Virtual USB Mouse
+[    1.949395] usb 2-1: Manufacturer: VMware
+[    1.963413] input: VMware VMware Virtual USB Mouse as /devices/pci0000:00/0000:00:11.0/0000:02:00.0/usb2/2-1/2-1:1.0/input/input3
+[    1.963461] generic-usb 0003:0E0F:0003.0001: input,hidraw0: USB HID v1.10 Mouse [VMware VMware Virtual USB Mouse] on usb-0000:02:00.0-1/input0
+[    2.065877] usb 2-2: new full speed USB device number 3 using uhci_hcd
+[    2.200337] usb 2-2: New USB device found, idVendor=0e0f, idProduct=0002
+[    2.200339] usb 2-2: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[    2.200340] usb 2-2: Product: VMware Virtual USB Hub
+[    2.200341] usb 2-2: Manufacturer: VMware, Inc.
+[    2.209310] hub 2-2:1.0: USB hub found
+[    2.213304] hub 2-2:1.0: 7 ports detected
+[    2.247440] dracut: Scanning devices sda2  for LVM logical volumes vg_cate/lv_root vg_cate/lv_swap 
+[    2.256291] dracut: inactive '/dev/vg_cate/lv_root' [15.57 GiB] inherit
+[    2.256313] dracut: inactive '/dev/vg_cate/lv_swap' [3.94 GiB] inherit
+[    2.421828] EXT4-fs (dm-0): mounted filesystem with ordered data mode. Opts: (null)
+[    2.427135] dracut: Mounted root filesystem /dev/mapper/vg_cate-lv_root
+[    2.442871] dracut: Loading SELinux policy
+[    2.480521] dracut: /sbin/load_policy: Can't load policy: No such device
+[    2.506565] usb 2-2.1: new full speed USB device number 4 using uhci_hcd
+[    2.524954] dracut: Switching root
+[    2.609404] usb 2-2.1: New USB device found, idVendor=0e0f, idProduct=0008
+[    2.609407] usb 2-2.1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[    2.609410] usb 2-2.1: Product: Virtual Bluetooth Adapter
+[    2.609411] usb 2-2.1: Manufacturer: VMware
+[    2.609413] usb 2-2.1: SerialNumber: 000650268328
+[    2.637724] readahead: starting
+[    2.782714] udev: starting version 147
+[    2.892384] shpchp: Standard Hot Plug PCI Controller Driver version: 0.4
+[    2.987204] WARNING! power/level is deprecated; use power/control instead
+[    2.998532] piix4_smbus 0000:00:07.3: Host SMBus controller not enabled!
+[    3.049207] input: PC Speaker as /devices/platform/pcspkr/input/input4
+[    3.096890] sd 0:0:0:0: Attached scsi generic sg0 type 0
+[    3.096934] sr 0:0:1:0: Attached scsi generic sg1 type 5
+[    3.142340] inet_init: start prot: 0
+[    3.142342] inet_init: checking answer: 17.
+[    3.142344] inet_init: lookup error: 0.
+[    3.142345] inet_init: netns ok.
+[    3.142348] inet_init: sk_alloc ok.
+[    3.142349] inet_init: init_data...
+[    3.142349] inet_init: init_data ok.
+[    3.142351] inet_init: Going down to init sock of prot: UDP.
+[    3.147016] pcnet32: pcnet32.c:v1.35 21.Apr.2008 tsbogend@alpha.franken.de
+[    3.147085] pcnet32 0000:02:01.0: PCI INT A -> GSI 19 (level, low) -> IRQ 19
+[    3.147207] pcnet32: PCnet/PCI II 79C970A at 0x2000, 00:0c:29:8f:d7:d1 assigned IRQ 19
+[    3.147528] pcnet32: eth0: registered as PCnet/PCI II 79C970A
+[    3.147760] pcnet32: 1 cards_found
+[    3.150658] inet_init: start prot: 0
+[    3.150660] inet_init: checking answer: 17.
+[    3.150661] inet_init: lookup error: 0.
+[    3.150661] inet_init: netns ok.
+[    3.150663] inet_init: sk_alloc ok.
+[    3.150663] inet_init: init_data...
+[    3.150664] inet_init: init_data ok.
+[    3.150665] inet_init: Going down to init sock of prot: UDP.
+[    3.154452] udev: renamed network interface eth0 to eth1
+[    3.240084] ENS1371 0000:02:02.0: PCI INT A -> GSI 16 (level, low) -> IRQ 16
+[    4.244981] EXT4-fs (dm-0): re-mounted. Opts: (null)
+[    4.304659] EXT4-fs (sda1): mounted filesystem with ordered data mode. Opts: (null)
+[    4.374019] Adding 4128764k swap on /dev/mapper/vg_cate-lv_swap.  Priority:-1 extents:1 across:4128764k 
+[    4.557148] NET: Registered protocol family 10
+[    4.575432] inet_init: start prot: 255
+[    4.575434] inet_init: checking answer: 0.
+[    4.575435] inet_init: lookup error: 0.
+[    4.575436] inet_init: netns ok.
+[    4.575437] inet_init: sk_alloc ok.
+[    4.575438] inet_init: init_data...
+[    4.575439] inet_init: init_data ok.
+[    4.575440] inet_init: Going down to init sock of prot: RAW.
+[    4.576258] inet_init: start prot: 255
+[    4.576261] inet_init: checking answer: 0.
+[    4.576262] inet_init: lookup error: 0.
+[    4.576263] inet_init: netns ok.
+[    4.576265] inet_init: sk_alloc ok.
+[    4.576266] inet_init: init_data...
+[    4.576267] inet_init: init_data ok.
+[    4.576268] inet_init: Going down to init sock of prot: RAW.
+[    4.736952] inet_init: start prot: 0
+[    4.736957] inet_init: checking answer: 6.
+[    4.736958] inet_init: lookup error: 0.
+[    4.736959] inet_init: netns ok.
+[    4.736962] inet_init: sk_alloc ok.
+[    4.736963] inet_init: init_data...
+[    4.736964] inet_init: init_data ok.
+[    4.736965] inet_init: Going down to init sock of prot: TCP.
+[    4.737055] inet_init: start prot: 0
+[    4.737057] inet_init: checking answer: 17.
+[    4.737058] inet_init: lookup error: 0.
+[    4.737059] inet_init: netns ok.
+[    4.737060] inet_init: sk_alloc ok.
+[    4.737061] inet_init: init_data...
+[    4.737062] inet_init: init_data ok.
+[    4.737063] inet_init: Going down to init sock of prot: UDP.
+[    4.855890] inet_init: start prot: 0
+[    4.855892] inet_init: checking answer: 17.
+[    4.855893] inet_init: lookup error: 0.
+[    4.855894] inet_init: netns ok.
+[    4.855897] inet_init: sk_alloc ok.
+[    4.855897] inet_init: init_data...
+[    4.855898] inet_init: init_data ok.
+[    4.855899] inet_init: Going down to init sock of prot: UDP.
+[    4.858231] inet_init: start prot: 0
+[    4.858233] inet_init: checking answer: 17.
+[    4.858247] inet_init: lookup error: 0.
+[    4.858248] inet_init: netns ok.
+[    4.858249] inet_init: sk_alloc ok.
+[    4.858250] inet_init: init_data...
+[    4.858250] inet_init: init_data ok.
+[    4.858251] inet_init: Going down to init sock of prot: UDP.
+[    4.902040] inet_init: start prot: 17
+[    4.902042] inet_init: checking answer: 17.
+[    4.902043] inet_init: lookup error: 0.
+[    4.902044] inet_init: netns ok.
+[    4.902046] inet_init: sk_alloc ok.
+[    4.902046] inet_init: init_data...
+[    4.902047] inet_init: init_data ok.
+[    4.902048] inet_init: Going down to init sock of prot: UDP.
+[    4.902262] inet_init: start prot: 17
+[    4.902264] inet_init: checking answer: 17.
+[    4.902264] inet_init: lookup error: 0.
+[    4.902265] inet_init: netns ok.
+[    4.902266] inet_init: sk_alloc ok.
+[    4.902267] inet_init: init_data...
+[    4.902267] inet_init: init_data ok.
+[    4.902268] inet_init: Going down to init sock of prot: UDP.
+[    4.902282] inet_init: start prot: 6
+[    4.902283] inet_init: checking answer: 6.
+[    4.902283] inet_init: lookup error: 0.
+[    4.902284] inet_init: netns ok.
+[    4.902287] inet_init: sk_alloc ok.
+[    4.902287] inet_init: init_data...
+[    4.902288] inet_init: init_data ok.
+[    4.902289] inet_init: Going down to init sock of prot: TCP.
+[    4.950084] inet_init: start prot: 0
+[    4.950086] inet_init: checking answer: 17.
+[    4.950087] inet_init: lookup error: 0.
+[    4.950088] inet_init: netns ok.
+[    4.950090] inet_init: sk_alloc ok.
+[    4.950091] inet_init: init_data...
+[    4.950091] inet_init: init_data ok.
+[    4.950092] inet_init: Going down to init sock of prot: UDP.
+[    4.950098] inet_init: start prot: 0
+[    4.950099] inet_init: checking answer: 17.
+[    4.950099] inet_init: lookup error: 0.
+[    4.950100] inet_init: netns ok.
+[    4.950101] inet_init: sk_alloc ok.
+[    4.950102] inet_init: init_data...
+[    4.950102] inet_init: init_data ok.
+[    4.950103] inet_init: Going down to init sock of prot: UDP.
+[    5.006723] 802.1Q VLAN Support v1.8 Ben Greear <greearb@candelatech.com>
+[    5.006724] All bugs added by David S. Miller <davem@redhat.com>
+[    5.007056] inet_init: start prot: 0
+[    5.007058] inet_init: checking answer: 17.
+[    5.007059] inet_init: lookup error: 0.
+[    5.007060] inet_init: netns ok.
+[    5.007061] inet_init: sk_alloc ok.
+[    5.007062] inet_init: init_data...
+[    5.007063] inet_init: init_data ok.
+[    5.007064] inet_init: Going down to init sock of prot: UDP.
+[    5.007112] inet_init: start prot: 0
+[    5.007113] inet_init: checking answer: 17.
+[    5.007114] inet_init: lookup error: 0.
+[    5.007114] inet_init: netns ok.
+[    5.007115] inet_init: sk_alloc ok.
+[    5.007116] inet_init: init_data...
+[    5.007117] inet_init: init_data ok.
+[    5.007118] inet_init: Going down to init sock of prot: UDP.
+[    5.007122] inet_init: start prot: 0
+[    5.007123] inet_init: checking answer: 17.
+[    5.007124] inet_init: lookup error: 0.
+[    5.007125] inet_init: netns ok.
+[    5.007126] inet_init: sk_alloc ok.
+[    5.007127] inet_init: init_data...
+[    5.007128] inet_init: init_data ok.
+[    5.007128] inet_init: Going down to init sock of prot: UDP.
+[    5.007176] inet_init: start prot: 0
+[    5.007177] inet_init: checking answer: 17.
+[    5.007178] inet_init: lookup error: 0.
+[    5.007179] inet_init: netns ok.
+[    5.007180] inet_init: sk_alloc ok.
+[    5.007180] inet_init: init_data...
+[    5.007181] inet_init: init_data ok.
+[    5.007182] inet_init: Going down to init sock of prot: UDP.
+[    5.046993] inet_init: start prot: 0
+[    5.046995] inet_init: checking answer: 17.
+[    5.046997] inet_init: lookup error: 0.
+[    5.046998] inet_init: netns ok.
+[    5.047000] inet_init: sk_alloc ok.
+[    5.047001] inet_init: init_data...
+[    5.047003] inet_init: init_data ok.
+[    5.047004] inet_init: Going down to init sock of prot: UDP.
+[    5.047342] inet_init: start prot: 0
+[    5.047344] inet_init: checking answer: 17.
+[    5.047345] inet_init: lookup error: 0.
+[    5.047346] inet_init: netns ok.
+[    5.047348] inet_init: sk_alloc ok.
+[    5.047349] inet_init: init_data...
+[    5.047350] inet_init: init_data ok.
+[    5.047351] inet_init: Going down to init sock of prot: UDP.
+[    5.047363] inet_init: start prot: 0
+[    5.047364] inet_init: checking answer: 17.
+[    5.047365] inet_init: lookup error: 0.
+[    5.047366] inet_init: netns ok.
+[    5.047368] inet_init: sk_alloc ok.
+[    5.047369] inet_init: init_data...
+[    5.047370] inet_init: init_data ok.
+[    5.047371] inet_init: Going down to init sock of prot: UDP.
+[    5.047379] inet_init: start prot: 0
+[    5.047380] inet_init: checking answer: 17.
+[    5.047381] inet_init: lookup error: 0.
+[    5.047382] inet_init: netns ok.
+[    5.047383] inet_init: sk_alloc ok.
+[    5.047384] inet_init: init_data...
+[    5.047386] inet_init: init_data ok.
+[    5.047387] inet_init: Going down to init sock of prot: UDP.
+[    5.048079] inet_init: start prot: 0
+[    5.048081] inet_init: checking answer: 17.
+[    5.048083] inet_init: lookup error: 0.
+[    5.048084] inet_init: netns ok.
+[    5.048085] inet_init: sk_alloc ok.
+[    5.048086] inet_init: init_data...
+[    5.048088] inet_init: init_data ok.
+[    5.048089] inet_init: Going down to init sock of prot: UDP.
+[    5.048879] pcnet32 0000:02:01.0: eth1: link up
+[    5.056916] inet_init: start prot: 0
+[    5.056918] inet_init: checking answer: 17.
+[    5.056919] inet_init: lookup error: 0.
+[    5.056920] inet_init: netns ok.
+[    5.056921] inet_init: sk_alloc ok.
+[    5.056922] inet_init: init_data...
+[    5.056923] inet_init: init_data ok.
+[    5.056924] inet_init: Going down to init sock of prot: UDP.
+[    5.057010] inet_init: start prot: 0
+[    5.057011] inet_init: checking answer: 17.
+[    5.057012] inet_init: lookup error: 0.
+[    5.057013] inet_init: netns ok.
+[    5.057014] inet_init: sk_alloc ok.
+[    5.057015] inet_init: init_data...
+[    5.057015] inet_init: init_data ok.
+[    5.057016] inet_init: Going down to init sock of prot: UDP.
+[    5.589945] vmxnet: disagrees about version of symbol alloc_etherdev_mqs
+[    5.589947] vmxnet: Unknown symbol alloc_etherdev_mqs (err -22)
+[    5.589988] vmxnet: disagrees about version of symbol skb_copy_bits
+[    5.589989] vmxnet: Unknown symbol skb_copy_bits (err -22)
+[    5.590022] vmxnet: disagrees about version of symbol skb_put
+[    5.590023] vmxnet: Unknown symbol skb_put (err -22)
+[    5.590079] vmxnet: disagrees about version of symbol consume_skb
+[    5.590081] vmxnet: Unknown symbol consume_skb (err -22)
+[    5.590104] vmxnet: disagrees about version of symbol __netif_schedule
+[    5.590106] vmxnet: Unknown symbol __netif_schedule (err -22)
+[    5.590154] vmxnet: disagrees about version of symbol unregister_netdev
+[    5.590155] vmxnet: Unknown symbol unregister_netdev (err -22)
+[    5.590233] vmxnet: disagrees about version of symbol eth_type_trans
+[    5.590234] vmxnet: Unknown symbol eth_type_trans (err -22)
+[    5.590255] vmxnet: disagrees about version of symbol dev_kfree_skb_irq
+[    5.590256] vmxnet: Unknown symbol dev_kfree_skb_irq (err -22)
+[    5.590303] vmxnet: disagrees about version of symbol register_netdev
+[    5.590304] vmxnet: Unknown symbol register_netdev (err -22)
+[    5.590335] vmxnet: disagrees about version of symbol free_netdev
+[    5.590336] vmxnet: Unknown symbol free_netdev (err -22)
+[    5.590355] vmxnet: disagrees about version of symbol ethtool_op_get_link
+[    5.590356] vmxnet: Unknown symbol ethtool_op_get_link (err -22)
+[    5.590380] vmxnet: disagrees about version of symbol dev_alloc_skb
+[    5.590381] vmxnet: Unknown symbol dev_alloc_skb (err -22)
+[    5.590419] vmxnet: disagrees about version of symbol __pskb_pull_tail
+[    5.590420] vmxnet: Unknown symbol __pskb_pull_tail (err -22)
+[    5.590439] vmxnet: disagrees about version of symbol netif_rx
+[    5.590440] vmxnet: Unknown symbol netif_rx (err -22)
+[    5.590478] vmxnet: disagrees about version of symbol netif_carrier_off
+[    5.590479] vmxnet: Unknown symbol netif_carrier_off (err -22)
+[    5.590500] vmxnet: disagrees about version of symbol netif_carrier_on
+[    5.590501] vmxnet: Unknown symbol netif_carrier_on (err -22)
+[    5.636950] [1914]: VMCI: shared components initialized.
+[    5.636982] Probing for vmci/PCI.
+[    5.637009] vmci 0000:00:07.7: PCI INT A -> GSI 16 (level, low) -> IRQ 16
+[    5.637076] Found vmci/PCI at 0x1080, irq 16.
+[    5.637116] VMCI: using capabilities 0xc.
+[    5.637168] [1914]: VMCI: Host capability check passed.
+[    5.637548] vmci 0000:00:07.7: irq 72 for MSI/MSI-X
+[    5.637583] vmci 0000:00:07.7: irq 73 for MSI/MSI-X
+[    5.637863] Registered vmci device.
+[    5.637945] [1914]: VMCI: Using guest personality
+[    5.637947] [1914]: VMCI: host components initialized.
+[    5.638015] [1914]: VMCI: Module registered (name=vmci, major=10, minor=58).
+[    5.638016] [1914]: VMCI: Using host personality
+[    5.638017] [1914]: VMCI: Module (name=vmci) is initialized
+[    5.681954] vsock: disagrees about version of symbol skb_free_datagram
+[    5.681956] vsock: Unknown symbol skb_free_datagram (err -22)
+[    5.682128] vsock: disagrees about version of symbol skb_put
+[    5.682130] vsock: Unknown symbol skb_put (err -22)
+[    5.682194] vsock: disagrees about version of symbol skb_dequeue
+[    5.682195] vsock: Unknown symbol skb_dequeue (err -22)
+[    5.682345] vsock: disagrees about version of symbol sk_receive_skb
+[    5.682346] vsock: Unknown symbol sk_receive_skb (err -22)
+[    5.682374] vsock: disagrees about version of symbol skb_copy_datagram_iovec
+[    5.682376] vsock: Unknown symbol skb_copy_datagram_iovec (err -22)
+[    5.682463] vsock: disagrees about version of symbol proto_unregister
+[    5.682464] vsock: Unknown symbol proto_unregister (err -22)
+[    5.682482] vsock: disagrees about version of symbol kfree_skb
+[    5.682483] vsock: Unknown symbol kfree_skb (err -22)
+[    5.682503] vsock: disagrees about version of symbol sock_register
+[    5.682504] vsock: Unknown symbol sock_register (err -22)
+[    5.682585] vsock: disagrees about version of symbol __alloc_skb
+[    5.682586] vsock: Unknown symbol __alloc_skb (err -22)
+[    5.682742] vsock: disagrees about version of symbol proto_register
+[    5.682743] vsock: Unknown symbol proto_register (err -22)
+[    5.682799] vsock: disagrees about version of symbol sk_free
+[    5.682800] vsock: Unknown symbol sk_free (err -22)
+[    5.682819] vsock: disagrees about version of symbol sock_no_accept
+[    5.682820] vsock: Unknown symbol sock_no_accept (err -22)
+[    5.682842] vsock: disagrees about version of symbol sock_no_listen
+[    5.682843] vsock: Unknown symbol sock_no_listen (err -22)
+[    5.682929] vsock: disagrees about version of symbol lock_sock_nested
+[    5.682930] vsock: Unknown symbol lock_sock_nested (err -22)
+[    5.683017] vsock: disagrees about version of symbol sk_alloc
+[    5.683019] vsock: Unknown symbol sk_alloc (err -22)
+[    5.683071] vsock: disagrees about version of symbol sock_no_socketpair
+[    5.683072] vsock: Unknown symbol sock_no_socketpair (err -22)
+[    5.683105] vsock: disagrees about version of symbol sock_no_mmap
+[    5.683106] vsock: Unknown symbol sock_no_mmap (err -22)
+[    5.683124] vsock: disagrees about version of symbol sock_no_sendpage
+[    5.683125] vsock: Unknown symbol sock_no_sendpage (err -22)
+[    5.683195] vsock: disagrees about version of symbol skb_recv_datagram
+[    5.683196] vsock: Unknown symbol skb_recv_datagram (err -22)
+[    5.683248] vsock: disagrees about version of symbol sock_queue_rcv_skb
+[    5.683249] vsock: Unknown symbol sock_queue_rcv_skb (err -22)
+[    5.683323] vsock: disagrees about version of symbol sock_no_ioctl
+[    5.683324] vsock: Unknown symbol sock_no_ioctl (err -22)
+[    5.683343] vsock: disagrees about version of symbol sock_no_getsockopt
+[    5.683344] vsock: Unknown symbol sock_no_getsockopt (err -22)
+[    5.683365] vsock: disagrees about version of symbol sock_no_setsockopt
+[    5.683366] vsock: Unknown symbol sock_no_setsockopt (err -22)
+[    5.683450] vsock: disagrees about version of symbol sock_init_data
+[    5.683451] vsock: Unknown symbol sock_init_data (err -22)
+[    5.683488] vsock: disagrees about version of symbol release_sock
+[    5.683489] vsock: Unknown symbol release_sock (err -22)
+[    5.850822] fuse init (API version 7.16)
+[    5.869301] inet_init: start prot: 0
+[    5.869303] inet_init: checking answer: 17.
+[    5.869304] inet_init: lookup error: 0.
+[    5.869304] inet_init: netns ok.
+[    5.869305] inet_init: sk_alloc ok.
+[    5.869306] inet_init: init_data...
+[    5.869307] inet_init: init_data ok.
+[    5.869308] inet_init: Going down to init sock of prot: UDP.
+[    5.869317] inet_init: start prot: 0
+[    5.869318] inet_init: checking answer: 17.
+[    5.869319] inet_init: lookup error: 0.
+[    5.869319] inet_init: netns ok.
+[    5.869320] inet_init: sk_alloc ok.
+[    5.869320] inet_init: init_data...
+[    5.869321] inet_init: init_data ok.
+[    5.869322] inet_init: Going down to init sock of prot: UDP.
+[    5.869325] inet_init: start prot: 0
+[    5.869326] inet_init: checking answer: 17.
+[    5.869326] inet_init: lookup error: 0.
+[    5.869327] inet_init: netns ok.
+[    5.869328] inet_init: sk_alloc ok.
+[    5.869328] inet_init: init_data...
+[    5.869329] inet_init: init_data ok.
+[    5.869330] inet_init: Going down to init sock of prot: UDP.
+[    5.869333] inet_init: start prot: 0
+[    5.869334] inet_init: checking answer: 17.
+[    5.869334] inet_init: lookup error: 0.
+[    5.869335] inet_init: netns ok.
+[    5.869336] inet_init: sk_alloc ok.
+[    5.869336] inet_init: init_data...
+[    5.869337] inet_init: init_data ok.
+[    5.869337] inet_init: Going down to init sock of prot: UDP.
+[    5.869612] inet_init: start prot: 0
+[    5.869613] inet_init: checking answer: 17.
+[    5.869614] inet_init: lookup error: 0.
+[    5.869615] inet_init: netns ok.
+[    5.869616] inet_init: sk_alloc ok.
+[    5.869616] inet_init: init_data...
+[    5.869617] inet_init: init_data ok.
+[    5.869618] inet_init: Going down to init sock of prot: UDP.
+[    5.873388] inet_init: start prot: 0
+[    5.873390] inet_init: checking answer: 17.
+[    5.873391] inet_init: lookup error: 0.
+[    5.873393] inet_init: netns ok.
+[    5.873395] inet_init: sk_alloc ok.
+[    5.873396] inet_init: init_data...
+[    5.873397] inet_init: init_data ok.
+[    5.873398] inet_init: Going down to init sock of prot: UDP.
+[    5.873409] inet_init: start prot: 0
+[    5.873410] inet_init: checking answer: 17.
+[    5.873411] inet_init: lookup error: 0.
+[    5.873412] inet_init: netns ok.
+[    5.873413] inet_init: sk_alloc ok.
+[    5.873414] inet_init: init_data...
+[    5.873416] inet_init: init_data ok.
+[    5.873417] inet_init: Going down to init sock of prot: UDP.
+[    5.873423] inet_init: start prot: 0
+[    5.873424] inet_init: checking answer: 17.
+[    5.873425] inet_init: lookup error: 0.
+[    5.873426] inet_init: netns ok.
+[    5.873427] inet_init: sk_alloc ok.
+[    5.873428] inet_init: init_data...
+[    5.873429] inet_init: init_data ok.
+[    5.873430] inet_init: Going down to init sock of prot: UDP.
+[    5.873823] inet_init: start prot: 0
+[    5.873825] inet_init: checking answer: 17.
+[    5.873826] inet_init: lookup error: 0.
+[    5.873828] inet_init: netns ok.
+[    5.873829] inet_init: sk_alloc ok.
+[    5.873830] inet_init: init_data...
+[    5.873831] inet_init: init_data ok.
+[    5.873833] inet_init: Going down to init sock of prot: UDP.
+[    5.876591] inet_init: start prot: 17
+[    5.876593] inet_init: checking answer: 17.
+[    5.876595] inet_init: lookup error: 0.
+[    5.876596] inet_init: netns ok.
+[    5.876598] inet_init: sk_alloc ok.
+[    5.876599] inet_init: init_data...
+[    5.876600] inet_init: init_data ok.
+[    5.876601] inet_init: Going down to init sock of prot: UDP.
+[    5.879698] inet_init: start prot: 17
+[    5.879700] inet_init: checking answer: 17.
+[    5.879701] inet_init: lookup error: 0.
+[    5.879702] inet_init: netns ok.
+[    5.879703] inet_init: sk_alloc ok.
+[    5.879704] inet_init: init_data...
+[    5.879705] inet_init: init_data ok.
+[    5.879706] inet_init: Going down to init sock of prot: UDP.
+[    5.883556] inet_init: start prot: 0
+[    5.883558] inet_init: checking answer: 17.
+[    5.883559] inet_init: lookup error: 0.
+[    5.883560] inet_init: netns ok.
+[    5.883561] inet_init: sk_alloc ok.
+[    5.883562] inet_init: init_data...
+[    5.883563] inet_init: init_data ok.
+[    5.883564] inet_init: Going down to init sock of prot: UDP.
+[    5.883623] inet_init: start prot: 17
+[    5.883624] inet_init: checking answer: 17.
+[    5.883625] inet_init: lookup error: 0.
+[    5.883625] inet_init: netns ok.
+[    5.883626] inet_init: sk_alloc ok.
+[    5.883627] inet_init: init_data...
+[    5.883628] inet_init: init_data ok.
+[    5.883629] inet_init: Going down to init sock of prot: UDP.
+[    5.897466] inet_init: start prot: 17
+[    5.897468] inet_init: checking answer: 17.
+[    5.897469] inet_init: lookup error: 0.
+[    5.897470] inet_init: netns ok.
+[    5.897471] inet_init: sk_alloc ok.
+[    5.897472] inet_init: init_data...
+[    5.897473] inet_init: init_data ok.
+[    5.897474] inet_init: Going down to init sock of prot: UDP.
+[    5.898029] inet_init: start prot: 17
+[    5.898030] inet_init: checking answer: 17.
+[    5.898031] inet_init: lookup error: 0.
+[    5.898032] inet_init: netns ok.
+[    5.898032] inet_init: sk_alloc ok.
+[    5.898033] inet_init: init_data...
+[    5.898034] inet_init: init_data ok.
+[    5.898035] inet_init: Going down to init sock of prot: UDP.
+[    5.898342] inet_init: start prot: 17
+[    5.898343] inet_init: checking answer: 17.
+[    5.898344] inet_init: lookup error: 0.
+[    5.898344] inet_init: netns ok.
+[    5.898345] inet_init: sk_alloc ok.
+[    5.898346] inet_init: init_data...
+[    5.898346] inet_init: init_data ok.
+[    5.898347] inet_init: Going down to init sock of prot: UDP.
+[    5.898589] inet_init: start prot: 17
+[    5.898590] inet_init: checking answer: 17.
+[    5.898590] inet_init: lookup error: 0.
+[    5.898591] inet_init: netns ok.
+[    5.898592] inet_init: sk_alloc ok.
+[    5.898592] inet_init: init_data...
+[    5.898593] inet_init: init_data ok.
+[    5.898594] inet_init: Going down to init sock of prot: UDP.
+[    5.899003] inet_init: start prot: 17
+[    5.899004] inet_init: checking answer: 17.
+[    5.899005] inet_init: lookup error: 0.
+[    5.899006] inet_init: netns ok.
+[    5.899006] inet_init: sk_alloc ok.
+[    5.899007] inet_init: init_data...
+[    5.899008] inet_init: init_data ok.
+[    5.899008] inet_init: Going down to init sock of prot: UDP.
+[    5.899272] inet_init: start prot: 17
+[    5.899273] inet_init: checking answer: 17.
+[    5.899274] inet_init: lookup error: 0.
+[    5.899274] inet_init: netns ok.
+[    5.899275] inet_init: sk_alloc ok.
+[    5.899275] inet_init: init_data...
+[    5.899276] inet_init: init_data ok.
+[    5.899277] inet_init: Going down to init sock of prot: UDP.
+[    5.899593] inet_init: start prot: 17
+[    5.899594] inet_init: checking answer: 17.
+[    5.899595] inet_init: lookup error: 0.
+[    5.899595] inet_init: netns ok.
+[    5.899596] inet_init: sk_alloc ok.
+[    5.899597] inet_init: init_data...
+[    5.899597] inet_init: init_data ok.
+[    5.899598] inet_init: Going down to init sock of prot: UDP.
+[    5.899875] inet_init: start prot: 17
+[    5.899876] inet_init: checking answer: 17.
+[    5.899877] inet_init: lookup error: 0.
+[    5.899877] inet_init: netns ok.
+[    5.899878] inet_init: sk_alloc ok.
+[    5.899879] inet_init: init_data...
+[    5.899879] inet_init: init_data ok.
+[    5.899880] inet_init: Going down to init sock of prot: UDP.
+[    5.900170] inet_init: start prot: 17
+[    5.900171] inet_init: checking answer: 17.
+[    5.900172] inet_init: lookup error: 0.
+[    5.900172] inet_init: netns ok.
+[    5.900173] inet_init: sk_alloc ok.
+[    5.900174] inet_init: init_data...
+[    5.900174] inet_init: init_data ok.
+[    5.900175] inet_init: Going down to init sock of prot: UDP.
+[    5.900405] inet_init: start prot: 17
+[    5.900406] inet_init: checking answer: 17.
+[    5.900407] inet_init: lookup error: 0.
+[    5.900408] inet_init: netns ok.
+[    5.900408] inet_init: sk_alloc ok.
+[    5.900409] inet_init: init_data...
+[    5.900410] inet_init: init_data ok.
+[    5.900410] inet_init: Going down to init sock of prot: UDP.
+[    5.900640] inet_init: start prot: 17
+[    5.900641] inet_init: checking answer: 17.
+[    5.900642] inet_init: lookup error: 0.
+[    5.900643] inet_init: netns ok.
+[    5.900643] inet_init: sk_alloc ok.
+[    5.900644] inet_init: init_data...
+[    5.900644] inet_init: init_data ok.
+[    5.900645] inet_init: Going down to init sock of prot: UDP.
+[    5.901046] inet_init: start prot: 17
+[    5.901048] inet_init: checking answer: 17.
+[    5.901048] inet_init: lookup error: 0.
+[    5.901049] inet_init: netns ok.
+[    5.901050] inet_init: sk_alloc ok.
+[    5.901051] inet_init: init_data...
+[    5.901051] inet_init: init_data ok.
+[    5.901052] inet_init: Going down to init sock of prot: UDP.
+[    5.901288] inet_init: start prot: 17
+[    5.901289] inet_init: checking answer: 17.
+[    5.901290] inet_init: lookup error: 0.
+[    5.901291] inet_init: netns ok.
+[    5.901291] inet_init: sk_alloc ok.
+[    5.901292] inet_init: init_data...
+[    5.901293] inet_init: init_data ok.
+[    5.901293] inet_init: Going down to init sock of prot: UDP.
+[    5.901509] inet_init: start prot: 17
+[    5.901510] inet_init: checking answer: 17.
+[    5.901511] inet_init: lookup error: 0.
+[    5.901511] inet_init: netns ok.
+[    5.901512] inet_init: sk_alloc ok.
+[    5.901513] inet_init: init_data...
+[    5.901513] inet_init: init_data ok.
+[    5.901514] inet_init: Going down to init sock of prot: UDP.
+[    5.901838] inet_init: start prot: 17
+[    5.901839] inet_init: checking answer: 17.
+[    5.901839] inet_init: lookup error: 0.
+[    5.901840] inet_init: netns ok.
+[    5.901841] inet_init: sk_alloc ok.
+[    5.901841] inet_init: init_data...
+[    5.901842] inet_init: init_data ok.
+[    5.901842] inet_init: Going down to init sock of prot: UDP.
+[    5.902074] inet_init: start prot: 17
+[    5.902075] inet_init: checking answer: 17.
+[    5.902075] inet_init: lookup error: 0.
+[    5.902076] inet_init: netns ok.
+[    5.902077] inet_init: sk_alloc ok.
+[    5.902077] inet_init: init_data...
+[    5.902078] inet_init: init_data ok.
+[    5.902078] inet_init: Going down to init sock of prot: UDP.
+[    5.902287] inet_init: start prot: 17
+[    5.902288] inet_init: checking answer: 17.
+[    5.902288] inet_init: lookup error: 0.
+[    5.902289] inet_init: netns ok.
+[    5.902290] inet_init: sk_alloc ok.
+[    5.902290] inet_init: init_data...
+[    5.902291] inet_init: init_data ok.
+[    5.902292] inet_init: Going down to init sock of prot: UDP.
+[    5.902624] inet_init: start prot: 17
+[    5.902625] inet_init: checking answer: 17.
+[    5.902626] inet_init: lookup error: 0.
+[    5.902626] inet_init: netns ok.
+[    5.902627] inet_init: sk_alloc ok.
+[    5.902628] inet_init: init_data...
+[    5.902628] inet_init: init_data ok.
+[    5.902629] inet_init: Going down to init sock of prot: UDP.
+[    5.902840] inet_init: start prot: 17
+[    5.902841] inet_init: checking answer: 17.
+[    5.902842] inet_init: lookup error: 0.
+[    5.902842] inet_init: netns ok.
+[    5.902843] inet_init: sk_alloc ok.
+[    5.902843] inet_init: init_data...
+[    5.902844] inet_init: init_data ok.
+[    5.902845] inet_init: Going down to init sock of prot: UDP.
+[    5.903054] inet_init: start prot: 17
+[    5.903055] inet_init: checking answer: 17.
+[    5.903056] inet_init: lookup error: 0.
+[    5.903056] inet_init: netns ok.
+[    5.903057] inet_init: sk_alloc ok.
+[    5.903058] inet_init: init_data...
+[    5.903058] inet_init: init_data ok.
+[    5.903059] inet_init: Going down to init sock of prot: UDP.
+[    5.903353] inet_init: start prot: 17
+[    5.903354] inet_init: checking answer: 17.
+[    5.903355] inet_init: lookup error: 0.
+[    5.903356] inet_init: netns ok.
+[    5.903356] inet_init: sk_alloc ok.
+[    5.903357] inet_init: init_data...
+[    5.903357] inet_init: init_data ok.
+[    5.903358] inet_init: Going down to init sock of prot: UDP.
+[    5.903645] inet_init: start prot: 17
+[    5.903646] inet_init: checking answer: 17.
+[    5.903647] inet_init: lookup error: 0.
+[    5.903647] inet_init: netns ok.
+[    5.903648] inet_init: sk_alloc ok.
+[    5.903648] inet_init: init_data...
+[    5.903649] inet_init: init_data ok.
+[    5.903650] inet_init: Going down to init sock of prot: UDP.
+[    5.904165] inet_init: start prot: 17
+[    5.904166] inet_init: checking answer: 17.
+[    5.904167] inet_init: lookup error: 0.
+[    5.904168] inet_init: netns ok.
+[    5.904168] inet_init: sk_alloc ok.
+[    5.904169] inet_init: init_data...
+[    5.904169] inet_init: init_data ok.
+[    5.904170] inet_init: Going down to init sock of prot: UDP.
+[    5.904379] inet_init: start prot: 17
+[    5.904380] inet_init: checking answer: 17.
+[    5.904381] inet_init: lookup error: 0.
+[    5.904381] inet_init: netns ok.
+[    5.904382] inet_init: sk_alloc ok.
+[    5.904382] inet_init: init_data...
+[    5.904383] inet_init: init_data ok.
+[    5.904384] inet_init: Going down to init sock of prot: UDP.
+[    5.904719] inet_init: start prot: 17
+[    5.904720] inet_init: checking answer: 17.
+[    5.904721] inet_init: lookup error: 0.
+[    5.904721] inet_init: netns ok.
+[    5.904722] inet_init: sk_alloc ok.
+[    5.904723] inet_init: init_data...
+[    5.904723] inet_init: init_data ok.
+[    5.904724] inet_init: Going down to init sock of prot: UDP.
+[    5.904985] inet_init: start prot: 17
+[    5.904986] inet_init: checking answer: 17.
+[    5.904986] inet_init: lookup error: 0.
+[    5.904987] inet_init: netns ok.
+[    5.904988] inet_init: sk_alloc ok.
+[    5.904988] inet_init: init_data...
+[    5.904989] inet_init: init_data ok.
+[    5.904990] inet_init: Going down to init sock of prot: UDP.
+[    5.905230] inet_init: start prot: 17
+[    5.905230] inet_init: checking answer: 17.
+[    5.905231] inet_init: lookup error: 0.
+[    5.905232] inet_init: netns ok.
+[    5.905233] inet_init: sk_alloc ok.
+[    5.905233] inet_init: init_data...
+[    5.905234] inet_init: init_data ok.
+[    5.905235] inet_init: Going down to init sock of prot: UDP.
+[    5.905560] inet_init: start prot: 17
+[    5.905561] inet_init: checking answer: 17.
+[    5.905561] inet_init: lookup error: 0.
+[    5.905562] inet_init: netns ok.
+[    5.905563] inet_init: sk_alloc ok.
+[    5.905564] inet_init: init_data...
+[    5.905564] inet_init: init_data ok.
+[    5.905565] inet_init: Going down to init sock of prot: UDP.
+[    5.905797] inet_init: start prot: 17
+[    5.905798] inet_init: checking answer: 17.
+[    5.905799] inet_init: lookup error: 0.
+[    5.905800] inet_init: netns ok.
+[    5.905800] inet_init: sk_alloc ok.
+[    5.905801] inet_init: init_data...
+[    5.905802] inet_init: init_data ok.
+[    5.905802] inet_init: Going down to init sock of prot: UDP.
+[    5.906047] inet_init: start prot: 17
+[    5.906048] inet_init: checking answer: 17.
+[    5.906048] inet_init: lookup error: 0.
+[    5.906049] inet_init: netns ok.
+[    5.906050] inet_init: sk_alloc ok.
+[    5.906051] inet_init: init_data...
+[    5.906051] inet_init: init_data ok.
+[    5.906052] inet_init: Going down to init sock of prot: UDP.
+[    5.906284] inet_init: start prot: 17
+[    5.906284] inet_init: checking answer: 17.
+[    5.906285] inet_init: lookup error: 0.
+[    5.906286] inet_init: netns ok.
+[    5.906287] inet_init: sk_alloc ok.
+[    5.906287] inet_init: init_data...
+[    5.906288] inet_init: init_data ok.
+[    5.906289] inet_init: Going down to init sock of prot: UDP.
+[    5.906517] inet_init: start prot: 17
+[    5.906518] inet_init: checking answer: 17.
+[    5.906519] inet_init: lookup error: 0.
+[    5.906520] inet_init: netns ok.
+[    5.906520] inet_init: sk_alloc ok.
+[    5.906521] inet_init: init_data...
+[    5.906522] inet_init: init_data ok.
+[    5.906523] inet_init: Going down to init sock of prot: UDP.
+[    5.906752] inet_init: start prot: 17
+[    5.906753] inet_init: checking answer: 17.
+[    5.906754] inet_init: lookup error: 0.
+[    5.906755] inet_init: netns ok.
+[    5.906755] inet_init: sk_alloc ok.
+[    5.906756] inet_init: init_data...
+[    5.906756] inet_init: init_data ok.
+[    5.906757] inet_init: Going down to init sock of prot: UDP.
+[    5.907148] inet_init: start prot: 17
+[    5.907150] inet_init: checking answer: 17.
+[    5.907150] inet_init: lookup error: 0.
+[    5.907151] inet_init: netns ok.
+[    5.907152] inet_init: sk_alloc ok.
+[    5.907152] inet_init: init_data...
+[    5.907153] inet_init: init_data ok.
+[    5.907154] inet_init: Going down to init sock of prot: UDP.
+[    5.907388] inet_init: start prot: 17
+[    5.907388] inet_init: checking answer: 17.
+[    5.907389] inet_init: lookup error: 0.
+[    5.907390] inet_init: netns ok.
+[    5.907391] inet_init: sk_alloc ok.
+[    5.907391] inet_init: init_data...
+[    5.907392] inet_init: init_data ok.
+[    5.907393] inet_init: Going down to init sock of prot: UDP.
+[    5.907703] inet_init: start prot: 17
+[    5.907704] inet_init: checking answer: 17.
+[    5.907705] inet_init: lookup error: 0.
+[    5.907705] inet_init: netns ok.
+[    5.907706] inet_init: sk_alloc ok.
+[    5.907707] inet_init: init_data...
+[    5.907707] inet_init: init_data ok.
+[    5.907708] inet_init: Going down to init sock of prot: UDP.
+[    5.908046] inet_init: start prot: 17
+[    5.908048] inet_init: checking answer: 17.
+[    5.908050] inet_init: lookup error: 0.
+[    5.908051] inet_init: netns ok.
+[    5.908052] inet_init: sk_alloc ok.
+[    5.908054] inet_init: init_data...
+[    5.908055] inet_init: init_data ok.
+[    5.908056] inet_init: Going down to init sock of prot: UDP.
+[    5.908436] inet_init: start prot: 17
+[    5.908437] inet_init: checking answer: 17.
+[    5.908438] inet_init: lookup error: 0.
+[    5.908439] inet_init: netns ok.
+[    5.908440] inet_init: sk_alloc ok.
+[    5.908441] inet_init: init_data...
+[    5.908441] inet_init: init_data ok.
+[    5.908442] inet_init: Going down to init sock of prot: UDP.
+[    5.908688] inet_init: start prot: 17
+[    5.908689] inet_init: checking answer: 17.
+[    5.908690] inet_init: lookup error: 0.
+[    5.908690] inet_init: netns ok.
+[    5.908691] inet_init: sk_alloc ok.
+[    5.908692] inet_init: init_data...
+[    5.908693] inet_init: init_data ok.
+[    5.908693] inet_init: Going down to init sock of prot: UDP.
+[    5.908933] inet_init: start prot: 17
+[    5.908934] inet_init: checking answer: 17.
+[    5.908935] inet_init: lookup error: 0.
+[    5.908935] inet_init: netns ok.
+[    5.908936] inet_init: sk_alloc ok.
+[    5.908937] inet_init: init_data...
+[    5.908937] inet_init: init_data ok.
+[    5.908938] inet_init: Going down to init sock of prot: UDP.
+[    5.909202] inet_init: start prot: 17
+[    5.909203] inet_init: checking answer: 17.
+[    5.909204] inet_init: lookup error: 0.
+[    5.909205] inet_init: netns ok.
+[    5.909206] inet_init: sk_alloc ok.
+[    5.909206] inet_init: init_data...
+[    5.909207] inet_init: init_data ok.
+[    5.909208] inet_init: Going down to init sock of prot: UDP.
+[    5.909439] inet_init: start prot: 17
+[    5.909440] inet_init: checking answer: 17.
+[    5.909441] inet_init: lookup error: 0.
+[    5.909442] inet_init: netns ok.
+[    5.909442] inet_init: sk_alloc ok.
+[    5.909443] inet_init: init_data...
+[    5.909444] inet_init: init_data ok.
+[    5.909444] inet_init: Going down to init sock of prot: UDP.
+[    5.909674] inet_init: start prot: 17
+[    5.909675] inet_init: checking answer: 17.
+[    5.909676] inet_init: lookup error: 0.
+[    5.909677] inet_init: netns ok.
+[    5.909677] inet_init: sk_alloc ok.
+[    5.909678] inet_init: init_data...
+[    5.909679] inet_init: init_data ok.
+[    5.909679] inet_init: Going down to init sock of prot: UDP.
+[    5.910087] inet_init: start prot: 17
+[    5.910088] inet_init: checking answer: 17.
+[    5.910089] inet_init: lookup error: 0.
+[    5.910089] inet_init: netns ok.
+[    5.910090] inet_init: sk_alloc ok.
+[    5.910091] inet_init: init_data...
+[    5.910091] inet_init: init_data ok.
+[    5.910092] inet_init: Going down to init sock of prot: UDP.
+[    5.910325] inet_init: start prot: 17
+[    5.910326] inet_init: checking answer: 17.
+[    5.910327] inet_init: lookup error: 0.
+[    5.910327] inet_init: netns ok.
+[    5.910328] inet_init: sk_alloc ok.
+[    5.910329] inet_init: init_data...
+[    5.910329] inet_init: init_data ok.
+[    5.910330] inet_init: Going down to init sock of prot: UDP.
+[    5.910664] inet_init: start prot: 17
+[    5.910666] inet_init: checking answer: 17.
+[    5.910666] inet_init: lookup error: 0.
+[    5.910667] inet_init: netns ok.
+[    5.910668] inet_init: sk_alloc ok.
+[    5.910668] inet_init: init_data...
+[    5.910669] inet_init: init_data ok.
+[    5.910670] inet_init: Going down to init sock of prot: UDP.
+[    5.910905] inet_init: start prot: 17
+[    5.910906] inet_init: checking answer: 17.
+[    5.910907] inet_init: lookup error: 0.
+[    5.910907] inet_init: netns ok.
+[    5.910908] inet_init: sk_alloc ok.
+[    5.910909] inet_init: init_data...
+[    5.910909] inet_init: init_data ok.
+[    5.910910] inet_init: Going down to init sock of prot: UDP.
+[    5.911140] inet_init: start prot: 17
+[    5.911141] inet_init: checking answer: 17.
+[    5.911142] inet_init: lookup error: 0.
+[    5.911142] inet_init: netns ok.
+[    5.911143] inet_init: sk_alloc ok.
+[    5.911144] inet_init: init_data...
+[    5.911144] inet_init: init_data ok.
+[    5.911145] inet_init: Going down to init sock of prot: UDP.
+[    5.911484] inet_init: start prot: 17
+[    5.911485] inet_init: checking answer: 17.
+[    5.911486] inet_init: lookup error: 0.
+[    5.911486] inet_init: netns ok.
+[    5.911487] inet_init: sk_alloc ok.
+[    5.911488] inet_init: init_data...
+[    5.911488] inet_init: init_data ok.
+[    5.911489] inet_init: Going down to init sock of prot: UDP.
+[    5.911722] inet_init: start prot: 17
+[    5.911723] inet_init: checking answer: 17.
+[    5.911724] inet_init: lookup error: 0.
+[    5.911725] inet_init: netns ok.
+[    5.911726] inet_init: sk_alloc ok.
+[    5.911726] inet_init: init_data...
+[    5.911727] inet_init: init_data ok.
+[    5.911728] inet_init: Going down to init sock of prot: UDP.
+[    5.911973] inet_init: start prot: 17
+[    5.911974] inet_init: checking answer: 17.
+[    5.911975] inet_init: lookup error: 0.
+[    5.911975] inet_init: netns ok.
+[    5.911976] inet_init: sk_alloc ok.
+[    5.911977] inet_init: init_data...
+[    5.911977] inet_init: init_data ok.
+[    5.911978] inet_init: Going down to init sock of prot: UDP.
+[    5.912230] inet_init: start prot: 17
+[    5.912230] inet_init: checking answer: 17.
+[    5.912231] inet_init: lookup error: 0.
+[    5.912232] inet_init: netns ok.
+[    5.912233] inet_init: sk_alloc ok.
+[    5.912233] inet_init: init_data...
+[    5.912234] inet_init: init_data ok.
+[    5.912235] inet_init: Going down to init sock of prot: UDP.
+[    5.912471] inet_init: start prot: 17
+[    5.912472] inet_init: checking answer: 17.
+[    5.912473] inet_init: lookup error: 0.
+[    5.912473] inet_init: netns ok.
+[    5.912474] inet_init: sk_alloc ok.
+[    5.912475] inet_init: init_data...
+[    5.912475] inet_init: init_data ok.
+[    5.912476] inet_init: Going down to init sock of prot: UDP.
+[    5.912847] inet_init: start prot: 17
+[    5.912848] inet_init: checking answer: 17.
+[    5.912849] inet_init: lookup error: 0.
+[    5.912850] inet_init: netns ok.
+[    5.912850] inet_init: sk_alloc ok.
+[    5.912851] inet_init: init_data...
+[    5.912852] inet_init: init_data ok.
+[    5.912852] inet_init: Going down to init sock of prot: UDP.
+[    5.913092] inet_init: start prot: 17
+[    5.913093] inet_init: checking answer: 17.
+[    5.913094] inet_init: lookup error: 0.
+[    5.913095] inet_init: netns ok.
+[    5.913095] inet_init: sk_alloc ok.
+[    5.913096] inet_init: init_data...
+[    5.913097] inet_init: init_data ok.
+[    5.913097] inet_init: Going down to init sock of prot: UDP.
+[    5.913334] inet_init: start prot: 17
+[    5.913335] inet_init: checking answer: 17.
+[    5.913336] inet_init: lookup error: 0.
+[    5.913336] inet_init: netns ok.
+[    5.913337] inet_init: sk_alloc ok.
+[    5.913338] inet_init: init_data...
+[    5.913338] inet_init: init_data ok.
+[    5.913339] inet_init: Going down to init sock of prot: UDP.
+[    5.913757] inet_init: start prot: 17
+[    5.913759] inet_init: checking answer: 17.
+[    5.913761] inet_init: lookup error: 0.
+[    5.913762] inet_init: netns ok.
+[    5.913763] inet_init: sk_alloc ok.
+[    5.913765] inet_init: init_data...
+[    5.913766] inet_init: init_data ok.
+[    5.913767] inet_init: Going down to init sock of prot: UDP.
+[    5.914238] inet_init: start prot: 17
+[    5.914240] inet_init: checking answer: 17.
+[    5.914241] inet_init: lookup error: 0.
+[    5.914242] inet_init: netns ok.
+[    5.914243] inet_init: sk_alloc ok.
+[    5.914245] inet_init: init_data...
+[    5.914246] inet_init: init_data ok.
+[    5.914248] inet_init: Going down to init sock of prot: UDP.
+[    5.914635] inet_init: start prot: 17
+[    5.914637] inet_init: checking answer: 17.
+[    5.914638] inet_init: lookup error: 0.
+[    5.914639] inet_init: netns ok.
+[    5.914640] inet_init: sk_alloc ok.
+[    5.914641] inet_init: init_data...
+[    5.914642] inet_init: init_data ok.
+[    5.914644] inet_init: Going down to init sock of prot: UDP.
+[    5.915072] inet_init: start prot: 17
+[    5.915073] inet_init: checking answer: 17.
+[    5.915074] inet_init: lookup error: 0.
+[    5.915075] inet_init: netns ok.
+[    5.915076] inet_init: sk_alloc ok.
+[    5.915077] inet_init: init_data...
+[    5.915078] inet_init: init_data ok.
+[    5.915080] inet_init: Going down to init sock of prot: UDP.
+[    5.915426] inet_init: start prot: 17
+[    5.915427] inet_init: checking answer: 17.
+[    5.915428] inet_init: lookup error: 0.
+[    5.915429] inet_init: netns ok.
+[    5.915430] inet_init: sk_alloc ok.
+[    5.915431] inet_init: init_data...
+[    5.915432] inet_init: init_data ok.
+[    5.915434] inet_init: Going down to init sock of prot: UDP.
+[    5.915906] inet_init: start prot: 17
+[    5.915907] inet_init: checking answer: 17.
+[    5.915927] inet_init: lookup error: 0.
+[    5.915928] inet_init: netns ok.
+[    5.915929] inet_init: sk_alloc ok.
+[    5.915930] inet_init: init_data...
+[    5.915931] inet_init: init_data ok.
+[    5.915933] inet_init: Going down to init sock of prot: UDP.
+[    5.916299] inet_init: start prot: 17
+[    5.916300] inet_init: checking answer: 17.
+[    5.916301] inet_init: lookup error: 0.
+[    5.916302] inet_init: netns ok.
+[    5.916303] inet_init: sk_alloc ok.
+[    5.916304] inet_init: init_data...
+[    5.916305] inet_init: init_data ok.
+[    5.916306] inet_init: Going down to init sock of prot: UDP.
+[    5.916740] inet_init: start prot: 17
+[    5.916742] inet_init: checking answer: 17.
+[    5.916743] inet_init: lookup error: 0.
+[    5.916744] inet_init: netns ok.
+[    5.916745] inet_init: sk_alloc ok.
+[    5.916746] inet_init: init_data...
+[    5.916747] inet_init: init_data ok.
+[    5.916748] inet_init: Going down to init sock of prot: UDP.
+[    5.917169] inet_init: start prot: 17
+[    5.917171] inet_init: checking answer: 17.
+[    5.917172] inet_init: lookup error: 0.
+[    5.917173] inet_init: netns ok.
+[    5.917175] inet_init: sk_alloc ok.
+[    5.917176] inet_init: init_data...
+[    5.917177] inet_init: init_data ok.
+[    5.917178] inet_init: Going down to init sock of prot: UDP.
+[    5.917605] inet_init: start prot: 17
+[    5.917606] inet_init: checking answer: 17.
+[    5.917607] inet_init: lookup error: 0.
+[    5.917608] inet_init: netns ok.
+[    5.917609] inet_init: sk_alloc ok.
+[    5.917610] inet_init: init_data...
+[    5.917611] inet_init: init_data ok.
+[    5.917612] inet_init: Going down to init sock of prot: UDP.
+[    5.918029] inet_init: start prot: 17
+[    5.918030] inet_init: checking answer: 17.
+[    5.918031] inet_init: lookup error: 0.
+[    5.918032] inet_init: netns ok.
+[    5.918034] inet_init: sk_alloc ok.
+[    5.918035] inet_init: init_data...
+[    5.918036] inet_init: init_data ok.
+[    5.918037] inet_init: Going down to init sock of prot: UDP.
+[    5.918413] inet_init: start prot: 17
+[    5.918415] inet_init: checking answer: 17.
+[    5.918416] inet_init: lookup error: 0.
+[    5.918417] inet_init: netns ok.
+[    5.918418] inet_init: sk_alloc ok.
+[    5.918419] inet_init: init_data...
+[    5.918420] inet_init: init_data ok.
+[    5.918422] inet_init: Going down to init sock of prot: UDP.
+[    5.918868] inet_init: start prot: 17
+[    5.918870] inet_init: checking answer: 17.
+[    5.918871] inet_init: lookup error: 0.
+[    5.918872] inet_init: netns ok.
+[    5.918873] inet_init: sk_alloc ok.
+[    5.918874] inet_init: init_data...
+[    5.918875] inet_init: init_data ok.
+[    5.918876] inet_init: Going down to init sock of prot: UDP.
+[    5.919247] inet_init: start prot: 17
+[    5.919248] inet_init: checking answer: 17.
+[    5.919249] inet_init: lookup error: 0.
+[    5.919250] inet_init: netns ok.
+[    5.919251] inet_init: sk_alloc ok.
+[    5.919252] inet_init: init_data...
+[    5.919252] inet_init: init_data ok.
+[    5.919253] inet_init: Going down to init sock of prot: UDP.
+[    5.919684] inet_init: start prot: 17
+[    5.919686] inet_init: checking answer: 17.
+[    5.919687] inet_init: lookup error: 0.
+[    5.919688] inet_init: netns ok.
+[    5.919689] inet_init: sk_alloc ok.
+[    5.919690] inet_init: init_data...
+[    5.919691] inet_init: init_data ok.
+[    5.919692] inet_init: Going down to init sock of prot: UDP.
+[    5.920038] inet_init: start prot: 17
+[    5.920040] inet_init: checking answer: 17.
+[    5.920041] inet_init: lookup error: 0.
+[    5.920042] inet_init: netns ok.
+[    5.920043] inet_init: sk_alloc ok.
+[    5.920044] inet_init: init_data...
+[    5.920045] inet_init: init_data ok.
+[    5.920046] inet_init: Going down to init sock of prot: UDP.
+[    5.920461] inet_init: start prot: 17
+[    5.920463] inet_init: checking answer: 17.
+[    5.920464] inet_init: lookup error: 0.
+[    5.920465] inet_init: netns ok.
+[    5.920466] inet_init: sk_alloc ok.
+[    5.920467] inet_init: init_data...
+[    5.920468] inet_init: init_data ok.
+[    5.920469] inet_init: Going down to init sock of prot: UDP.
+[    5.920877] inet_init: start prot: 17
+[    5.920879] inet_init: checking answer: 17.
+[    5.920881] inet_init: lookup error: 0.
+[    5.920883] inet_init: netns ok.
+[    5.920885] inet_init: sk_alloc ok.
+[    5.920887] inet_init: init_data...
+[    5.920889] inet_init: init_data ok.
+[    5.920891] inet_init: Going down to init sock of prot: UDP.
+[    5.921291] inet_init: start prot: 17
+[    5.921293] inet_init: checking answer: 17.
+[    5.921294] inet_init: lookup error: 0.
+[    5.921295] inet_init: netns ok.
+[    5.921296] inet_init: sk_alloc ok.
+[    5.921297] inet_init: init_data...
+[    5.921298] inet_init: init_data ok.
+[    5.921299] inet_init: Going down to init sock of prot: UDP.
+[    5.921731] inet_init: start prot: 17
+[    5.921732] inet_init: checking answer: 17.
+[    5.921733] inet_init: lookup error: 0.
+[    5.921734] inet_init: netns ok.
+[    5.921736] inet_init: sk_alloc ok.
+[    5.921736] inet_init: init_data...
+[    5.921738] inet_init: init_data ok.
+[    5.921739] inet_init: Going down to init sock of prot: UDP.
+[    5.922106] inet_init: start prot: 17
+[    5.922108] inet_init: checking answer: 17.
+[    5.922109] inet_init: lookup error: 0.
+[    5.922110] inet_init: netns ok.
+[    5.922111] inet_init: sk_alloc ok.
+[    5.922112] inet_init: init_data...
+[    5.922113] inet_init: init_data ok.
+[    5.922114] inet_init: Going down to init sock of prot: UDP.
+[    5.922545] inet_init: start prot: 17
+[    5.922546] inet_init: checking answer: 17.
+[    5.922547] inet_init: lookup error: 0.
+[    5.922548] inet_init: netns ok.
+[    5.922549] inet_init: sk_alloc ok.
+[    5.922550] inet_init: init_data...
+[    5.922551] inet_init: init_data ok.
+[    5.922553] inet_init: Going down to init sock of prot: UDP.
+[    5.922899] inet_init: start prot: 17
+[    5.922900] inet_init: checking answer: 17.
+[    5.922901] inet_init: lookup error: 0.
+[    5.922903] inet_init: netns ok.
+[    5.922904] inet_init: sk_alloc ok.
+[    5.922905] inet_init: init_data...
+[    5.922905] inet_init: init_data ok.
+[    5.922907] inet_init: Going down to init sock of prot: UDP.
+[    5.923303] inet_init: start prot: 17
+[    5.923305] inet_init: checking answer: 17.
+[    5.923306] inet_init: lookup error: 0.
+[    5.923307] inet_init: netns ok.
+[    5.923308] inet_init: sk_alloc ok.
+[    5.923309] inet_init: init_data...
+[    5.923310] inet_init: init_data ok.
+[    5.923311] inet_init: Going down to init sock of prot: UDP.
+[    5.923657] inet_init: start prot: 17
+[    5.923658] inet_init: checking answer: 17.
+[    5.923660] inet_init: lookup error: 0.
+[    5.923661] inet_init: netns ok.
+[    5.923662] inet_init: sk_alloc ok.
+[    5.923663] inet_init: init_data...
+[    5.923664] inet_init: init_data ok.
+[    5.923665] inet_init: Going down to init sock of prot: UDP.
+[    5.924010] inet_init: start prot: 17
+[    5.924011] inet_init: checking answer: 17.
+[    5.924012] inet_init: lookup error: 0.
+[    5.924012] inet_init: netns ok.
+[    5.924013] inet_init: sk_alloc ok.
+[    5.924014] inet_init: init_data...
+[    5.924014] inet_init: init_data ok.
+[    5.924015] inet_init: Going down to init sock of prot: UDP.
+[    5.924223] inet_init: start prot: 17
+[    5.924224] inet_init: checking answer: 17.
+[    5.924225] inet_init: lookup error: 0.
+[    5.924225] inet_init: netns ok.
+[    5.924226] inet_init: sk_alloc ok.
+[    5.924227] inet_init: init_data...
+[    5.924227] inet_init: init_data ok.
+[    5.924228] inet_init: Going down to init sock of prot: UDP.
+[    5.924431] inet_init: start prot: 17
+[    5.924432] inet_init: checking answer: 17.
+[    5.924433] inet_init: lookup error: 0.
+[    5.924433] inet_init: netns ok.
+[    5.924434] inet_init: sk_alloc ok.
+[    5.924435] inet_init: init_data...
+[    5.924435] inet_init: init_data ok.
+[    5.924436] inet_init: Going down to init sock of prot: UDP.
+[    5.924741] inet_init: start prot: 17
+[    5.924742] inet_init: checking answer: 17.
+[    5.924743] inet_init: lookup error: 0.
+[    5.924743] inet_init: netns ok.
+[    5.924744] inet_init: sk_alloc ok.
+[    5.924744] inet_init: init_data...
+[    5.924745] inet_init: init_data ok.
+[    5.924746] inet_init: Going down to init sock of prot: UDP.
+[    5.924950] inet_init: start prot: 17
+[    5.924951] inet_init: checking answer: 17.
+[    5.924952] inet_init: lookup error: 0.
+[    5.924952] inet_init: netns ok.
+[    5.924953] inet_init: sk_alloc ok.
+[    5.924953] inet_init: init_data...
+[    5.924954] inet_init: init_data ok.
+[    5.924955] inet_init: Going down to init sock of prot: UDP.
+[    5.925205] inet_init: start prot: 17
+[    5.925206] inet_init: checking answer: 17.
+[    5.925207] inet_init: lookup error: 0.
+[    5.925208] inet_init: netns ok.
+[    5.925208] inet_init: sk_alloc ok.
+[    5.925209] inet_init: init_data...
+[    5.925210] inet_init: init_data ok.
+[    5.925211] inet_init: Going down to init sock of prot: UDP.
+[    5.925486] inet_init: start prot: 17
+[    5.925487] inet_init: checking answer: 17.
+[    5.925488] inet_init: lookup error: 0.
+[    5.925489] inet_init: netns ok.
+[    5.925490] inet_init: sk_alloc ok.
+[    5.925490] inet_init: init_data...
+[    5.925491] inet_init: init_data ok.
+[    5.925492] inet_init: Going down to init sock of prot: UDP.
+[    5.925731] inet_init: start prot: 17
+[    5.925732] inet_init: checking answer: 17.
+[    5.925733] inet_init: lookup error: 0.
+[    5.925733] inet_init: netns ok.
+[    5.925734] inet_init: sk_alloc ok.
+[    5.925735] inet_init: init_data...
+[    5.925735] inet_init: init_data ok.
+[    5.925736] inet_init: Going down to init sock of prot: UDP.
+[    5.925991] inet_init: start prot: 17
+[    5.925992] inet_init: checking answer: 17.
+[    5.925993] inet_init: lookup error: 0.
+[    5.925994] inet_init: netns ok.
+[    5.925995] inet_init: sk_alloc ok.
+[    5.925996] inet_init: init_data...
+[    5.925996] inet_init: init_data ok.
+[    5.925997] inet_init: Going down to init sock of prot: UDP.
+[    5.926240] inet_init: start prot: 17
+[    5.926241] inet_init: checking answer: 17.
+[    5.926241] inet_init: lookup error: 0.
+[    5.926242] inet_init: netns ok.
+[    5.926243] inet_init: sk_alloc ok.
+[    5.926244] inet_init: init_data...
+[    5.926244] inet_init: init_data ok.
+[    5.926245] inet_init: Going down to init sock of prot: UDP.
+[    5.926481] inet_init: start prot: 17
+[    5.926482] inet_init: checking answer: 17.
+[    5.926483] inet_init: lookup error: 0.
+[    5.926483] inet_init: netns ok.
+[    5.926484] inet_init: sk_alloc ok.
+[    5.926485] inet_init: init_data...
+[    5.926485] inet_init: init_data ok.
+[    5.926486] inet_init: Going down to init sock of prot: UDP.
+[    5.926759] inet_init: start prot: 17
+[    5.926760] inet_init: checking answer: 17.
+[    5.926761] inet_init: lookup error: 0.
+[    5.926762] inet_init: netns ok.
+[    5.926762] inet_init: sk_alloc ok.
+[    5.926763] inet_init: init_data...
+[    5.926764] inet_init: init_data ok.
+[    5.926765] inet_init: Going down to init sock of prot: UDP.
+[    5.927017] inet_init: start prot: 17
+[    5.927018] inet_init: checking answer: 17.
+[    5.927018] inet_init: lookup error: 0.
+[    5.927019] inet_init: netns ok.
+[    5.927020] inet_init: sk_alloc ok.
+[    5.927020] inet_init: init_data...
+[    5.927021] inet_init: init_data ok.
+[    5.927022] inet_init: Going down to init sock of prot: UDP.
+[    5.927277] inet_init: start prot: 17
+[    5.927278] inet_init: checking answer: 17.
+[    5.927279] inet_init: lookup error: 0.
+[    5.927280] inet_init: netns ok.
+[    5.927281] inet_init: sk_alloc ok.
+[    5.927281] inet_init: init_data...
+[    5.927282] inet_init: init_data ok.
+[    5.927283] inet_init: Going down to init sock of prot: UDP.
+[    5.927559] inet_init: start prot: 17
+[    5.927560] inet_init: checking answer: 17.
+[    5.927561] inet_init: lookup error: 0.
+[    5.927562] inet_init: netns ok.
+[    5.927563] inet_init: sk_alloc ok.
+[    5.927563] inet_init: init_data...
+[    5.927564] inet_init: init_data ok.
+[    5.927565] inet_init: Going down to init sock of prot: UDP.
+[    5.927807] inet_init: start prot: 17
+[    5.927807] inet_init: checking answer: 17.
+[    5.927808] inet_init: lookup error: 0.
+[    5.927809] inet_init: netns ok.
+[    5.927810] inet_init: sk_alloc ok.
+[    5.927810] inet_init: init_data...
+[    5.927811] inet_init: init_data ok.
+[    5.927811] inet_init: Going down to init sock of prot: UDP.
+[    5.928054] inet_init: start prot: 17
+[    5.928055] inet_init: checking answer: 17.
+[    5.928056] inet_init: lookup error: 0.
+[    5.928057] inet_init: netns ok.
+[    5.928058] inet_init: sk_alloc ok.
+[    5.928058] inet_init: init_data...
+[    5.928059] inet_init: init_data ok.
+[    5.928060] inet_init: Going down to init sock of prot: UDP.
+[    5.928371] inet_init: start prot: 17
+[    5.928372] inet_init: checking answer: 17.
+[    5.928373] inet_init: lookup error: 0.
+[    5.928374] inet_init: netns ok.
+[    5.928374] inet_init: sk_alloc ok.
+[    5.928375] inet_init: init_data...
+[    5.928376] inet_init: init_data ok.
+[    5.928377] inet_init: Going down to init sock of prot: UDP.
+[    5.928628] inet_init: start prot: 17
+[    5.928629] inet_init: checking answer: 17.
+[    5.928630] inet_init: lookup error: 0.
+[    5.928630] inet_init: netns ok.
+[    5.928631] inet_init: sk_alloc ok.
+[    5.928632] inet_init: init_data...
+[    5.928633] inet_init: init_data ok.
+[    5.928633] inet_init: Going down to init sock of prot: UDP.
+[    5.929630] inet_init: start prot: 17
+[    5.929632] inet_init: checking answer: 17.
+[    5.929633] inet_init: lookup error: 0.
+[    5.929634] inet_init: netns ok.
+[    5.929635] inet_init: sk_alloc ok.
+[    5.929635] inet_init: init_data...
+[    5.929636] inet_init: init_data ok.
+[    5.929637] inet_init: Going down to init sock of prot: UDP.
+[    5.929801] inet_init: start prot: 6
+[    5.929802] inet_init: checking answer: 6.
+[    5.929803] inet_init: lookup error: 0.
+[    5.929804] inet_init: netns ok.
+[    5.929805] inet_init: sk_alloc ok.
+[    5.929806] inet_init: init_data...
+[    5.929806] inet_init: init_data ok.
+[    5.929807] inet_init: Going down to init sock of prot: TCP.
+[    6.048985] inet_init: start prot: 0
+[    6.048988] inet_init: checking answer: 6.
+[    6.048990] inet_init: lookup error: 0.
+[    6.048991] inet_init: netns ok.
+[    6.048993] inet_init: sk_alloc ok.
+[    6.048994] inet_init: init_data...
+[    6.048995] inet_init: init_data ok.
+[    6.048996] inet_init: Going down to init sock of prot: TCP.
+[    6.049066] inet_init: start prot: 0
+[    6.049067] inet_init: checking answer: 17.
+[    6.049069] inet_init: lookup error: 0.
+[    6.049070] inet_init: netns ok.
+[    6.049072] inet_init: sk_alloc ok.
+[    6.049073] inet_init: init_data...
+[    6.049074] inet_init: init_data ok.
+[    6.049075] inet_init: Going down to init sock of prot: UDP.
+[    7.042417] inet_init: start prot: 0
+[    7.042419] inet_init: checking answer: 17.
+[    7.042420] inet_init: lookup error: 0.
+[    7.042420] inet_init: netns ok.
+[    7.042422] inet_init: sk_alloc ok.
+[    7.042423] inet_init: init_data...
+[    7.042424] inet_init: init_data ok.
+[    7.042425] inet_init: Going down to init sock of prot: UDP.
+[    7.206622] inet_init: start prot: 0
+[    7.206624] inet_init: checking answer: 17.
+[    7.206625] inet_init: lookup error: 0.
+[    7.206626] inet_init: netns ok.
+[    7.206627] inet_init: sk_alloc ok.
+[    7.206628] inet_init: init_data...
+[    7.206629] inet_init: init_data ok.
+[    7.206629] inet_init: Going down to init sock of prot: UDP.
+[    7.506586] inet_init: start prot: 0
+[    7.506588] inet_init: checking answer: 17.
+[    7.506589] inet_init: lookup error: 0.
+[    7.506590] inet_init: netns ok.
+[    7.506591] inet_init: sk_alloc ok.
+[    7.506591] inet_init: init_data...
+[    7.506592] inet_init: init_data ok.
+[    7.506593] inet_init: Going down to init sock of prot: UDP.
+[    7.508533] inet_init: start prot: 0
+[    7.508535] inet_init: checking answer: 17.
+[    7.508536] inet_init: lookup error: 0.
+[    7.508537] inet_init: netns ok.
+[    7.508538] inet_init: sk_alloc ok.
+[    7.508539] inet_init: init_data...
+[    7.508540] inet_init: init_data ok.
+[    7.508541] inet_init: Going down to init sock of prot: UDP.
+[    7.662688] inet_init: start prot: 0
+[    7.662690] inet_init: checking answer: 17.
+[    7.662691] inet_init: lookup error: 0.
+[    7.662691] inet_init: netns ok.
+[    7.662693] inet_init: sk_alloc ok.
+[    7.662693] inet_init: init_data...
+[    7.662694] inet_init: init_data ok.
+[    7.662695] inet_init: Going down to init sock of prot: UDP.
+[    7.665054] inet_init: start prot: 0
+[    7.665057] inet_init: checking answer: 17.
+[    7.665058] inet_init: lookup error: 0.
+[    7.665058] inet_init: netns ok.
+[    7.665060] inet_init: sk_alloc ok.
+[    7.665061] inet_init: init_data...
+[    7.665061] inet_init: init_data ok.
+[    7.665062] inet_init: Going down to init sock of prot: UDP.
+[    7.776671] Removing vmci device
+[    7.776675] Resetting vmci device
+[    7.777009] Unregistered vmci device.
+[    7.777037] vmci 0000:00:07.7: PCI INT A disabled
+[    7.777328] [2638]: VMCI: Module vmci: unloaded
+[    8.306297] inet_init: start prot: 0
+[    8.306298] inet_init: checking answer: 6.
+[    8.306299] inet_init: lookup error: 0.
+[    8.306300] inet_init: netns ok.
+[    8.306301] inet_init: sk_alloc ok.
+[    8.306302] inet_init: init_data...
+[    8.306303] inet_init: init_data ok.
+[    8.306303] inet_init: Going down to init sock of prot: TCP.
+[    8.317869] inet_init: start prot: 0
+[    8.317871] inet_init: checking answer: 6.
+[    8.317871] inet_init: lookup error: 0.
+[    8.317872] inet_init: netns ok.
+[    8.317874] inet_init: sk_alloc ok.
+[    8.317874] inet_init: init_data...
+[    8.317875] inet_init: init_data ok.
+[    8.317876] inet_init: Going down to init sock of prot: TCP.
+[    8.453332] inet_init: start prot: 0
+[    8.453334] inet_init: checking answer: 6.
+[    8.453335] inet_init: lookup error: 0.
+[    8.453336] inet_init: netns ok.
+[    8.453338] inet_init: sk_alloc ok.
+[    8.453338] inet_init: init_data...
+[    8.453339] inet_init: init_data ok.
+[    8.453340] inet_init: Going down to init sock of prot: TCP.
+[    8.495160] inet_init: start prot: 0
+[    8.495162] inet_init: checking answer: 6.
+[    8.495163] inet_init: lookup error: 0.
+[    8.495164] inet_init: netns ok.
+[    8.495165] inet_init: sk_alloc ok.
+[    8.495166] inet_init: init_data...
+[    8.495167] inet_init: init_data ok.
+[    8.495168] inet_init: Going down to init sock of prot: TCP.
+[    8.499509] inet_init: start prot: 0
+[    8.499513] inet_init: checking answer: 6.
+[    8.499514] inet_init: lookup error: 0.
+[    8.499515] inet_init: netns ok.
+[    8.499518] inet_init: sk_alloc ok.
+[    8.499519] inet_init: init_data...
+[    8.499519] inet_init: init_data ok.
+[    8.499520] inet_init: Going down to init sock of prot: TCP.
+[    8.509281] inet_init: start prot: 0
+[    8.509283] inet_init: checking answer: 6.
+[    8.509283] inet_init: lookup error: 0.
+[    8.509284] inet_init: netns ok.
+[    8.509285] inet_init: sk_alloc ok.
+[    8.509286] inet_init: init_data...
+[    8.509286] inet_init: init_data ok.
+[    8.509287] inet_init: Going down to init sock of prot: TCP.
+[    8.512740] inet_init: start prot: 0
+[    8.512743] inet_init: checking answer: 6.
+[    8.512743] inet_init: lookup error: 0.
+[    8.512744] inet_init: netns ok.
+[    8.512746] inet_init: sk_alloc ok.
+[    8.512746] inet_init: init_data...
+[    8.512747] inet_init: init_data ok.
+[    8.512748] inet_init: Going down to init sock of prot: TCP.
+[    8.513035] inet_init: start prot: 0
+[    8.513038] inet_init: checking answer: 6.
+[    8.513039] inet_init: lookup error: 0.
+[    8.513039] inet_init: netns ok.
+[    8.513041] inet_init: sk_alloc ok.
+[    8.513041] inet_init: init_data...
+[    8.513042] inet_init: init_data ok.
+[    8.513043] inet_init: Going down to init sock of prot: TCP.
+[    8.920543] inet_init: start prot: 0
+[    8.920545] inet_init: checking answer: 17.
+[    8.920546] inet_init: lookup error: 0.
+[    8.920547] inet_init: netns ok.
+[    8.920548] inet_init: sk_alloc ok.
+[    8.920548] inet_init: init_data...
+[    8.920549] inet_init: init_data ok.
+[    8.920550] inet_init: Going down to init sock of prot: UDP.
+[    8.922525] inet_init: start prot: 0
+[    8.922527] inet_init: checking answer: 17.
+[    8.922527] inet_init: lookup error: 0.
+[    8.922528] inet_init: netns ok.
+[    8.922529] inet_init: sk_alloc ok.
+[    8.922529] inet_init: init_data...
+[    8.922530] inet_init: init_data ok.
+[    8.922530] inet_init: Going down to init sock of prot: UDP.
+[    9.445220] vmxnet: disagrees about version of symbol alloc_etherdev_mqs
+[    9.445223] vmxnet: Unknown symbol alloc_etherdev_mqs (err -22)
+[    9.445372] vmxnet: disagrees about version of symbol skb_copy_bits
+[    9.445374] vmxnet: Unknown symbol skb_copy_bits (err -22)
+[    9.445404] vmxnet: disagrees about version of symbol skb_put
+[    9.445405] vmxnet: Unknown symbol skb_put (err -22)
+[    9.445422] vmxnet: disagrees about version of symbol consume_skb
+[    9.445423] vmxnet: Unknown symbol consume_skb (err -22)
+[    9.445442] vmxnet: disagrees about version of symbol __netif_schedule
+[    9.445443] vmxnet: Unknown symbol __netif_schedule (err -22)
+[    9.445473] vmxnet: disagrees about version of symbol unregister_netdev
+[    9.445474] vmxnet: Unknown symbol unregister_netdev (err -22)
+[    9.445545] vmxnet: disagrees about version of symbol eth_type_trans
+[    9.445546] vmxnet: Unknown symbol eth_type_trans (err -22)
+[    9.445565] vmxnet: disagrees about version of symbol dev_kfree_skb_irq
+[    9.445566] vmxnet: Unknown symbol dev_kfree_skb_irq (err -22)
+[    9.445609] vmxnet: disagrees about version of symbol register_netdev
+[    9.445610] vmxnet: Unknown symbol register_netdev (err -22)
+[    9.445637] vmxnet: disagrees about version of symbol free_netdev
+[    9.445639] vmxnet: Unknown symbol free_netdev (err -22)
+[    9.445656] vmxnet: disagrees about version of symbol ethtool_op_get_link
+[    9.445657] vmxnet: Unknown symbol ethtool_op_get_link (err -22)
+[    9.445679] vmxnet: disagrees about version of symbol dev_alloc_skb
+[    9.445680] vmxnet: Unknown symbol dev_alloc_skb (err -22)
+[    9.445714] vmxnet: disagrees about version of symbol __pskb_pull_tail
+[    9.445715] vmxnet: Unknown symbol __pskb_pull_tail (err -22)
+[    9.445732] vmxnet: disagrees about version of symbol netif_rx
+[    9.445733] vmxnet: Unknown symbol netif_rx (err -22)
+[    9.445841] vmxnet: disagrees about version of symbol netif_carrier_off
+[    9.445844] vmxnet: Unknown symbol netif_carrier_off (err -22)
+[    9.445880] vmxnet: disagrees about version of symbol netif_carrier_on
+[    9.445882] vmxnet: Unknown symbol netif_carrier_on (err -22)
+[    9.488423] [3005]: VMCI: shared components initialized.
+[    9.488442] Probing for vmci/PCI.
+[    9.488485] vmci 0000:00:07.7: PCI INT A -> GSI 16 (level, low) -> IRQ 16
+[    9.488550] Found vmci/PCI at 0x1080, irq 16.
+[    9.488582] VMCI: using capabilities 0xc.
+[    9.488635] [3005]: VMCI: Host capability check passed.
+[    9.489055] vmci 0000:00:07.7: irq 72 for MSI/MSI-X
+[    9.489086] vmci 0000:00:07.7: irq 73 for MSI/MSI-X
+[    9.489266] Registered vmci device.
+[    9.489409] [3005]: VMCI: Using guest personality
+[    9.489411] [3005]: VMCI: host components initialized.
+[    9.489487] [3005]: VMCI: Module registered (name=vmci, major=10, minor=58).
+[    9.489489] [3005]: VMCI: Using host personality
+[    9.489490] [3005]: VMCI: Module (name=vmci) is initialized
+[    9.531022] vsock: disagrees about version of symbol skb_free_datagram
+[    9.531029] vsock: Unknown symbol skb_free_datagram (err -22)
+[    9.531223] vsock: disagrees about version of symbol skb_put
+[    9.531224] vsock: Unknown symbol skb_put (err -22)
+[    9.531285] vsock: disagrees about version of symbol skb_dequeue
+[    9.531286] vsock: Unknown symbol skb_dequeue (err -22)
+[    9.531427] vsock: disagrees about version of symbol sk_receive_skb
+[    9.531428] vsock: Unknown symbol sk_receive_skb (err -22)
+[    9.531455] vsock: disagrees about version of symbol skb_copy_datagram_iovec
+[    9.531456] vsock: Unknown symbol skb_copy_datagram_iovec (err -22)
+[    9.531538] vsock: disagrees about version of symbol proto_unregister
+[    9.531539] vsock: Unknown symbol proto_unregister (err -22)
+[    9.531555] vsock: disagrees about version of symbol kfree_skb
+[    9.531556] vsock: Unknown symbol kfree_skb (err -22)
+[    9.531640] vsock: disagrees about version of symbol sock_register
+[    9.531642] vsock: Unknown symbol sock_register (err -22)
+[    9.531848] vsock: disagrees about version of symbol __alloc_skb
+[    9.531849] vsock: Unknown symbol __alloc_skb (err -22)
+[    9.531867] vsock: disagrees about version of symbol proto_register
+[    9.531868] vsock: Unknown symbol proto_register (err -22)
+[    9.531921] vsock: disagrees about version of symbol sk_free
+[    9.531922] vsock: Unknown symbol sk_free (err -22)
+[    9.531940] vsock: disagrees about version of symbol sock_no_accept
+[    9.531941] vsock: Unknown symbol sock_no_accept (err -22)
+[    9.531961] vsock: disagrees about version of symbol sock_no_listen
+[    9.531962] vsock: Unknown symbol sock_no_listen (err -22)
+[    9.532043] vsock: disagrees about version of symbol lock_sock_nested
+[    9.532044] vsock: Unknown symbol lock_sock_nested (err -22)
+[    9.532126] vsock: disagrees about version of symbol sk_alloc
+[    9.532127] vsock: Unknown symbol sk_alloc (err -22)
+[    9.532177] vsock: disagrees about version of symbol sock_no_socketpair
+[    9.532178] vsock: Unknown symbol sock_no_socketpair (err -22)
+[    9.532209] vsock: disagrees about version of symbol sock_no_mmap
+[    9.532210] vsock: Unknown symbol sock_no_mmap (err -22)
+[    9.532257] vsock: disagrees about version of symbol sock_no_sendpage
+[    9.532259] vsock: Unknown symbol sock_no_sendpage (err -22)
+[    9.532432] vsock: disagrees about version of symbol skb_recv_datagram
+[    9.532448] vsock: Unknown symbol skb_recv_datagram (err -22)
+[    9.532538] vsock: disagrees about version of symbol sock_queue_rcv_skb
+[    9.532540] vsock: Unknown symbol sock_queue_rcv_skb (err -22)
+[    9.532638] vsock: disagrees about version of symbol sock_no_ioctl
+[    9.532639] vsock: Unknown symbol sock_no_ioctl (err -22)
+[    9.532656] vsock: disagrees about version of symbol sock_no_getsockopt
+[    9.532657] vsock: Unknown symbol sock_no_getsockopt (err -22)
+[    9.532677] vsock: disagrees about version of symbol sock_no_setsockopt
+[    9.532678] vsock: Unknown symbol sock_no_setsockopt (err -22)
+[    9.532758] vsock: disagrees about version of symbol sock_init_data
+[    9.532759] vsock: Unknown symbol sock_init_data (err -22)
+[    9.532793] vsock: disagrees about version of symbol release_sock
+[    9.532794] vsock: Unknown symbol release_sock (err -22)
+[   10.663398] inet_init: start prot: 0
+[   10.663401] inet_init: checking answer: 6.
+[   10.663402] inet_init: lookup error: 0.
+[   10.663403] inet_init: netns ok.
+[   10.663405] inet_init: sk_alloc ok.
+[   10.663406] inet_init: init_data...
+[   10.663407] inet_init: init_data ok.
+[   10.663408] inet_init: Going down to init sock of prot: TCP.
+[   11.381758] inet_init: start prot: 0
+[   11.381760] inet_init: checking answer: 17.
+[   11.381761] inet_init: lookup error: 0.
+[   11.381762] inet_init: netns ok.
+[   11.381763] inet_init: sk_alloc ok.
+[   11.381764] inet_init: init_data...
+[   11.381764] inet_init: init_data ok.
+[   11.381765] inet_init: Going down to init sock of prot: UDP.
+[   11.383526] inet_init: start prot: 0
+[   11.383528] inet_init: checking answer: 17.
+[   11.383530] inet_init: lookup error: 0.
+[   11.383531] inet_init: netns ok.
+[   11.383533] inet_init: sk_alloc ok.
+[   11.383534] inet_init: init_data...
+[   11.383535] inet_init: init_data ok.
+[   11.383536] inet_init: Going down to init sock of prot: UDP.
+[   11.590753] inet_init: start prot: 0
+[   11.590755] inet_init: checking answer: 17.
+[   11.590756] inet_init: lookup error: 0.
+[   11.590757] inet_init: netns ok.
+[   11.590758] inet_init: sk_alloc ok.
+[   11.590759] inet_init: init_data...
+[   11.590760] inet_init: init_data ok.
+[   11.590761] inet_init: Going down to init sock of prot: UDP.
+[   11.592474] inet_init: start prot: 0
+[   11.592476] inet_init: checking answer: 17.
+[   11.592477] inet_init: lookup error: 0.
+[   11.592478] inet_init: netns ok.
+[   11.592479] inet_init: sk_alloc ok.
+[   11.592479] inet_init: init_data...
+[   11.592480] inet_init: init_data ok.
+[   11.592499] inet_init: Going down to init sock of prot: UDP.
+[   11.722340] Removing vmci device
+[   11.722346] Resetting vmci device
+[   11.722825] Unregistered vmci device.
+[   11.722861] vmci 0000:00:07.7: PCI INT A disabled
+[   11.723061] [3683]: VMCI: Module vmci: unloaded
+[   13.929491] inet_init: start prot: 0
+[   13.929494] inet_init: checking answer: 6.
+[   13.929496] inet_init: lookup error: 0.
+[   13.929497] inet_init: netns ok.
+[   13.929500] inet_init: sk_alloc ok.
+[   13.929502] inet_init: init_data...
+[   13.929503] inet_init: init_data ok.
+[   13.929504] inet_init: Going down to init sock of prot: TCP.
+[   14.172165] inet_init: start prot: 0
+[   14.172167] inet_init: checking answer: 6.
+[   14.172168] inet_init: lookup error: 0.
+[   14.172169] inet_init: netns ok.
+[   14.172171] inet_init: sk_alloc ok.
+[   14.172171] inet_init: init_data...
+[   14.172172] inet_init: init_data ok.
+[   14.172173] inet_init: Going down to init sock of prot: TCP.
+[   14.278232] inet_init: start prot: 0
+[   14.278235] inet_init: checking answer: 6.
+[   14.278236] inet_init: lookup error: 0.
+[   14.278237] inet_init: netns ok.
+[   14.278238] inet_init: sk_alloc ok.
+[   14.278239] inet_init: init_data...
+[   14.278240] inet_init: init_data ok.
+[   14.278241] inet_init: Going down to init sock of prot: TCP.
+[   16.021997] inet_init: start prot: 0
+[   16.021999] inet_init: checking answer: 17.
+[   16.022000] inet_init: lookup error: 0.
+[   16.022000] inet_init: netns ok.
+[   16.022003] inet_init: sk_alloc ok.
+[   16.022003] inet_init: init_data...
+[   16.022004] inet_init: init_data ok.
+[   16.022005] inet_init: Going down to init sock of prot: UDP.
+[   16.022015] inet_init: start prot: 0
+[   16.022016] inet_init: checking answer: 17.
+[   16.022016] inet_init: lookup error: 0.
+[   16.022017] inet_init: netns ok.
+[   16.022017] inet_init: sk_alloc ok.
+[   16.022018] inet_init: init_data...
+[   16.022018] inet_init: init_data ok.
+[   16.022019] inet_init: Going down to init sock of prot: UDP.
+[   16.022022] inet_init: start prot: 0
+[   16.022023] inet_init: checking answer: 17.
+[   16.022024] inet_init: lookup error: 0.
+[   16.022024] inet_init: netns ok.
+[   16.022025] inet_init: sk_alloc ok.
+[   16.022025] inet_init: init_data...
+[   16.022026] inet_init: init_data ok.
+[   16.022026] inet_init: Going down to init sock of prot: UDP.
+[   16.156254] eth1: no IPv6 routers present
+[  135.247293] inet_init: start prot: 132
+[  135.247295] inet_init: checking answer: 6.
+[  135.247296] inet_init: checking answer: 140.
+[  135.247297] inet_init: lookup error: -93.
+[  135.247990] inet_init: checking answer: 6.
+[  135.247992] inet_init: checking answer: 140.
+[  135.247992] inet_init: lookup error: -93.
+[  135.289681] sctp: Hash tables configured (established 65536 bind 65536)
+[  135.290897] inet_init: checking answer: 6.
+[  135.290899] inet_init: checking answer: 140.
+[  135.290900] inet_init: checking answer: 132.
+[  135.290900] inet_init: lookup error: 0.
+[  135.290901] inet_init: netns ok.
+[  135.290904] inet_init: sk_alloc ok.
+[  135.290905] inet_init: init_data...
+[  135.290905] inet_init: init_data ok.
+[  135.290906] inet_init: Going down to init sock of prot: SCTP.
+[  154.410245] inet_init: start prot: 6
+[  154.410247] inet_init: checking answer: 6.
+[  154.410247] inet_init: lookup error: 0.
+[  154.410248] inet_init: netns ok.
+[  154.410250] inet_init: sk_alloc ok.
+[  154.410251] inet_init: init_data...
+[  154.410251] inet_init: init_data ok.
+[  154.410252] inet_init: Going down to init sock of prot: TCP.
+[  224.847822] inet_init: start prot: 6
+[  224.847825] inet_init: checking answer: 6.
+[  224.847826] inet_init: lookup error: 0.
+[  224.847826] inet_init: netns ok.
+[  224.847828] inet_init: sk_alloc ok.
+[  224.847829] inet_init: init_data...
+[  224.847830] inet_init: init_data ok.
+[  224.847831] inet_init: Going down to init sock of prot: TCP.
+[  314.581082] inet_init: start prot: 0
+[  314.581084] inet_init: checking answer: 17.
+[  314.581085] inet_init: lookup error: 0.
+[  314.581085] inet_init: netns ok.
+[  314.581088] inet_init: sk_alloc ok.
+[  314.581088] inet_init: init_data...
+[  314.581089] inet_init: init_data ok.
+[  314.581090] inet_init: Going down to init sock of prot: UDP.
+[  324.569787] inet_init: start prot: 0
+[  324.569789] inet_init: checking answer: 17.
+[  324.569790] inet_init: lookup error: 0.
+[  324.569790] inet_init: netns ok.
+[  324.569791] inet_init: sk_alloc ok.
+[  324.569792] inet_init: init_data...
+[  324.569793] inet_init: init_data ok.
+[  324.569793] inet_init: Going down to init sock of prot: UDP.
+[  334.565099] inet_init: start prot: 0
+[  334.565101] inet_init: checking answer: 17.
+[  334.565102] inet_init: lookup error: 0.
+[  334.565102] inet_init: netns ok.
+[  334.565103] inet_init: sk_alloc ok.
+[  334.565104] inet_init: init_data...
+[  334.565105] inet_init: init_data ok.
+[  334.565105] inet_init: Going down to init sock of prot: UDP.
+[  335.432808] inet_init: start prot: 0
+[  335.432810] inet_init: checking answer: 17.
+[  335.432811] inet_init: lookup error: 0.
+[  335.432812] inet_init: netns ok.
+[  335.432815] inet_init: sk_alloc ok.
+[  335.432816] inet_init: init_data...
+[  335.432817] inet_init: init_data ok.
+[  335.432818] inet_init: Going down to init sock of prot: UDP.
+[  335.432828] inet_init: start prot: 0
+[  335.432829] inet_init: checking answer: 17.
+[  335.432830] inet_init: lookup error: 0.
+[  335.432830] inet_init: netns ok.
+[  335.432831] inet_init: sk_alloc ok.
+[  335.432832] inet_init: init_data...
+[  335.432833] inet_init: init_data ok.
+[  335.432833] inet_init: Going down to init sock of prot: UDP.
+[  335.432837] inet_init: start prot: 0
+[  335.432838] inet_init: checking answer: 17.
+[  335.432839] inet_init: lookup error: 0.
+[  335.432840] inet_init: netns ok.
+[  335.432840] inet_init: sk_alloc ok.
+[  335.432841] inet_init: init_data...
+[  335.432842] inet_init: init_data ok.
+[  335.432843] inet_init: Going down to init sock of prot: UDP.
+[  344.555777] inet_init: start prot: 0
+[  344.555779] inet_init: checking answer: 17.
+[  344.555780] inet_init: lookup error: 0.
+[  344.555781] inet_init: netns ok.
+[  344.555782] inet_init: sk_alloc ok.
+[  344.555783] inet_init: init_data...
+[  344.555784] inet_init: init_data ok.
+[  344.555785] inet_init: Going down to init sock of prot: UDP.
+[  354.557502] inet_init: start prot: 0
+[  354.557504] inet_init: checking answer: 17.
+[  354.557505] inet_init: lookup error: 0.
+[  354.557506] inet_init: netns ok.
+[  354.557507] inet_init: sk_alloc ok.
+[  354.557508] inet_init: init_data...
+[  354.557509] inet_init: init_data ok.
+[  354.557510] inet_init: Going down to init sock of prot: UDP.
+[  364.551681] inet_init: start prot: 0
+[  364.551683] inet_init: checking answer: 17.
+[  364.551684] inet_init: lookup error: 0.
+[  364.551684] inet_init: netns ok.
+[  364.551685] inet_init: sk_alloc ok.
+[  364.551686] inet_init: init_data...
+[  364.551687] inet_init: init_data ok.
+[  364.551688] inet_init: Going down to init sock of prot: UDP.

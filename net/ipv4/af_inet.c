@@ -1538,6 +1538,7 @@ static const struct net_protocol ttcp_protocol = {
 	.no_policy =	1,
 	.netns_ok =	1,
 };
+
 static const struct net_protocol udp_protocol = {
 	.handler =	udp_rcv,
 	.err_handler =	udp_err,
@@ -1695,7 +1696,7 @@ static int __init inet_init(void)
 		printk(KERN_CRIT "inet_init: Cannot add UDP protocol\n");
 	if (inet_add_protocol(&tcp_protocol, IPPROTO_TCP) < 0)
 		printk(KERN_CRIT "inet_init: Cannot add TCP protocol\n");
-    if (inet_add_protocol(&ttcp_protocol, IPPROTO_TTCP) < 0)
+    if (inet_add_protocol(&tcp_protocol, IPPROTO_TTCP) < 0)
 		printk(KERN_CRIT "inet_init: Cannot add TTCP protocol\n");
 #ifdef CONFIG_IP_MULTICAST
 	if (inet_add_protocol(&igmp_protocol, IPPROTO_IGMP) < 0)

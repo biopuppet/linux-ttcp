@@ -5139,7 +5139,7 @@ static int ttcp_validate_incoming(struct sock *sk, struct sk_buff *skb,
 	/* step 4: Check for a SYN in window. */
 	if (th->syn && !before(TTCP_SKB_CB(skb)->seq, tp->rcv_nxt)) {
 		if (syn_inerr)
-			TTCP_INC_STATS_BH(sock_net(sk), TTCP_MIB_INERRS);
+			TTCP_INC_STATS_BH(sock_net(sk), TCP_MIB_INERRS);
 		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TCPABORTONSYN);
 		ttcp_reset(sk);
 		return -1;
@@ -5254,7 +5254,7 @@ int ttcp_rcv_established(struct sock *sk, struct sk_buff *skb,
 				ttcp_data_snd_check(sk);
 				return 0;
 			} else { /* Header too small */
-				TTCP_INC_STATS_BH(sock_net(sk), TTCP_MIB_INERRS);
+				TTCP_INC_STATS_BH(sock_net(sk), TCP_MIB_INERRS);
 				goto discard;
 			}
 		} else {
@@ -5378,7 +5378,7 @@ step5:
 	return 0;
 
 csum_error:
-	TTCP_INC_STATS_BH(sock_net(sk), TTCP_MIB_INERRS);
+	TTCP_INC_STATS_BH(sock_net(sk), TCP_MIB_INERRS);
 
 discard:
 	__kfree_skb(skb);

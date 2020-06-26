@@ -2502,12 +2502,12 @@ struct sk_buff *ttcp_tso_segment(struct sk_buff *skb, u32 features)
 		int type = skb_shinfo(skb)->gso_type;
 
 		if (unlikely(type &
-			     ~(SKB_GSO_TTCPV4 |
+			     ~(SKB_GSO_TCPV4 |
 			       SKB_GSO_DODGY |
-			       SKB_GSO_TTCP_ECN |
-			       SKB_GSO_TTCPV6 |
+			       SKB_GSO_TCP_ECN |
+			       SKB_GSO_TCPV6 |
 			       0) ||
-			     !(type & (SKB_GSO_TTCPV4 | SKB_GSO_TTCPV6))))
+			     !(type & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6))))
 			goto out;
 
 		skb_shinfo(skb)->gso_segs = DIV_ROUND_UP(skb->len, mss);
@@ -2664,7 +2664,7 @@ int ttcp_gro_complete(struct sk_buff *skb)
 	skb_shinfo(skb)->gso_segs = NAPI_GRO_CB(skb)->count;
 
 	if (th->cwr)
-		skb_shinfo(skb)->gso_type |= SKB_GSO_TTCP_ECN;
+		skb_shinfo(skb)->gso_type |= SKB_GSO_TCP_ECN;
 
 	return 0;
 }

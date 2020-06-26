@@ -778,7 +778,7 @@ void ttcp_enter_cwr(struct sock *sk, const int set_ssthresh)
 	if (icsk->icsk_ca_state < TTCP_CA_CWR) {
 		tp->undo_marker = 0;
 		if (set_ssthresh)
-			tp->snd_ssthresh = icsk->icsk_ca_ops->ssthresh(sk);
+			tp->snd_ssthresh = icsk->icsk_tca_ops->ssthresh(sk);
 		tp->snd_cwnd = min(tp->snd_cwnd,
 				   ttcp_packets_in_flight(tp) + 1U);
 		tp->snd_cwnd_cnt = 0;
@@ -2010,10 +2010,10 @@ void ttcp_enter_frto(struct sock *sk)
 			u32 stored_cwnd;
 			stored_cwnd = tp->snd_cwnd;
 			tp->snd_cwnd = 2;
-			tp->snd_ssthresh = icsk->icsk_ca_ops->ssthresh(sk);
+			tp->snd_ssthresh = icsk->icsk_tca_ops->ssthresh(sk);
 			tp->snd_cwnd = stored_cwnd;
 		} else {
-			tp->snd_ssthresh = icsk->icsk_ca_ops->ssthresh(sk);
+			tp->snd_ssthresh = icsk->icsk_tca_ops->ssthresh(sk);
 		}
 		/* ... in theory, cong.control module could do "any tricks" in
 		 * ssthresh(), which means that ca_state, lost bits and lost_out
@@ -2153,7 +2153,7 @@ void ttcp_enter_loss(struct sock *sk, int how)
 	if (icsk->icsk_ca_state <= TTCP_CA_Disorder || tp->snd_una == tp->high_seq ||
 	    (icsk->icsk_ca_state == TTCP_CA_Loss && !icsk->icsk_retransmits)) {
 		tp->prior_ssthresh = ttcp_current_ssthresh(sk);
-		tp->snd_ssthresh = icsk->icsk_ca_ops->ssthresh(sk);
+		tp->snd_ssthresh = icsk->icsk_tca_ops->ssthresh(sk);
 		ttcp_ca_event(sk, CA_EVENT_LOSS);
 	}
 	tp->snd_cwnd	   = 1;
@@ -2539,7 +2539,7 @@ static inline void ttcp_moderate_cwnd(struct ttcp_sock *tp)
  */
 static inline u32 ttcp_cwnd_min(const struct sock *sk)
 {
-	const struct ttcp_congestion_ops *ca_ops = inet_csk(sk)->icsk_ca_ops;
+	const struct ttcp_congestion_ops *ca_ops = inet_csk(sk)->icsk_tca_ops;
 
 	return ca_ops->min_cwnd ? ca_ops->min_cwnd(sk) : ttcp_sk(sk)->snd_ssthresh;
 }
@@ -2612,8 +2612,8 @@ static void ttcp_undo_cwr(struct sock *sk, const bool undo_ssthresh)
 	if (tp->prior_ssthresh) {
 		const struct inet_connection_sock *icsk = inet_csk(sk);
 
-		if (icsk->icsk_ca_ops->undo_cwnd)
-			tp->snd_cwnd = icsk->icsk_ca_ops->undo_cwnd(sk);
+		if (icsk->icsk_tca_ops->undo_cwnd)
+			tp->snd_cwnd = icsk->icsk_tca_ops->undo_cwnd(sk);
 		else
 			tp->snd_cwnd = max(tp->snd_cwnd, tp->snd_ssthresh << 1);
 
@@ -3042,7 +3042,7 @@ static void ttcp_fastretrans_alert(struct sock *sk, int pkts_acked, int flag)
 		if (icsk->icsk_ca_state < TTCP_CA_CWR) {
 			if (!(flag & FLAG_ECE))
 				tp->prior_ssthresh = ttcp_current_ssthresh(sk);
-			tp->snd_ssthresh = icsk->icsk_ca_ops->ssthresh(sk);
+			tp->snd_ssthresh = icsk->icsk_tca_ops->ssthresh(sk);
 			TTCP_ECN_queue_cwr(tp);
 		}
 
@@ -3121,7 +3121,7 @@ static inline void ttcp_ack_update_rtt(struct sock *sk, const int flag,
 static void ttcp_cong_avoid(struct sock *sk, u32 ack, u32 in_flight)
 {
 	const struct inet_connection_sock *icsk = inet_csk(sk);
-	icsk->icsk_ca_ops->cong_avoid(sk, ack, in_flight);
+	icsk->icsk_tca_ops->cong_avoid(sk, ack, in_flight);
 	ttcp_sk(sk)->snd_cwnd_stamp = ttcp_time_stamp;
 }
 
@@ -3261,7 +3261,7 @@ static int ttcp_clean_rtx_queue(struct sock *sk, int prior_fackets,
 
 	if (flag & FLAG_ACKED) {
 		const struct ttcp_congestion_ops *ca_ops
-			= inet_csk(sk)->icsk_ca_ops;
+			= inet_csk(sk)->icsk_tca_ops;
 
 		if (unlikely(icsk->icsk_mtup.probe_size &&
 			     !after(tp->mtu_probe.probe_seq_end, tp->snd_una))) {

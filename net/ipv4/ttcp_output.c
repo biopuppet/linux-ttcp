@@ -2620,7 +2620,6 @@ int ttcp_connect(struct sock *sk)
 }
 EXPORT_SYMBOL(ttcp_connect);
 
-#if 0
 /* Send out a delayed ack, the caller does the policy checking
  * to see if we should even be here.  See ttcp_input.c:ttcp_ack_snd_check()
  * for details.
@@ -2824,4 +2823,3 @@ void ttcp_send_probe0(struct sock *sk)
 					  TTCP_RTO_MAX);
 	}
 }
-#endif // if 0

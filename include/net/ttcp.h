@@ -989,28 +989,28 @@ static inline void ttcp_openreq_init(struct request_sock *req,
 
 extern void ttcp_enter_memory_pressure(struct sock *sk);
 
-static inline int keepalive_intvl_when(const struct ttcp_sock *tp)
-{
-	return tp->keepalive_intvl ? : sysctl_ttcp_keepalive_intvl;
-}
+// static inline int keepalive_intvl_when(const struct ttcp_sock *tp)
+// {
+// 	return tp->keepalive_intvl ? : sysctl_ttcp_keepalive_intvl;
+// }
 
-static inline int keepalive_time_when(const struct ttcp_sock *tp)
-{
-	return tp->keepalive_time ? : sysctl_ttcp_keepalive_time;
-}
+// static inline int keepalive_time_when(const struct ttcp_sock *tp)
+// {
+// 	return tp->keepalive_time ? : sysctl_ttcp_keepalive_time;
+// }
 
-static inline int keepalive_probes(const struct ttcp_sock *tp)
-{
-	return tp->keepalive_probes ? : sysctl_ttcp_keepalive_probes;
-}
+// static inline int keepalive_probes(const struct ttcp_sock *tp)
+// {
+// 	return tp->keepalive_probes ? : sysctl_ttcp_keepalive_probes;
+// }
 
-static inline u32 keepalive_time_elapsed(const struct ttcp_sock *tp)
-{
-	const struct inet_connection_sock *icsk = &tp->inet_conn;
+// static inline u32 keepalive_time_elapsed(const struct ttcp_sock *tp)
+// {
+// 	const struct inet_connection_sock *icsk = &tp->inet_conn;
 
-	return min_t(u32, ttcp_time_stamp - icsk->icsk_ack.lrcvtime,
-			  ttcp_time_stamp - tp->rcv_tstamp);
-}
+// 	return min_t(u32, ttcp_time_stamp - icsk->icsk_ack.lrcvtime,
+// 			  ttcp_time_stamp - tp->rcv_tstamp);
+// }
 
 static inline int ttcp_fin_time(const struct sock *sk)
 {

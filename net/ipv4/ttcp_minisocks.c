@@ -496,7 +496,7 @@ struct sock *ttcp_create_openreq_child(struct sock *sk, struct request_sock *req
 		newicsk->icsk_tca_ops = &ttcp_init_congestion_ops;
 
 		ttcp_set_ca_state(newsk, TTCP_CA_Open);
-		ttcp_init_xmit_timers(newsk);
+		tcp_init_xmit_timers(newsk);
 		skb_queue_head_init(&newtp->out_of_order_queue);
 		newtp->write_seq = newtp->pushed_seq =
 			treq->snt_isn + 1 + ttcp_s_data_size(oldtp);
@@ -510,7 +510,7 @@ struct sock *ttcp_create_openreq_child(struct sock *sk, struct request_sock *req
 
 		if (sock_flag(newsk, SOCK_KEEPOPEN))
 			inet_csk_reset_keepalive_timer(newsk,
-						       keepalive_time_when(newtp));
+						       keepalive_time_when((struct tcp_sock *)newtp));
 
 		newtp->rx_opt.tstamp_ok = ireq->tstamp_ok;
 		if ((newtp->rx_opt.sack_ok = ireq->sack_ok) != 0) {

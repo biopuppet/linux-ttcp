@@ -889,13 +889,13 @@ static void ttcp_update_reordering(struct sock *sk, const int metric,
 
 		/* This exciting event is worth to be remembered. 8) */
 		if (ts)
-			mib_idx = LINUX_MIB_TTCPTSREORDER;
+			mib_idx = LINUX_MIB_TCPTSREORDER;
 		else if (ttcp_is_reno(tp))
-			mib_idx = LINUX_MIB_TTCPRENOREORDER;
+			mib_idx = LINUX_MIB_TCPRENOREORDER;
 		else if (ttcp_is_fack(tp))
-			mib_idx = LINUX_MIB_TTCPFACKREORDER;
+			mib_idx = LINUX_MIB_TCPFACKREORDER;
 		else
-			mib_idx = LINUX_MIB_TTCPSACKREORDER;
+			mib_idx = LINUX_MIB_TCPSACKREORDER;
 
 		NET_INC_STATS_BH(sock_net(sk), mib_idx);
 #if FASTRETRANS_DEBUG > 1
@@ -1129,7 +1129,7 @@ static void ttcp_mark_lost_retrans(struct sock *sk)
 			tp->retrans_out -= ttcp_skb_pcount(skb);
 
 			ttcp_skb_mark_lost_uncond_verify(tp, skb);
-			NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TTCPLOSTRETRANSMIT);
+			NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TCPLOSTRETRANSMIT);
 		} else {
 			if (before(ack_seq, new_low_seq))
 				new_low_seq = ack_seq;
@@ -1153,7 +1153,7 @@ static int ttcp_check_dsack(struct sock *sk, struct sk_buff *ack_skb,
 	if (before(start_seq_0, TTCP_SKB_CB(ack_skb)->ack_seq)) {
 		dup_sack = 1;
 		ttcp_dsack_seen(tp);
-		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TTCPDSACKRECV);
+		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TCPDSACKRECV);
 	} else if (num_sacks > 1) {
 		u32 end_seq_1 = get_unaligned_be32(&sp[1].end_seq);
 		u32 start_seq_1 = get_unaligned_be32(&sp[1].start_seq);
@@ -1163,7 +1163,7 @@ static int ttcp_check_dsack(struct sock *sk, struct sk_buff *ack_skb,
 			dup_sack = 1;
 			ttcp_dsack_seen(tp);
 			NET_INC_STATS_BH(sock_net(sk),
-					LINUX_MIB_TTCPDSACKOFORECV);
+					LINUX_MIB_TCPDSACKOFORECV);
 		}
 	}
 
@@ -1710,15 +1710,15 @@ ttcp_sacktag_write_queue(struct sock *sk, struct sk_buff *ack_skb,
 
 			if (dup_sack) {
 				if (!tp->undo_marker)
-					mib_idx = LINUX_MIB_TTCPDSACKIGNOREDNOUNDO;
+					mib_idx = LINUX_MIB_TCPDSACKIGNOREDNOUNDO;
 				else
-					mib_idx = LINUX_MIB_TTCPDSACKIGNOREDOLD;
+					mib_idx = LINUX_MIB_TCPDSACKIGNOREDOLD;
 			} else {
 				/* Don't count olds caused by ACK reordering */
 				if ((TTCP_SKB_CB(ack_skb)->ack_seq != tp->snd_una) &&
 				    !after(sp[used_sacks].end_seq, tp->snd_una))
 					continue;
-				mib_idx = LINUX_MIB_TTCPSACKDISCARD;
+				mib_idx = LINUX_MIB_TCPSACKDISCARD;
 			}
 
 			NET_INC_STATS_BH(sock_net(sk), mib_idx);
@@ -2211,7 +2211,7 @@ static int ttcp_check_sack_reneging(struct sock *sk, int flag)
 {
 	if (flag & FLAG_SACK_RENEGING) {
 		struct inet_connection_sock *icsk = inet_csk(sk);
-		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TTCPSACKRENEGING);
+		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TCPSACKRENEGING);
 
 		ttcp_enter_loss(sk, 1);
 		icsk->icsk_retransmits++;
@@ -2646,9 +2646,9 @@ static int ttcp_try_undo_recovery(struct sock *sk)
 		DBGUNDO(sk, inet_csk(sk)->icsk_ca_state == TTCP_CA_Loss ? "loss" : "retrans");
 		ttcp_undo_cwr(sk, true);
 		if (inet_csk(sk)->icsk_ca_state == TTCP_CA_Loss)
-			mib_idx = LINUX_MIB_TTCPLOSSUNDO;
+			mib_idx = LINUX_MIB_TCPLOSSUNDO;
 		else
-			mib_idx = LINUX_MIB_TTCPFULLUNDO;
+			mib_idx = LINUX_MIB_TCPFULLUNDO;
 
 		NET_INC_STATS_BH(sock_net(sk), mib_idx);
 		tp->undo_marker = 0;
@@ -2673,7 +2673,7 @@ static void ttcp_try_undo_dsack(struct sock *sk)
 		DBGUNDO(sk, "D-SACK");
 		ttcp_undo_cwr(sk, true);
 		tp->undo_marker = 0;
-		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TTCPDSACKUNDO);
+		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TCPDSACKUNDO);
 	}
 }
 
@@ -2725,7 +2725,7 @@ static int ttcp_try_undo_partial(struct sock *sk, int acked)
 
 		DBGUNDO(sk, "Hoe");
 		ttcp_undo_cwr(sk, false);
-		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TTCPPARTIALUNDO);
+		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TCPPARTIALUNDO);
 
 		/* So... Do not make Hoe's retransmit yet.
 		 * If the first packet was delayed, the rest
@@ -2754,7 +2754,7 @@ static int ttcp_try_undo_loss(struct sock *sk)
 		DBGUNDO(sk, "partial loss");
 		tp->lost_out = 0;
 		ttcp_undo_cwr(sk, true);
-		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TTCPLOSSUNDO);
+		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TCPLOSSUNDO);
 		inet_csk(sk)->icsk_retransmits = 0;
 		tp->undo_marker = 0;
 		if (ttcp_is_sack(tp))
@@ -2927,7 +2927,7 @@ static void ttcp_fastretrans_alert(struct sock *sk, int pkts_acked, int flag)
 	    icsk->icsk_ca_state != TTCP_CA_Open &&
 	    tp->fackets_out > tp->reordering) {
 		ttcp_mark_head_lost(sk, tp->fackets_out - tp->reordering, 0);
-		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TTCPLOSS);
+		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TCPLOSS);
 	}
 
 	/* D. Check consistency of the current state. */
@@ -3028,9 +3028,9 @@ static void ttcp_fastretrans_alert(struct sock *sk, int pkts_acked, int flag)
 		/* Otherwise enter Recovery state */
 
 		if (ttcp_is_reno(tp))
-			mib_idx = LINUX_MIB_TTCPRENORECOVERY;
+			mib_idx = LINUX_MIB_TCPRENORECOVERY;
 		else
-			mib_idx = LINUX_MIB_TTCPSACKRECOVERY;
+			mib_idx = LINUX_MIB_TCPSACKRECOVERY;
 
 		NET_INC_STATS_BH(sock_net(sk), mib_idx);
 
@@ -3552,7 +3552,7 @@ static int ttcp_process_frto(struct sock *sk, int flag)
 		}
 		tp->frto_counter = 0;
 		tp->undo_marker = 0;
-		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TTCPSPURIOUSRTOS);
+		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TCPSPURIOUSRTOS);
 	}
 	return 0;
 }
@@ -3608,12 +3608,12 @@ static int ttcp_ack(struct sock *sk, struct sk_buff *skb, int flag)
 
 		ttcp_ca_event(sk, CA_EVENT_FAST_ACK);
 
-		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TTCPHPACKS);
+		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TCPHPACKS);
 	} else {
 		if (ack_seq != TTCP_SKB_CB(skb)->end_seq)
 			flag |= FLAG_DATA;
 		else
-			NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TTCPPUREACKS);
+			NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TCPPUREACKS);
 
 		flag |= ttcp_ack_update_window(sk, skb, ack, ack_seq);
 
@@ -4104,9 +4104,9 @@ static void ttcp_dsack_set(struct sock *sk, u32 seq, u32 end_seq)
 		int mib_idx;
 
 		if (before(seq, tp->rcv_nxt))
-			mib_idx = LINUX_MIB_TTCPDSACKOLDSENT;
+			mib_idx = LINUX_MIB_TCPDSACKOLDSENT;
 		else
-			mib_idx = LINUX_MIB_TTCPDSACKOFOSENT;
+			mib_idx = LINUX_MIB_TCPDSACKOFOSENT;
 
 		NET_INC_STATS_BH(sock_net(sk), mib_idx);
 
@@ -4537,7 +4537,7 @@ static struct sk_buff *ttcp_collapse_one(struct sock *sk, struct sk_buff *skb,
 
 	__skb_unlink(skb, list);
 	__kfree_skb(skb);
-	NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TTCPRCVCOLLAPSED);
+	NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TCPRCVCOLLAPSED);
 
 	return next;
 }
@@ -5140,7 +5140,7 @@ static int ttcp_validate_incoming(struct sock *sk, struct sk_buff *skb,
 	if (th->syn && !before(TTCP_SKB_CB(skb)->seq, tp->rcv_nxt)) {
 		if (syn_inerr)
 			TTCP_INC_STATS_BH(sock_net(sk), TTCP_MIB_INERRS);
-		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TTCPABORTONSYN);
+		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TCPABORTONSYN);
 		ttcp_reset(sk);
 		return -1;
 	}
@@ -5291,7 +5291,7 @@ int ttcp_rcv_established(struct sock *sk, struct sk_buff *skb,
 
 					__skb_pull(skb, ttcp_header_len);
 					tp->rcv_nxt = TTCP_SKB_CB(skb)->end_seq;
-					NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TTCPHPHITSTOUSER);
+					NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TCPHPHITSTOUSER);
 				}
 				if (copied_early)
 					ttcp_cleanup_rbuf(sk, skb->len);
@@ -5314,7 +5314,7 @@ int ttcp_rcv_established(struct sock *sk, struct sk_buff *skb,
 				if ((int)skb->truesize > sk->sk_forward_alloc)
 					goto step5;
 
-				NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TTCPHPHITS);
+				NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TCPHPHITS);
 
 				/* Bulk data transfer: receiver */
 				__skb_pull(skb, ttcp_header_len);
@@ -5800,7 +5800,7 @@ int ttcp_rcv_state_process(struct sock *sk, struct sk_buff *skb,
 					    (TTCP_SKB_CB(skb)->end_seq != TTCP_SKB_CB(skb)->seq &&
 					     after(TTCP_SKB_CB(skb)->end_seq - th->fin, tp->rcv_nxt))) {
 						ttcp_done(sk);
-						NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TTCPABORTONDATA);
+						NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TCPABORTONDATA);
 						return 1;
 					}
 
@@ -5860,7 +5860,7 @@ int ttcp_rcv_state_process(struct sock *sk, struct sk_buff *skb,
 		if (sk->sk_shutdown & RCV_SHUTDOWN) {
 			if (TTCP_SKB_CB(skb)->end_seq != TTCP_SKB_CB(skb)->seq &&
 			    after(TTCP_SKB_CB(skb)->end_seq - th->fin, tp->rcv_nxt)) {
-				NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TTCPABORTONDATA);
+				NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_TCPABORTONDATA);
 				ttcp_reset(sk);
 				return 1;
 			}

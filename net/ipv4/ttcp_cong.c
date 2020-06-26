@@ -81,11 +81,11 @@ void ttcp_init_congestion_control(struct sock *sk)
 	struct ttcp_congestion_ops *ca;
 
 	/* if no choice made yet assign the current value set as default */
-	if (icsk->icsk_ca_ops == &ttcp_init_congestion_ops) {
+	if (icsk->icsk_tca_ops == &ttcp_init_congestion_ops) {
 		rcu_read_lock();
 		list_for_each_entry_rcu(ca, &ttcp_cong_list, list) {
 			if (try_module_get(ca->owner)) {
-				icsk->icsk_ca_ops = ca;
+				icsk->icsk_tca_ops = ca;
 				break;
 			}
 
@@ -94,8 +94,8 @@ void ttcp_init_congestion_control(struct sock *sk)
 		rcu_read_unlock();
 	}
 
-	if (icsk->icsk_ca_ops->init)
-		icsk->icsk_ca_ops->init(sk);
+	if (icsk->icsk_tca_ops->init)
+		icsk->icsk_tca_ops->init(sk);
 }
 
 /* Manage refcounts on socket close. */
@@ -103,9 +103,9 @@ void ttcp_cleanup_congestion_control(struct sock *sk)
 {
 	struct inet_connection_sock *icsk = inet_csk(sk);
 
-	if (icsk->icsk_ca_ops->release)
-		icsk->icsk_ca_ops->release(sk);
-	module_put(icsk->icsk_ca_ops->owner);
+	if (icsk->icsk_tca_ops->release)
+		icsk->icsk_tca_ops->release(sk);
+	module_put(icsk->icsk_tca_ops->owner);
 }
 
 /* Used by sysctl to change default congestion control */
@@ -139,7 +139,7 @@ int ttcp_set_default_congestion_control(const char *name)
 /* Set default value from kernel configuration at bootup */
 static int __init ttcp_congestion_default(void)
 {
-	return ttcp_set_default_congestion_control(CONFIG_DEFAULT_TTCP_CONG);
+	return ttcp_set_default_congestion_control("cubic");
 }
 late_initcall(ttcp_congestion_default);
 
@@ -243,7 +243,7 @@ int ttcp_set_congestion_control(struct sock *sk, const char *name)
 	ca = ttcp_ca_find(name);
 
 	/* no change asking for existing value */
-	if (ca == icsk->icsk_ca_ops)
+	if (ca == icsk->icsk_tca_ops)
 		goto out;
 
 #ifdef CONFIG_MODULES
@@ -266,10 +266,10 @@ int ttcp_set_congestion_control(struct sock *sk, const char *name)
 
 	else {
 		ttcp_cleanup_congestion_control(sk);
-		icsk->icsk_ca_ops = ca;
+		icsk->icsk_tca_ops = ca;
 
-		if (sk->sk_state != TTCP_CLOSE && icsk->icsk_ca_ops->init)
-			icsk->icsk_ca_ops->init(sk);
+		if (sk->sk_state != TTCP_CLOSE && icsk->icsk_tca_ops->init)
+			icsk->icsk_tca_ops->init(sk);
 	}
  out:
 	rcu_read_unlock();

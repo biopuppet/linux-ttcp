@@ -1222,7 +1222,7 @@ int ttcp_recvmsg(struct kiocb *iocb, struct sock *sk, struct msghdr *msg,
 		if (skb)
 			available = TTCP_SKB_CB(skb)->seq + skb->len - (*seq);
 		if ((available < target) &&
-		    (len > sysctl_ttcp_dma_copybreak) && !(flags & MSG_PEEK) &&
+		    (len > sysctl_tcp_dma_copybreak) && !(flags & MSG_PEEK) &&
 		    !sysctl_ttcp_low_latency &&
 		    dma_find_channel(DMA_MEMCPY)) {
 			preempt_enable_no_resched();
@@ -2306,7 +2306,7 @@ static int do_ttcp_getsockopt(struct sock *sk, int level,
 		val = keepalive_probes(tp);
 		break;
 	case TTCP_SYNCNT:
-		val = icsk->icsk_syn_retries ? : sysctl_ttcp_syn_retries;
+		val = icsk->icsk_syn_retries ? : sysctl_tcp_syn_retries;
 		break;
 	case TTCP_LINGER2:
 		val = tp->linger2;

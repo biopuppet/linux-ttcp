@@ -2802,7 +2802,7 @@ void ttcp_send_probe0(struct sock *sk)
 	}
 
 	if (err <= 0) {
-		if (icsk->icsk_backoff < sysctl_ttcp_retries2)
+		if (icsk->icsk_backoff < sysctl_tcp_retries2)
 			icsk->icsk_backoff++;
 		icsk->icsk_probes_out++;
 		inet_csk_reset_xmit_timer(sk, ICSK_TIME_PROBE0,

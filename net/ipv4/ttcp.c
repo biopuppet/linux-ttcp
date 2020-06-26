@@ -2871,7 +2871,7 @@ int ttcp_md5_hash_key(struct ttcp_md5sig_pool *hp, struct ttcp_md5sig_key *key)
 	return crypto_hash_update(&hp->md5_desc, &sg, key->keylen);
 }
 EXPORT_SYMBOL(ttcp_md5_hash_key);
-
+#endif
 /**
  * Each Responder maintains up to two secret values concurrently for
  * efficient secret rollover.  Each secret value has 4 states:

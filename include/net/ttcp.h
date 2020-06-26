@@ -347,12 +347,12 @@ static inline void ttcp_dec_quickack_mode(struct sock *sk,
 #define	TTCP_ECN_QUEUE_CWR	2
 #define	TTCP_ECN_DEMAND_CWR	4
 
-// static __inline__ void
-// TTCP_ECN_create_request(struct request_sock *req, struct ttcphdr *th)
-// {
-// 	if (sysctl_ttcp_ecn && th->ece && th->cwr)
-// 		inet_rsk(req)->ecn_ok = 1;
-// }
+static __inline__ void
+TTCP_ECN_create_request(struct request_sock *req, struct ttcphdr *th)
+{
+	if (sysctl_ttcp_ecn && th->ece && th->cwr)
+		inet_rsk(req)->ecn_ok = 1;
+}
 
 enum ttcp_tw_status {
 	TTCP_TW_SUCCESS = 0,
@@ -496,8 +496,8 @@ extern void ttcp_get_info(struct sock *, struct ttcp_info *);
 /* Read 'sendfile()'-style from a TTCP socket */
 // typedef int (*sk_read_actor_t)(read_descriptor_t *, struct sk_buff *,
 // 				unsigned int, size_t);
-// extern int ttcp_read_sock(struct sock *sk, read_descriptor_t *desc,
-// 			 sk_read_actor_t recv_actor);
+extern int ttcp_read_sock(struct sock *sk, read_descriptor_t *desc,
+			 sk_read_actor_t recv_actor);
 
 extern void ttcp_initialize_rcv_mss(struct sock *sk);
 
@@ -890,38 +890,37 @@ static inline void ttcp_prequeue_init(struct ttcp_sock *tp)
  *
  * NOTE: is this not too big to inline?
  */
-// static inline int ttcp_prequeue(struct sock *sk, struct sk_buff *skb)
-// {
-// 	struct ttcp_sock *tp = ttcp_sk(sk);
+static inline int ttcp_prequeue(struct sock *sk, struct sk_buff *skb)
+{
+	struct ttcp_sock *tp = ttcp_sk(sk);
 
-// 	if (sysctl_ttcp_low_latency || !tp->ucopy.task)
-// 		return 0;
+	if (sysctl_ttcp_low_latency || !tp->ucopy.task)
+		return 0;
 
-// 	__skb_queue_tail(&tp->ucopy.prequeue, skb);
-// 	tp->ucopy.memory += skb->truesize;
-// 	if (tp->ucopy.memory > sk->sk_rcvbuf) {
-// 		struct sk_buff *skb1;
+	__skb_queue_tail(&tp->ucopy.prequeue, skb);
+	tp->ucopy.memory += skb->truesize;
+	if (tp->ucopy.memory > sk->sk_rcvbuf) {
+		struct sk_buff *skb1;
 
-// 		BUG_ON(sock_owned_by_user(sk));
+		BUG_ON(sock_owned_by_user(sk));
 
-// 		while ((skb1 = __skb_dequeue(&tp->ucopy.prequeue)) != NULL) {
-// 			sk_backlog_rcv(sk, skb1);
-// 			NET_INC_STATS_BH(sock_net(sk),
-// 					 LINUX_MIB_TCPPREQUEUEDROPPED);
-// 		}
+		while ((skb1 = __skb_dequeue(&tp->ucopy.prequeue)) != NULL) {
+			sk_backlog_rcv(sk, skb1);
+			NET_INC_STATS_BH(sock_net(sk),
+					 LINUX_MIB_TCPPREQUEUEDROPPED);
+		}
 
-// 		tp->ucopy.memory = 0;
-// 	} else if (skb_queue_len(&tp->ucopy.prequeue) == 1) {
-// 		wake_up_interruptible_sync_poll(sk_sleep(sk),
-// 					   POLLIN | POLLRDNORM | POLLRDBAND);
-// 		if (!inet_csk_ack_scheduled(sk))
-// 			inet_csk_reset_xmit_timer(sk, ICSK_TIME_DACK,
-// 						  (3 * ttcp_rto_min(sk)) / 4,
-// 						  TTCP_RTO_MAX);
-// 	}
-// 	return 1;
-// }
-
+		tp->ucopy.memory = 0;
+	} else if (skb_queue_len(&tp->ucopy.prequeue) == 1) {
+		wake_up_interruptible_sync_poll(sk_sleep(sk),
+					   POLLIN | POLLRDNORM | POLLRDBAND);
+		if (!inet_csk_ack_scheduled(sk))
+			inet_csk_reset_xmit_timer(sk, ICSK_TIME_DACK,
+						  (3 * ttcp_rto_min(sk)) / 4,
+						  TTCP_RTO_MAX);
+	}
+	return 1;
+}
 
 #undef STATE_TRACE
 
@@ -990,28 +989,28 @@ static inline void ttcp_openreq_init(struct request_sock *req,
 
 extern void ttcp_enter_memory_pressure(struct sock *sk);
 
-// static inline int keepalive_intvl_when(const struct ttcp_sock *tp)
-// {
-// 	return tp->keepalive_intvl ? : sysctl_ttcp_keepalive_intvl;
-// }
+static inline int keepalive_intvl_when(const struct ttcp_sock *tp)
+{
+	return tp->keepalive_intvl ? : sysctl_ttcp_keepalive_intvl;
+}
 
-// static inline int keepalive_time_when(const struct ttcp_sock *tp)
-// {
-// 	return tp->keepalive_time ? : sysctl_ttcp_keepalive_time;
-// }
+static inline int keepalive_time_when(const struct ttcp_sock *tp)
+{
+	return tp->keepalive_time ? : sysctl_ttcp_keepalive_time;
+}
 
-// static inline int keepalive_probes(const struct ttcp_sock *tp)
-// {
-// 	return tp->keepalive_probes ? : sysctl_ttcp_keepalive_probes;
-// }
+static inline int keepalive_probes(const struct ttcp_sock *tp)
+{
+	return tp->keepalive_probes ? : sysctl_ttcp_keepalive_probes;
+}
 
-// static inline u32 keepalive_time_elapsed(const struct ttcp_sock *tp)
-// {
-// 	const struct inet_connection_sock *icsk = &tp->inet_conn;
+static inline u32 keepalive_time_elapsed(const struct ttcp_sock *tp)
+{
+	const struct inet_connection_sock *icsk = &tp->inet_conn;
 
-// 	return min_t(u32, ttcp_time_stamp - icsk->icsk_ack.lrcvtime,
-// 			  ttcp_time_stamp - tp->rcv_tstamp);
-// }
+	return min_t(u32, ttcp_time_stamp - icsk->icsk_ack.lrcvtime,
+			  ttcp_time_stamp - tp->rcv_tstamp);
+}
 
 static inline int ttcp_fin_time(const struct sock *sk)
 {

@@ -108,21 +108,6 @@ struct ttcp_splice_state {
 	unsigned int flags;
 };
 
-struct inet_timewait_death_row ttcp_death_row = {
-	.sysctl_max_tw_buckets = NR_FILE * 2,
-	.period		= TCP_TIMEWAIT_LEN / INET_TWDR_TWKILL_SLOTS,
-	.death_lock	= __SPIN_LOCK_UNLOCKED(ttcp_death_row.death_lock),
-	.hashinfo	= &ttcp_hashinfo,
-	.tw_timer	= TIMER_INITIALIZER(inet_twdr_hangman, 0,
-					    (unsigned long)&ttcp_death_row),
-	.twkill_work	= __WORK_INITIALIZER(ttcp_death_row.twkill_work,
-					     inet_twdr_twkill_work),
-/* Short-time timewait calendar */
-
-	.twcal_hand	= -1,
-	.twcal_timer	= TIMER_INITIALIZER(inet_twdr_twcal_tick, 0,
-					    (unsigned long)&ttcp_death_row),
-};
 /*
  * Pressure flag: try to collapse.
  * Technical note: it is used by multiple contexts non atomically.

@@ -49,11 +49,10 @@
 
 #include <linux/crypto.h>
 #include <linux/scatterlist.h>
-extern int ttcp_connect(struct sock *);
+
 int sysctl_ttcp_tw_reuse __read_mostly;
 int sysctl_ttcp_low_latency __read_mostly;
 EXPORT_SYMBOL(sysctl_ttcp_low_latency);
-
 
 #ifdef CONFIG_TTCP_MD5SIG
 static struct ttcp_md5sig_key *ttcp_v4_md5_do_lookup(struct sock *sk,

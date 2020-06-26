@@ -777,10 +777,13 @@ static int ttcp_transmit_skb(struct sock *sk, struct sk_buff *skb, int clone_it,
 
 	BUG_ON(!skb || !ttcp_skb_pcount(skb));
 
+	printk(KERN_INFO "ttcp_tx_skb: begin\n");
 	/* If congestion control is doing timestamping, we must
 	 * take such a timestamp before we potentially clone/copy.
 	 */
-	if (icsk->icsk_ca_ops->flags & TTCP_CONG_RTT_STAMP)
+	printk(KERN_INFO "ttcp_tx_skb: forwarded\n");
+	return 0;
+	if (icsk->icsk_tca_ops->flags & TTCP_CONG_RTT_STAMP)
 		__net_timestamp(skb);
 
 	if (likely(clone_it)) {
@@ -857,7 +860,7 @@ static int ttcp_transmit_skb(struct sock *sk, struct sk_buff *skb, int clone_it,
 					       md5, sk, NULL, skb);
 	}
 #endif
-
+	
 	icsk->icsk_af_ops->send_check(sk, skb);
 
 	if (likely(tcb->flags & TTCPHDR_ACK))
@@ -876,6 +879,7 @@ static int ttcp_transmit_skb(struct sock *sk, struct sk_buff *skb, int clone_it,
 
 	ttcp_enter_cwr(sk, 1);
 
+	printk(KERN_INFO "ttcp_tx_skb: begin\n");
 	return net_xmit_eval(err);
 }
 
@@ -2581,8 +2585,10 @@ int ttcp_connect(struct sock *sk)
 	struct ttcp_sock *tp = ttcp_sk(sk);
 	struct sk_buff *buff;
 	int err;
-
+	
+	printk(KERN_INFO "ttcp_connect: begin\n");
 	ttcp_connect_init(sk);
+	printk(KERN_INFO "ttcp_connect_init done\n");
 	buff = alloc_skb_fclone(MAX_TTCP_HEADER + 15, sk->sk_allocation);
 	if (unlikely(buff == NULL))
 		return -ENOBUFS;
@@ -2602,10 +2608,13 @@ int ttcp_connect(struct sock *sk)
 	sk->sk_wmem_queued += buff->truesize;
 	sk_mem_charge(sk, buff->truesize);
 	tp->packets_out += ttcp_skb_pcount(buff);
+	
 	err = ttcp_transmit_skb(sk, buff, 1, sk->sk_allocation);
 	if (err == -ECONNREFUSED)
 		return err;
-
+	printk(KERN_INFO "ttcp_connect: forwarded\n");
+	return 0;
+	
 	/* We change tp->snd_nxt after the ttcp_transmit_skb() call
 	 * in order to make this packet get counted in ttcpOutSegs.
 	 */

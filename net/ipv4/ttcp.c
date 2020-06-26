@@ -178,7 +178,6 @@ static int retrans_to_secs(u8 retrans, int timeout, int rto_max)
 	return period;
 }
 
-#if 0
 /*
  *	Wait for a TTCP event.
  *
@@ -1597,7 +1596,6 @@ recv_urg:
 	goto out;
 }
 EXPORT_SYMBOL(ttcp_recvmsg);
-#endif
 
 void ttcp_set_state(struct sock *sk, int state)
 {
@@ -1666,7 +1664,7 @@ static int ttcp_close_state(struct sock *sk)
 
 	return next & TTCP_ACTION_FIN;
 }
-#if 0
+
 /*
  *	Shutdown the sending side of a connection. Much like close except
  *	that we don't receive shut down or sock_set_flag(sk, SOCK_DEAD).
@@ -2874,8 +2872,6 @@ int ttcp_md5_hash_key(struct ttcp_md5sig_pool *hp, struct ttcp_md5sig_key *key)
 }
 EXPORT_SYMBOL(ttcp_md5_hash_key);
 
-#endif
-#endif
 /**
  * Each Responder maintains up to two secret values concurrently for
  * efficient secret rollover.  Each secret value has 4 states:

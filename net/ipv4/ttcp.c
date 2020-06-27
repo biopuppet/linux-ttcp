@@ -1790,15 +1790,15 @@ adjudge_to_death:
 	}
 	if (sk->sk_state != TTCP_CLOSE) {
 		sk_mem_reclaim(sk);
-		// if (ttcp_too_many_orphans(sk, 0)) {
-		// 	if (net_ratelimit())
-		// 		printk(KERN_INFO "TTCP: too many of orphaned "
-		// 		       "sockets\n");
-		// 	ttcp_set_state(sk, TTCP_CLOSE);
-		// 	ttcp_send_active_reset(sk, GFP_ATOMIC);
-		// 	NET_INC_STATS_BH(sock_net(sk),
-		// 			LINUX_MIB_TCPABORTONMEMORY);
-		// }
+		if (ttcp_too_many_orphans(sk, 0)) {
+			if (net_ratelimit())
+				printk(KERN_INFO "TTCP: too many of orphaned "
+				       "sockets\n");
+			ttcp_set_state(sk, TTCP_CLOSE);
+			ttcp_send_active_reset(sk, GFP_ATOMIC);
+			NET_INC_STATS_BH(sock_net(sk),
+					LINUX_MIB_TCPABORTONMEMORY);
+		}
 	}
 
 	if (sk->sk_state == TTCP_CLOSE)
@@ -3046,8 +3046,8 @@ void __init ttcp_init(void)
 
 	cnt = ttcp_hashinfo.ehash_mask + 1;
 
-	// ttcp_death_row.sysctl_max_tw_buckets = cnt / 2;
-	// sysctl_ttcp_max_orphans = cnt / 2;
+	ttcp_death_row.sysctl_max_tw_buckets = cnt / 2;
+	sysctl_ttcp_max_orphans = cnt / 2;
 	sysctl_max_syn_backlog = max(128, cnt / 256);
 
 	/* Set the pressure threshold to be a fraction of global memory that
@@ -3078,7 +3078,7 @@ void __init ttcp_init(void)
 	       "(established %u bind %u)\n",
 	       ttcp_hashinfo.ehash_mask + 1, ttcp_hashinfo.bhash_size);
 
-	// ttcp_register_congestion_control(&ttcp_reno);
+	ttcp_register_congestion_control(&ttcp_reno);
 
 	memset(&ttcp_secret_one.secrets[0], 0, sizeof(ttcp_secret_one.secrets));
 	memset(&ttcp_secret_two.secrets[0], 0, sizeof(ttcp_secret_two.secrets));

@@ -226,7 +226,6 @@ int ttcp_v4_connect(struct sock *sk, struct sockaddr *uaddr, int addr_len)
 	inet->inet_id = tp->write_seq ^ jiffies;
 
 	err = ttcp_connect(sk);
-	//err = 0;
 	rt = NULL;
 	if (err)
 		goto failure;
@@ -284,7 +283,7 @@ static void do_pmtu_discovery(struct sock *sk, struct iphdr *iph, u32 mtu)
 
 	if (inet->pmtudisc != IP_PMTUDISC_DONT &&
 	    inet_csk(sk)->icsk_pmtu_cookie > mtu) {
-		// ttcp_sync_mss(sk, mtu);
+		ttcp_sync_mss(sk, mtu);
 
 		/* Resend the TTCP packet because it's
 		 * clear that the old packet has been
@@ -1878,12 +1877,12 @@ void ttcp_v4_destroy_sock(struct sock *sk)
 		sk->sk_sndmsg_page = NULL;
 	}
 
-	// /* TTCP Cookie Transactions */
-	// if (tp->cookie_values != NULL) {
-	// 	kref_put(&tp->cookie_values->kref,
-	// 		 ttcp_cookie_values_release);
-	// 	tp->cookie_values = NULL;
-	// }
+	/* TTCP Cookie Transactions */
+	if (tp->cookie_values != NULL) {
+		kref_put(&tp->cookie_values->kref,
+			 ttcp_cookie_values_release);
+		tp->cookie_values = NULL;
+	}
 
 	percpu_counter_dec(&ttcp_sockets_allocated);
 }

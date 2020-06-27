@@ -1419,17 +1419,25 @@ SYSCALL_DEFINE3(bind, int, fd, struct sockaddr __user *, umyaddr, int, addrlen)
 	struct sockaddr_storage address;
 	int err, fput_needed;
 
+	printk(KERN_INFO "sys_bind: begin fd: %d", fd);
 	sock = sockfd_lookup_light(fd, &err, &fput_needed);
+	printk(KERN_INFO "sys_bind: sockfd_lookup = %p", sock);
+
 	if (sock) {
 		err = move_addr_to_kernel(umyaddr, addrlen, (struct sockaddr *)&address);
 		if (err >= 0) {
-			err = security_socket_bind(sock,
-						   (struct sockaddr *)&address,
-						   addrlen);
+		//	err = security_socket_bind(sock,
+		//				   (struct sockaddr *)&address,
+		//				   addrlen);
+			err = 0;
+			printk(KERN_INFO "sys_bind: ssb = %d\n", err);
 			if (!err)
+			{
 				err = sock->ops->bind(sock,
 						      (struct sockaddr *)
 						      &address, addrlen);
+				printk(KERN_INFO "sys_bind: opsb = %d\n", err);
+			}
 		}
 		fput_light(sock->file, fput_needed);
 	}

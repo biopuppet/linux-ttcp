@@ -1203,8 +1203,8 @@ int ttcp_v4_conn_request(struct sock *sk, struct sk_buff *skb)
 #else
 #define want_cookie 0 /* Argh, why doesn't gcc optimize this :( */
 #endif
-
-	/* Never answer to SYNs send to broadcast or multicast */
+    printk(KERN_INFO "ttcp_conn_req: begin\n");
+    /* Never answer to SYNs send to broadcast or multicast */
 	if (skb_rtable(skb)->rt_flags & (RTCF_BROADCAST | RTCF_MULTICAST))
 		goto drop;
 
@@ -1213,8 +1213,11 @@ int ttcp_v4_conn_request(struct sock *sk, struct sk_buff *skb)
 	 * evidently real one.
 	 */
 	if (inet_csk_reqsk_queue_is_full(sk) && !isn) {
-		if (net_ratelimit())
+        printk(KERN_INFO "ttcp_conn_req: reqsk_queue is full\n");
+		if (net_ratelimit()) {
+            printk(KERN_INFO "ttcp_conn_req: syn-flood warning\n");
 			syn_flood_warning(skb);
+        }
 #ifdef CONFIG_SYN_COOKIES
 		if (sysctl_ttcp_syncookies) {
 			want_cookie = 1;
@@ -1228,8 +1231,10 @@ int ttcp_v4_conn_request(struct sock *sk, struct sk_buff *skb)
 	 * clogging syn queue with openreqs with exponentially increasing
 	 * timeout.
 	 */
-	if (sk_acceptq_is_full(sk) && inet_csk_reqsk_queue_young(sk) > 1)
+	if (sk_acceptq_is_full(sk) && inet_csk_reqsk_queue_young(sk) > 1) {
+        printk(KERN_INFO "ttcp_conn_req: acctq is full\n");
 		goto drop;
+    }
 
 	req = inet_reqsk_alloc(&ttcp_request_sock_ops);
 	if (!req)
@@ -1292,8 +1297,10 @@ int ttcp_v4_conn_request(struct sock *sk, struct sk_buff *skb)
 	ireq->no_srccheck = inet_sk(sk)->transparent;
 	ireq->opt = ttcp_v4_save_options(sk, skb);
 
-	if (security_inet_conn_request(sk, skb, req))
+	if (security_inet_conn_request(sk, skb, req)) {
+        printk(KERN_INFO "ttcp_conn_req: security con req failed\n");
 		goto drop_and_free;
+    }
 
 	if (!want_cookie || tmp_opt.tstamp_ok)
 		TTCP_ECN_create_request(req, ttcp_hdr(skb));
@@ -1347,6 +1354,8 @@ int ttcp_v4_conn_request(struct sock *sk, struct sk_buff *skb)
 		isn = ttcp_v4_init_sequence(skb);
 	}
 	ttcp_rsk(req)->snt_isn = isn;
+    
+    printk(KERN_INFO "ttcp_snd_synack...\n");
 
 	if (ttcp_v4_send_synack(sk, dst, req,
 			       (struct request_values *)&tmp_ext) ||

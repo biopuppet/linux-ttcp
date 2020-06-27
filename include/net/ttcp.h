@@ -264,22 +264,22 @@ extern int ttcp_memory_pressure;
 // 	return seq3 - seq2 >= seq1 - seq2;
 // }
 
-// static inline bool ttcp_too_many_orphans(struct sock *sk, int shift)
-// {
-// 	struct percpu_counter *ocp = sk->sk_prot->orphan_count;
-// 	int orphans = percpu_counter_read_positive(ocp);
+static inline bool ttcp_too_many_orphans(struct sock *sk, int shift)
+{
+	struct percpu_counter *ocp = sk->sk_prot->orphan_count;
+	int orphans = percpu_counter_read_positive(ocp);
 
-// 	if (orphans << shift > sysctl_ttcp_max_orphans) {
-// 		orphans = percpu_counter_sum_positive(ocp);
-// 		if (orphans << shift > sysctl_ttcp_max_orphans)
-// 			return true;
-// 	}
+	if (orphans << shift > sysctl_ttcp_max_orphans) {
+		orphans = percpu_counter_sum_positive(ocp);
+		if (orphans << shift > sysctl_ttcp_max_orphans)
+			return true;
+	}
 
-// 	if (sk->sk_wmem_queued > SOCK_MIN_SNDBUF &&
-// 	    atomic_long_read(&tcp_memory_allocated) > sysctl_ttcp_mem[2])
-// 		return true;
-// 	return false;
-// }
+	if (sk->sk_wmem_queued > SOCK_MIN_SNDBUF &&
+	    atomic_long_read(&ttcp_memory_allocated) > sysctl_ttcp_mem[2])
+		return true;
+	return false;
+}
 
 /* syncookies: remember time of last synqueue overflow */
 static inline void ttcp_synq_overflow(struct sock *sk)
@@ -387,7 +387,7 @@ extern int ttcp_setsockopt(struct sock *sk, int level, int optname,
 // extern int compat_ttcp_setsockopt(struct sock *sk, int level, int optname,
 // 				 char __user *optval, unsigned int optlen);
 extern void ttcp_set_keepalive(struct sock *sk, int val);
-extern void tcp_syn_ack_timeout(struct sock *sk, struct request_sock *req);
+extern void ttcp_syn_ack_timeout(struct sock *sk, struct request_sock *req);
 extern int ttcp_recvmsg(struct kiocb *iocb, struct sock *sk, struct msghdr *msg,
 		       size_t len, int nonblock, int flags, int *addr_len);
 extern void ttcp_parse_options(struct sk_buff *skb,
@@ -458,7 +458,7 @@ extern void ttcp_send_delayed_ack(struct sock *sk);
 extern void ttcp_cwnd_application_limited(struct sock *sk);
 
 /* ttcp_timer.c */
-extern void tcp_init_xmit_timers(struct sock *);
+extern void ttcp_init_xmit_timers(struct sock *);
 static inline void ttcp_clear_xmit_timers(struct sock *sk)
 {
 	inet_csk_clear_xmit_timers(sk);

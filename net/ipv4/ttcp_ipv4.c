@@ -746,7 +746,7 @@ static int ttcp_v4_send_synack(struct sock *sk, struct dst_entry *dst,
 	if (!dst && (dst = inet_csk_route_req(sk, req)) == NULL)
 		return -1;
 
-	// skb = tcp_make_synack(sk, dst, req, rvp);
+	skb = ttcp_make_synack(sk, dst, req, rvp);
 
 	if (skb) {
 		__ttcp_v4_send_check(skb, ireq->loc_addr, ireq->rmt_addr);
@@ -1180,7 +1180,7 @@ struct request_sock_ops ttcp_request_sock_ops __read_mostly = {
 	.send_ack	=	ttcp_v4_reqsk_send_ack,
 	.destructor	=	ttcp_v4_reqsk_destructor,
 	.send_reset	=	ttcp_v4_send_reset,
-	.syn_ack_timeout = 	tcp_syn_ack_timeout,
+	.syn_ack_timeout = 	ttcp_syn_ack_timeout,
 };
 
 #ifdef CONFIG_TTCP_MD5SIG
@@ -1190,7 +1190,6 @@ static const struct ttcp_request_sock_ops ttcp_request_sock_ipv4_ops = {
 };
 #endif
 
-#if 0
 /*
  * The three way handshake has completed - we got a valid synack -
  * now create the new socket.
@@ -1279,6 +1278,7 @@ exit:
 	return NULL;
 }
 EXPORT_SYMBOL(ttcp_v4_syn_recv_sock);
+
 static struct sock *ttcp_v4_hnd_req(struct sock *sk, struct sk_buff *skb)
 {
 	struct ttcphdr *th = ttcp_hdr(skb);
@@ -1330,7 +1330,6 @@ static __sum16 ttcp_v4_checksum_init(struct sk_buff *skb)
 	}
 	return 0;
 }
-#endif
 
 /* The socket must have it's spinlock held when we get
  * here.
@@ -1585,7 +1584,7 @@ EXPORT_SYMBOL(ttcp_v4_tw_get_peer);
 static struct timewait_sock_ops ttcp_timewait_sock_ops = {
 	.twsk_obj_size	= sizeof(struct ttcp_timewait_sock),
 	.twsk_unique	= ttcp_twsk_unique,
-	// .twsk_destructor= tcp_twsk_destructor,
+	.twsk_destructor= ttcp_twsk_destructor,
 	.twsk_getpeer	= ttcp_v4_tw_get_peer,
 };
 
@@ -1628,7 +1627,7 @@ static int ttcp_v4_init_sock(struct sock *sk)
 
     printk(KERN_INFO "ttcp_v4_init_sock is called.\n");
     skb_queue_head_init(&tp->out_of_order_queue);
-    tcp_init_xmit_timers(sk);
+    ttcp_init_xmit_timers(sk);
 	ttcp_prequeue_init(tp);
 
 	icsk->icsk_rto = TTCP_TIMEOUT_INIT;
@@ -1639,7 +1638,7 @@ static int ttcp_v4_init_sock(struct sock *sk)
 	tp->mss_cache = TTCP_MSS_DEFAULT;
 
 	tp->reordering = sysctl_ttcp_reordering;
-	// icsk->icsk_tca_ops = &tcp_init_congestion_ops;
+	icsk->icsk_tca_ops = &ttcp_init_congestion_ops;
 
 	sk->sk_state = TTCP_CLOSE;
 
@@ -1647,7 +1646,7 @@ static int ttcp_v4_init_sock(struct sock *sk)
 	sock_set_flag(sk, SOCK_USE_WRITE_QUEUE);
 
 	icsk->icsk_af_ops = &ipv4_specific;
-	// icsk->icsk_sync_mss = ttcp_sync_mss;
+	icsk->icsk_sync_mss = ttcp_sync_mss;
 #ifdef CONFIG_TTCP_MD5SIG
 	tp->af_specific = &ttcp_sock_ipv4_specific;
 #endif
@@ -1668,7 +1667,7 @@ void ttcp_v4_destroy_sock(struct sock *sk)
 
 	ttcp_clear_xmit_timers(sk);
 
-	// ttcp_cleanup_congestion_control(sk);
+	ttcp_cleanup_congestion_control(sk);
 
 	/* Cleanup up the write buffer. */
 	ttcp_write_queue_purge(sk);
@@ -1712,7 +1711,7 @@ void ttcp_v4_destroy_sock(struct sock *sk)
 	// 	tp->cookie_values = NULL;
 	// }
 
-	// percpu_counter_dec(&ttcp_sockets_allocated);
+	percpu_counter_dec(&ttcp_sockets_allocated);
 }
 EXPORT_SYMBOL(ttcp_v4_destroy_sock);
 
@@ -2337,19 +2336,19 @@ int ttcp4_gro_complete(struct sk_buff *skb)
 struct proto ttcp_prot = {
 	.name			= "TTCP",
 	.owner			= THIS_MODULE,
-	.close			= tcp_close,
+	.close			= ttcp_close,
 	.connect		= ttcp_v4_connect,
-	.disconnect		= tcp_disconnect,
+	.disconnect		= ttcp_disconnect,
 	.accept			= inet_csk_accept,
-	.ioctl			= tcp_ioctl,
+	.ioctl			= ttcp_ioctl,
 	.init			= ttcp_v4_init_sock,
 	.destroy		= ttcp_v4_destroy_sock,
-	.shutdown		= tcp_shutdown,
-	.setsockopt		= tcp_setsockopt,
-	.getsockopt		= tcp_getsockopt,
-	.recvmsg		= tcp_recvmsg,
-	.sendmsg		= tcp_sendmsg,
-	.sendpage		= tcp_sendpage,
+	.shutdown		= ttcp_shutdown,
+	.setsockopt		= ttcp_setsockopt,
+	.getsockopt		= ttcp_getsockopt,
+	.recvmsg		= ttcp_recvmsg,
+	.sendmsg		= ttcp_sendmsg,
+	.sendpage		= ttcp_sendpage,
 	.backlog_rcv		= ttcp_v4_do_rcv,
 	.hash			= inet_hash,
 	.unhash			= inet_unhash,

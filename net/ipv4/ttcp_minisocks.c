@@ -496,7 +496,7 @@ struct sock *ttcp_create_openreq_child(struct sock *sk, struct request_sock *req
 		newicsk->icsk_tca_ops = &ttcp_init_congestion_ops;
 
 		ttcp_set_ca_state(newsk, TTCP_CA_Open);
-		tcp_init_xmit_timers(newsk);
+		ttcp_init_xmit_timers(newsk);
 		skb_queue_head_init(&newtp->out_of_order_queue);
 		newtp->write_seq = newtp->pushed_seq =
 			treq->snt_isn + 1 + ttcp_s_data_size(oldtp);

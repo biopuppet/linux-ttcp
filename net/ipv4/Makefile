@@ -8,7 +8,7 @@ obj-y     := route.o inetpeer.o protocol.o \
 	     inet_timewait_sock.o inet_connection_sock.o \
 	     tcp.o tcp_input.o tcp_output.o tcp_timer.o tcp_ipv4.o \
 	     tcp_minisocks.o tcp_cong.o \
-	     ttcp.o ttcp_input.o ttcp_output.o ttcp_ipv4.o \
+	     ttcp.o ttcp_input.o ttcp_output.o ttcp_timer.o ttcp_ipv4.o \
 	     ttcp_minisocks.o ttcp_cong.o \
 	     datagram.o raw.o udp.o udplite.o \
 	     arp.o icmp.o devinet.o af_inet.o  igmp.o \

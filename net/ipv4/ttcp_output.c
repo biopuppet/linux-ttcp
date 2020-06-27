@@ -781,11 +781,11 @@ static int ttcp_transmit_skb(struct sock *sk, struct sk_buff *skb, int clone_it,
 	/* If congestion control is doing timestamping, we must
 	 * take such a timestamp before we potentially clone/copy.
 	 */
-	printk(KERN_INFO "ttcp_tx_skb: forwarded\n");
-	return 0;
-	if (icsk->icsk_tca_ops->flags & TTCP_CONG_RTT_STAMP)
-		__net_timestamp(skb);
-
+	
+	// if (icsk->icsk_tca_ops->flags & TTCP_CONG_RTT_STAMP)
+	// 	__net_timestamp(skb);
+    // printk(KERN_INFO "ttcp_tx_skb: forwarded\n");
+	// return 0;
 	if (likely(clone_it)) {
 		if (unlikely(skb_cloned(skb)))
 			skb = pskb_copy(skb, gfp_mask);
@@ -879,7 +879,7 @@ static int ttcp_transmit_skb(struct sock *sk, struct sk_buff *skb, int clone_it,
 
 	ttcp_enter_cwr(sk, 1);
 
-	printk(KERN_INFO "ttcp_tx_skb: begin\n");
+	printk(KERN_INFO "ttcp_tx_skb: end\n");
 	return net_xmit_eval(err);
 }
 
@@ -2610,10 +2610,9 @@ int ttcp_connect(struct sock *sk)
 	tp->packets_out += ttcp_skb_pcount(buff);
 	
 	err = ttcp_transmit_skb(sk, buff, 1, sk->sk_allocation);
-	if (err == -ECONNREFUSED)
+    printk(KERN_INFO "tx_skb: %d(ret) == %d(-ECONNREFUSED)\n", err, -ECONNREFUSED);
+    if (err == -ECONNREFUSED)
 		return err;
-	printk(KERN_INFO "ttcp_connect: forwarded\n");
-	return 0;
 	
 	/* We change tp->snd_nxt after the ttcp_transmit_skb() call
 	 * in order to make this packet get counted in ttcpOutSegs.

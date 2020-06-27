@@ -221,7 +221,8 @@ static int inet_csk_wait_for_connect(struct sock *sk, long timeo)
 	struct inet_connection_sock *icsk = inet_csk(sk);
 	DEFINE_WAIT(wait);
 	int err;
-
+    printk(KERN_INFO "inet_csk_wait: begin with timeout %d\n", timeo);
+    
 	/*
 	 * True wake-one mechanism for incoming connections: only
 	 * one process gets woken up, not the 'whole herd'.
@@ -257,6 +258,7 @@ static int inet_csk_wait_for_connect(struct sock *sk, long timeo)
 			break;
 	}
 	finish_wait(sk_sleep(sk), &wait);
+    printk(KERN_INFO "inet_csk_wait: ret %d\n", err);
 	return err;
 }
 
@@ -270,17 +272,20 @@ struct sock *inet_csk_accept(struct sock *sk, int flags, int *err)
 	int error;
 
 	lock_sock(sk);
+    printk(KERN_INFO "inet_csk_accept: begin\n");
 
-	/* We need to make sure that this socket is listening,
+    /* We need to make sure that this socket is listening,
 	 * and that it has something pending.
 	 */
 	error = -EINVAL;
 	if (sk->sk_state != TCP_LISTEN)
 		goto out_err;
+    printk(KERN_INFO "inet_csk_accept: state is %d\n", sk->sk_state);
 
 	/* Find already established connection */
 	if (reqsk_queue_empty(&icsk->icsk_accept_queue)) {
 		long timeo = sock_rcvtimeo(sk, flags & O_NONBLOCK);
+        printk(KERN_INFO "inet_csk_accept: timeo is %ld\n", timeo);
 
 		/* If this is a non blocking socket don't sleep */
 		error = -EAGAIN;
@@ -295,9 +300,11 @@ struct sock *inet_csk_accept(struct sock *sk, int flags, int *err)
 	newsk = reqsk_queue_get_child(&icsk->icsk_accept_queue, sk);
 	WARN_ON(newsk->sk_state == TCP_SYN_RECV);
 out:
+    printk(KERN_INFO "inet_csk_accept: end\n");
 	release_sock(sk);
 	return newsk;
 out_err:
+    printk(KERN_INFO "inet_csk_accept: error %d\n", error);
 	newsk = NULL;
 	*err = error;
 	goto out;

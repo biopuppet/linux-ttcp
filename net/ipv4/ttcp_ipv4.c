@@ -248,7 +248,6 @@ failure:
 }
 EXPORT_SYMBOL(ttcp_v4_connect);
 
-#if 0
 /*
  * This routine does path mtu discovery as defined in RFC1191.
  */
@@ -295,7 +294,7 @@ static void do_pmtu_discovery(struct sock *sk, struct iphdr *iph, u32 mtu)
 		ttcp_simple_retransmit(sk);
 	} /* else let the usual retransmit timer handle it */
 }
-#endif
+
 /*
  * This routine is called by the ICMP module when it gets some
  * sort of error condition.  If err < 0 then the socket should
@@ -311,7 +310,6 @@ static void do_pmtu_discovery(struct sock *sk, struct iphdr *iph, u32 mtu)
  * is probably better.
  *
  */
-#if 0
 void ttcp_v4_err(struct sk_buff *icmp_skb, u32 info)
 {
 	struct iphdr *iph = (struct iphdr *)icmp_skb->data;
@@ -499,7 +497,6 @@ out:
 	bh_unlock_sock(sk);
 	sock_put(sk);
 }
-#endif
 
 static void __ttcp_v4_send_check(struct sk_buff *skb,
 				__be32 saddr, __be32 daddr)
@@ -1355,35 +1352,35 @@ int ttcp_v4_do_rcv(struct sock *sk, struct sk_buff *skb)
 
 	if (sk->sk_state == TTCP_ESTABLISHED) { /* Fast path */
 		sock_rps_save_rxhash(sk, skb->rxhash);
-		// if (ttcp_rcv_established(sk, skb, ttcp_hdr(skb), skb->len)) {
-		// 	rsk = sk;
-		// 	goto reset;
-		// }
+		if (ttcp_rcv_established(sk, skb, ttcp_hdr(skb), skb->len)) {
+			rsk = sk;
+			goto reset;
+		}
 		return 0;
 	}
 
-	// if (skb->len < ttcp_hdrlen(skb) || ttcp_checksum_complete(skb))
-	// 	goto csum_err;
+	if (skb->len < ttcp_hdrlen(skb) || ttcp_checksum_complete(skb))
+		goto csum_err;
 
-	// if (sk->sk_state == TTCP_LISTEN) {
-	// 	struct sock *nsk = ttcp_v4_hnd_req(sk, skb);
-	// 	if (!nsk)
-	// 		goto discard;
+	if (sk->sk_state == TTCP_LISTEN) {
+		struct sock *nsk = ttcp_v4_hnd_req(sk, skb);
+		if (!nsk)
+			goto discard;
 
-	// 	if (nsk != sk) {
-	// 		if (ttcp_child_process(sk, nsk, skb)) {
-	// 			rsk = nsk;
-	// 			goto reset;
-	// 		}
-	// 		return 0;
-	// 	}
-	// } else
-	// 	sock_rps_save_rxhash(sk, skb->rxhash);
+		if (nsk != sk) {
+			if (ttcp_child_process(sk, nsk, skb)) {
+				rsk = nsk;
+				goto reset;
+			}
+			return 0;
+		}
+	} else
+		sock_rps_save_rxhash(sk, skb->rxhash);
 
-	// if (ttcp_rcv_state_process(sk, skb, ttcp_hdr(skb), skb->len)) {
-	// 	rsk = sk;
-	// 	goto reset;
-	// }
+	if (ttcp_rcv_state_process(sk, skb, ttcp_hdr(skb), skb->len)) {
+		rsk = sk;
+		goto reset;
+	}
 	return 0;
 
 reset:
@@ -1403,7 +1400,6 @@ csum_err:
 }
 EXPORT_SYMBOL(ttcp_v4_do_rcv);
 
-#if 0
 /*
  *	From ttcp_input.c
  */
@@ -1551,7 +1547,6 @@ do_time_wait:
 	}
 	goto discard_it;
 }
-#endif /* if 0 */
 
 struct inet_peer *ttcp_v4_get_peer(struct sock *sk, bool *release_it)
 {
@@ -2298,7 +2293,6 @@ void ttcp4_proc_exit(void)
 }
 #endif /* CONFIG_PROC_FS */
 
-#if 0
 struct sk_buff **ttcp4_gro_receive(struct sk_buff **head, struct sk_buff *skb)
 {
 	struct iphdr *iph = skb_gro_network_header(skb);
@@ -2331,7 +2325,6 @@ int ttcp4_gro_complete(struct sk_buff *skb)
 
 	return ttcp_gro_complete(skb);
 }
-#endif
 
 struct proto ttcp_prot = {
 	.name			= "TTCP",

@@ -1535,12 +1535,12 @@ static const struct net_protocol tcp_protocol = {
 };
 
 static const struct net_protocol ttcp_protocol = {
-	// .handler =	ttcp_v4_rcv,
-	// .err_handler =	ttcp_v4_err,
-	// .gso_send_check = ttcp_v4_gso_send_check,
-	// .gso_segment =	ttcp_tso_segment,
-	// .gro_receive =	ttcp4_gro_receive,
-	// .gro_complete =	ttcp4_gro_complete,
+	.handler =	ttcp_v4_rcv,
+	.err_handler =	ttcp_v4_err,
+	.gso_send_check = ttcp_v4_gso_send_check,
+	.gso_segment =	ttcp_tso_segment,
+	.gro_receive =	ttcp4_gro_receive,
+	.gro_complete =	ttcp4_gro_complete,
 	.no_policy =	1,
 	.netns_ok =	1,
 };

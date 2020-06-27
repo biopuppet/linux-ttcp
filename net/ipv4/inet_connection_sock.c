@@ -98,6 +98,7 @@ int inet_csk_get_port(struct sock *sk, unsigned short snum)
 	struct net *net = sock_net(sk);
 	int smallest_size = -1, smallest_rover;
 
+	printk(KERN_INFO "inet_csk_get_port: begin snum:%d\n", snum);
 	local_bh_disable();
 	if (!snum) {
 		int remaining, rover, low, high;
@@ -156,6 +157,7 @@ again:
 		 * non-NULL and we hold it's mutex.
 		 */
 		snum = rover;
+		printk(KERN_INFO "inet_csk_get_port: rover = snum = %d\n", snum);
 	} else {
 have_snum:
 		head = &hashinfo->bhash[inet_bhashfn(net, snum,
@@ -168,6 +170,7 @@ have_snum:
 	tb = NULL;
 	goto tb_not_found;
 tb_found:
+	printk(KERN_INFO "inet_csk_get_port: tb_found\n");
 	if (!hlist_empty(&tb->owners)) {
 		if (tb->fastreuse > 0 &&
 		    sk->sk_reuse && sk->sk_state != TCP_LISTEN &&
@@ -186,6 +189,7 @@ tb_found:
 		}
 	}
 tb_not_found:
+	printk(KERN_INFO "inet_csk_get_port: tb_not_found\n");
 	ret = 1;
 	if (!tb && (tb = inet_bind_bucket_create(hashinfo->bind_bucket_cachep,
 					net, head, snum)) == NULL)

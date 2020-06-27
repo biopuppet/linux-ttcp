@@ -1583,25 +1583,25 @@ static struct timewait_sock_ops ttcp_timewait_sock_ops = {
 	.twsk_getpeer	= ttcp_v4_tw_get_peer,
 };
 
-// const struct inet_connection_sock_af_ops ipv4_specific = {
-// 	.queue_xmit	   = ip_queue_xmit,
-// 	.send_check	   = ttcp_v4_send_check,
-// 	.rebuild_header	   = inet_sk_rebuild_header,
-// 	.conn_request	   = ttcp_v4_conn_request,
-// 	.syn_recv_sock	   = ttcp_v4_syn_recv_sock,
-// 	.get_peer	   = ttcp_v4_get_peer,
-// 	.net_header_len	   = sizeof(struct iphdr),
-// 	.setsockopt	   = ip_setsockopt,
-// 	.getsockopt	   = ip_getsockopt,
-// 	.addr2sockaddr	   = inet_csk_addr2sockaddr,
-// 	.sockaddr_len	   = sizeof(struct sockaddr_in),
-// 	.bind_conflict	   = inet_csk_bind_conflict,
-// #ifdef CONFIG_COMPAT
-// 	.compat_setsockopt = compat_ip_setsockopt,
-// 	.compat_getsockopt = compat_ip_getsockopt,
-// #endif
-// };
-// EXPORT_SYMBOL(ipv4_specific);
+const struct inet_connection_sock_af_ops ttcp_ipv4_specific = {
+	.queue_xmit	   = ip_queue_xmit,
+	.send_check	   = ttcp_v4_send_check,
+	.rebuild_header	   = inet_sk_rebuild_header,
+	.conn_request	   = ttcp_v4_conn_request,
+	.syn_recv_sock	   = ttcp_v4_syn_recv_sock,
+	.get_peer	   = ttcp_v4_get_peer,
+	.net_header_len	   = sizeof(struct iphdr),
+	.setsockopt	   = ip_setsockopt,
+	.getsockopt	   = ip_getsockopt,
+	.addr2sockaddr	   = inet_csk_addr2sockaddr,
+	.sockaddr_len	   = sizeof(struct sockaddr_in),
+	.bind_conflict	   = inet_csk_bind_conflict,
+#ifdef CONFIG_COMPAT
+	.compat_setsockopt = compat_ip_setsockopt,
+	.compat_getsockopt = compat_ip_getsockopt,
+#endif
+};
+EXPORT_SYMBOL(ttcp_ipv4_specific);
 
 #ifdef CONFIG_TTCP_MD5SIG
 static const struct ttcp_sock_af_ops ttcp_sock_ipv4_specific = {
@@ -1640,7 +1640,7 @@ static int ttcp_v4_init_sock(struct sock *sk)
 	sk->sk_write_space = sk_stream_write_space;
 	sock_set_flag(sk, SOCK_USE_WRITE_QUEUE);
 
-	icsk->icsk_af_ops = &ipv4_specific;
+	icsk->icsk_af_ops = &ttcp_ipv4_specific;
 	icsk->icsk_sync_mss = ttcp_sync_mss;
 #ifdef CONFIG_TTCP_MD5SIG
 	tp->af_specific = &ttcp_sock_ipv4_specific;

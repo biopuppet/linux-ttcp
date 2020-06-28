@@ -782,8 +782,8 @@ static int ttcp_transmit_skb(struct sock *sk, struct sk_buff *skb, int clone_it,
 	 * take such a timestamp before we potentially clone/copy.
 	 */
 	
-	// if (icsk->icsk_tca_ops->flags & TTCP_CONG_RTT_STAMP)
-	// 	__net_timestamp(skb);
+	if (icsk->icsk_tca_ops->flags & TTCP_CONG_RTT_STAMP)
+		__net_timestamp(skb);
     // printk(KERN_INFO "ttcp_tx_skb: forwarded\n");
 	// return 0;
 	if (likely(clone_it)) {
@@ -806,6 +806,8 @@ static int ttcp_transmit_skb(struct sock *sk, struct sk_buff *skb, int clone_it,
 		ttcp_options_size = ttcp_established_options(sk, skb, &opts,
 							   &md5);
 	ttcp_header_size = ttcp_options_size + sizeof(struct ttcphdr);
+	printk(KERN_INFO "ttcp_tx_skb: hdrsz(%d) = %d + %d\n", 
+        ttcp_header_size, ttcp_options_size, sizeof(struct ttcphdr));
 
 	if (ttcp_packets_in_flight(tp) == 0) {
 		ttcp_ca_event(sk, CA_EVENT_TX_START);
@@ -817,6 +819,7 @@ static int ttcp_transmit_skb(struct sock *sk, struct sk_buff *skb, int clone_it,
 	skb_reset_transport_header(skb);
 	skb_set_owner_w(skb, sk);
 
+	printk(KERN_INFO "ttcp_tx_skb: building hdr\n");
 	/* Build TTCP header and checksum it. */
 	th = ttcp_hdr(skb);
 	th->source		= inet->inet_sport;
@@ -874,6 +877,7 @@ static int ttcp_transmit_skb(struct sock *sk, struct sk_buff *skb, int clone_it,
 			      ttcp_skb_pcount(skb));
 
 	err = icsk->icsk_af_ops->queue_xmit(skb);
+	printk(KERN_INFO "ttcp_tx_skb: que_xmit = %d\n", err);
 	if (likely(err <= 0))
 		return err;
 

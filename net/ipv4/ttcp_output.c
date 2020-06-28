@@ -810,6 +810,7 @@ static int ttcp_transmit_skb(struct sock *sk, struct sk_buff *skb, int clone_it,
         ttcp_header_size, ttcp_options_size, sizeof(struct ttcphdr));
 
 	if (ttcp_packets_in_flight(tp) == 0) {
+	    printk(KERN_INFO "ttcp_tx_skb: no packets in flight -> TX_START event\n", 
 		ttcp_ca_event(sk, CA_EVENT_TX_START);
 		skb->ooo_okay = 1;
 	} else

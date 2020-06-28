@@ -245,8 +245,10 @@ static int inet_csk_wait_for_connect(struct sock *sk, long timeo)
 		prepare_to_wait_exclusive(sk_sleep(sk), &wait,
 					  TASK_INTERRUPTIBLE);
 		release_sock(sk);
-		if (reqsk_queue_empty(&icsk->icsk_accept_queue))
+		if (reqsk_queue_empty(&icsk->icsk_accept_queue)) {
 			timeo = schedule_timeout(timeo);
+            printk(KERN_INFO "inet_csk_wait: empty reqsk_queue, new to: %d\n", timeo);
+        }
 		lock_sock(sk);
 		err = 0;
 		if (!reqsk_queue_empty(&icsk->icsk_accept_queue))

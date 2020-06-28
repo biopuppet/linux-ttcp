@@ -224,7 +224,8 @@ static int ip_local_deliver_finish(struct sk_buff *skb)
 				nf_reset(skb);
 			}
 			ret = ipprot->handler(skb);
-			if (ret < 0) {
+            printk(KERN_INFO "ip_deliver_fin: prot handler ret %d\n", ret);
+            if (ret < 0) {
 				protocol = -ret;
 				goto resubmit;
 			}
@@ -243,7 +244,7 @@ static int ip_local_deliver_finish(struct sk_buff *skb)
 	}
  out:
 	rcu_read_unlock();
-
+    printk(KERN_INFO "ip_deliver_fin: end\n");
 	return 0;
 }
 

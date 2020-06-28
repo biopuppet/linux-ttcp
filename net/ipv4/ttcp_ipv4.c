@@ -1599,7 +1599,8 @@ int ttcp_v4_rcv(struct sk_buff *skb)
 	int ret;
 	struct net *net = dev_net(skb->dev);
 
-	if (skb->pkt_type != PACKET_HOST)
+    printk(KERN_INFO "ttcp_v4_rcv: begin\n");
+    if (skb->pkt_type != PACKET_HOST)
 		goto discard_it;
 
 	/* Count it even if it's bad */
@@ -1621,6 +1622,7 @@ int ttcp_v4_rcv(struct sk_buff *skb)
 	 * So, we defer the checks. */
 	if (!skb_csum_unnecessary(skb) && ttcp_v4_checksum_init(skb))
 		goto bad_packet;
+    printk(KERN_INFO "ttcp_v4_rcv: good packet\n");
 
 	th = ttcp_hdr(skb);
 	iph = ip_hdr(skb);
@@ -1636,6 +1638,7 @@ int ttcp_v4_rcv(struct sk_buff *skb)
 	if (!sk)
 		goto no_ttcp_socket;
 
+    printk(KERN_INFO "ttcp_v4_rcv: processing\n");
 process:
 	if (sk->sk_state == TTCP_TIME_WAIT)
 		goto do_time_wait;
@@ -1666,8 +1669,10 @@ process:
 		else
 #endif
 		{
-			if (!ttcp_prequeue(sk, skb))
+			if (!ttcp_prequeue(sk, skb)) {
 				ret = ttcp_v4_do_rcv(sk, skb);
+                printk(KERN_INFO "ttcp_v4_rcv: do_rcv = %d\n", ret);
+            }
 		}
 	} else if (unlikely(sk_add_backlog(sk, skb))) {
 		bh_unlock_sock(sk);

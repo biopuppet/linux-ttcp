@@ -2345,7 +2345,7 @@ static int do_ttcp_getsockopt(struct sock *sk, int level,
 		len = min_t(unsigned int, len, TTCP_CA_NAME_MAX);
 		if (put_user(len, optlen))
 			return -EFAULT;
-		if (copy_to_user(optval, icsk->icsk_ca_ops->name, len))
+		if (copy_to_user(optval, icsk->icsk_tca_ops->name, len))
 			return -EFAULT;
 		return 0;
 

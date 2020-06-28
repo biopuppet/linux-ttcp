@@ -3089,3 +3089,44 @@ void __init ttcp_init(void)
 	ttcp_secret_retiring = &ttcp_secret_two;
 	ttcp_secret_secondary = &ttcp_secret_two;
 }
+
+static inline int ttcp_listen_start(struct sock *sk, int backlog)
+{
+	return inet_csk_listen_start(sk, backlog);
+}
+
+/*
+ *	Move a socket into listening state.
+ */
+int inet_ttcp_listen(struct socket *sock, int backlog)
+{
+	struct sock *sk = sock->sk;
+	unsigned char old_state;
+	int err;
+
+	lock_sock(sk);
+
+	err = -EINVAL;
+	if (sock->state != SS_UNCONNECTED || sock->type != SOCK_STREAM)
+		goto out;
+
+	old_state = sk->sk_state;
+	if (!((1 << old_state) & (TTCPF_CLOSE | TTCPF_LISTEN)))
+		goto out;
+
+	/* Really, if the socket is already in listen state
+	 * we can only allow the backlog to be adjusted.
+	 */
+	if (old_state != TTCP_LISTEN) {
+		err = ttcp_listen_start(sk, backlog);
+		if (err)
+			goto out;
+	}
+	sk->sk_max_ack_backlog = backlog;
+	err = 0;
+
+out:
+	release_sock(sk);
+	return err;
+}
+EXPORT_SYMBOL(inet_ttcp_listen);

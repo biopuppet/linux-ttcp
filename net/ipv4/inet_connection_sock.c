@@ -652,8 +652,8 @@ int inet_csk_listen_start(struct sock *sk, const int nr_table_entries)
 	sk->sk_state = TCP_LISTEN;
 	if (!sk->sk_prot->get_port(sk, inet->inet_num)) {
 		inet->inet_sport = htons(inet->inet_num);
-
-		sk_dst_reset(sk);
+        printk(KERN_INFO "inet_csk_lis_start: get_port %d\n", inet->inet_sport);
+        sk_dst_reset(sk);
 		sk->sk_prot->hash(sk);
 
 		return 0;

@@ -1523,5 +1523,6 @@ static inline struct ttcp_extend_values *ttcp_xv(struct request_values *rvp)
 
 extern void ttcp_v4_init(void);
 extern void ttcp_init(void);
+extern int inet_ttcp_listen(struct socket *sock, int backlog);
 
 #endif	/* _TTCP_H */

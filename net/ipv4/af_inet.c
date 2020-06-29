@@ -649,10 +649,11 @@ int inet_stream_connect(struct socket *sock, struct sockaddr *uaddr,
 	}
 
 	timeo = sock_sndtimeo(sk, flags & O_NONBLOCK);
-    printk(KERN_INFO "%s: sndtimeo ret %d\n", __func__, timeo);
+    printk(KERN_INFO "%s: sndtimeo ret %ld\n", __func__, timeo);
 
 	if ((1 << sk->sk_state) & (TCPF_SYN_SENT | TCPF_SYN_RECV)) {
 		/* Error code is set above */
+        printk(KERN_INFO "%s: SYN SENT/RCV\n", __func__);
 		if (!timeo || !inet_wait_for_connect(sk, timeo))
 			goto out;
 
@@ -675,6 +676,7 @@ int inet_stream_connect(struct socket *sock, struct sockaddr *uaddr,
 	sock->state = SS_CONNECTED;
 	err = 0;
 out:
+    printk(KERN_INFO "%s: end with %d\n", __func__, err);
 	release_sock(sk);
 	return err;
 

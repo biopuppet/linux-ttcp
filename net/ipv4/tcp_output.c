@@ -2727,7 +2727,8 @@ void tcp_send_ack(struct sock *sk)
 {
 	struct sk_buff *buff;
 
-	/* If we have been reset, we may not send again. */
+    printk(KERN_INFO "%s: begin\n", __func__);
+    /* If we have been reset, we may not send again. */
 	if (sk->sk_state == TCP_CLOSE)
 		return;
 
@@ -2751,6 +2752,7 @@ void tcp_send_ack(struct sock *sk)
 	/* Send it off, this clears delayed acks for us. */
 	TCP_SKB_CB(buff)->when = tcp_time_stamp;
 	tcp_transmit_skb(sk, buff, 0, GFP_ATOMIC);
+    printk(KERN_INFO "%s: end\n", __func__);
 }
 
 /* This routine sends a packet with an out of date sequence

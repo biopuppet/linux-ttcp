@@ -47,7 +47,8 @@ static void ttcp_event_new_data_sent(struct sock *sk, struct sk_buff *skb)
     /* Don't override Nagle indefinitely with F-RTO */
     if (tp->frto_counter == 2)
         tp->frto_counter = 3;
-
+    printk(KERN_INFO "%s: pack_out(%d) += skb_pcount(%d)\n",
+        __func__, tp->packets_out, ttcp_skb_pcount(skb));
     tp->packets_out += ttcp_skb_pcount(skb);
     if (!prior_packets)
         inet_csk_reset_xmit_timer(sk, ICSK_TIME_RETRANS, inet_csk(sk)->icsk_rto,
@@ -2631,6 +2632,8 @@ int ttcp_connect(struct sock *sk)
     __ttcp_add_write_queue_tail(sk, buff);
     sk->sk_wmem_queued += buff->truesize;
     sk_mem_charge(sk, buff->truesize);
+    printk(KERN_INFO "%s: pack_out(%d) += skb_pcount(%d)\n",
+        __func__, tp->packets_out, ttcp_skb_pcount(buff));
     tp->packets_out += ttcp_skb_pcount(buff);
 
     err = ttcp_transmit_skb(sk, buff, 1, sk->sk_allocation);

@@ -806,6 +806,7 @@ static int tcp_transmit_skb(struct sock *sk, struct sk_buff *skb, int clone_it,
 
 	BUG_ON(!skb || !tcp_skb_pcount(skb));
 
+    printk(KERN_INFO "tcp_tx_skb: begin\n");
 	/* If congestion control is doing timestamping, we must
 	 * take such a timestamp before we potentially clone/copy.
 	 */
@@ -834,6 +835,8 @@ static int tcp_transmit_skb(struct sock *sk, struct sk_buff *skb, int clone_it,
 	tcp_header_size = tcp_options_size + sizeof(struct tcphdr);
 
 	if (tcp_packets_in_flight(tp) == 0) {
+        printk(KERN_INFO
+               "tcp_tx_skb: no packets in flight -> TX_START event\n");
 		tcp_ca_event(sk, CA_EVENT_TX_START);
 		skb->ooo_okay = 1;
 	} else
@@ -843,6 +846,7 @@ static int tcp_transmit_skb(struct sock *sk, struct sk_buff *skb, int clone_it,
 	skb_reset_transport_header(skb);
 	skb_set_owner_w(skb, sk);
 
+    printk(KERN_INFO "tcp_tx_skb: building hdr\n");
 	/* Build TCP header and checksum it. */
 	th = tcp_hdr(skb);
 	th->source		= inet->inet_sport;
@@ -900,11 +904,12 @@ static int tcp_transmit_skb(struct sock *sk, struct sk_buff *skb, int clone_it,
 			      tcp_skb_pcount(skb));
 
 	err = icsk->icsk_af_ops->queue_xmit(skb);
+    printk(KERN_INFO "tcp_tx_skb: que_xmit = %d\n", err);
 	if (likely(err <= 0))
 		return err;
 
 	tcp_enter_cwr(sk, 1);
-
+    printk(KERN_INFO "tcp_tx_skb: end\n");
 	return net_xmit_eval(err);
 }
 

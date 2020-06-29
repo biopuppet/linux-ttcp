@@ -2648,6 +2648,7 @@ int tcp_connect(struct sock *sk)
         __func__, tp->packets_out, tcp_skb_pcount(buff));
 	tp->packets_out += tcp_skb_pcount(buff);
 	err = tcp_transmit_skb(sk, buff, 1, sk->sk_allocation);
+    printk(KERN_INFO "%s: tcp_tx_skb ret %d\n", __func__, err);
 	if (err == -ECONNREFUSED)
 		return err;
 

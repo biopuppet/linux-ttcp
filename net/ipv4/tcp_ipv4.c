@@ -257,6 +257,7 @@ int tcp_v4_connect(struct sock *sk, struct sockaddr *uaddr, int addr_len)
 	inet->inet_id = tp->write_seq ^ jiffies;
 
 	err = tcp_connect(sk);
+	printk(KERN_INFO "%s: tcp_connect ret %d\n", __func__, err);
 	rt = NULL;
 	if (err)
 		goto failure;

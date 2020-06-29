@@ -794,6 +794,7 @@ static int ttcp_transmit_skb(struct sock *sk,
     tp = ttcp_sk(sk);
     tcb = TTCP_SKB_CB(skb);
     memset(&opts, 0, sizeof(opts));
+    printk(KERN_INFO "ttcp_tx_skb: packets_out = %d\n", tp->packets_out);
 
     if (unlikely(tcb->flags & TTCPHDR_SYN))
         ttcp_options_size = ttcp_syn_options(sk, skb, &opts, &md5);
@@ -947,6 +948,7 @@ ttcp_adjust_fackets_out(struct sock *sk, struct sk_buff *skb, int decr)
 static void ttcp_adjust_pcount(struct sock *sk, struct sk_buff *skb, int decr)
 {
     struct ttcp_sock *tp = ttcp_sk(sk);
+    printk(KERN_INFO "%s: decr = %d\n", __func__, decr);
 
     tp->packets_out -= decr;
 

@@ -827,6 +827,7 @@ static int tcp_transmit_skb(struct sock *sk, struct sk_buff *skb, int clone_it,
 	tp = tcp_sk(sk);
 	tcb = TCP_SKB_CB(skb);
 	memset(&opts, 0, sizeof(opts));
+    printk(KERN_INFO "tcp_tx_skb: packets_out = %d\n", tp->packets_out);
 
 	if (unlikely(tcb->flags & TCPHDR_SYN))
 		tcp_options_size = tcp_syn_options(sk, skb, &opts, &md5);
@@ -838,6 +839,7 @@ static int tcp_transmit_skb(struct sock *sk, struct sk_buff *skb, int clone_it,
            tcp_options_size, sizeof(struct tcphdr));
     printk(KERN_INFO
                "tcp_tx_skb: %d(%d - %d + %d) packets in flight\n",
+                tcp_packets_in_flight(tp),
                 tp->packets_out, tcp_left_out(tp), tp->retrans_out);
 	if (tcp_packets_in_flight(tp) == 0) {
         printk(KERN_INFO
@@ -976,6 +978,7 @@ static void tcp_adjust_pcount(struct sock *sk, struct sk_buff *skb, int decr)
 {
 	struct tcp_sock *tp = tcp_sk(sk);
 
+    printk(KERN_INFO "%s: decr = %d\n", __func__, decr);
 	tp->packets_out -= decr;
 
 	if (TCP_SKB_CB(skb)->sacked & TCPCB_SACKED_ACKED)

@@ -2678,6 +2678,7 @@ void tcp_send_delayed_ack(struct sock *sk)
 	int ato = icsk->icsk_ack.ato;
 	unsigned long timeout;
 
+    printk(KERN_INFO "%s: begin\n", __func__);
 	if (ato > TCP_DELACK_MIN) {
 		const struct tcp_sock *tp = tcp_sk(sk);
 		int max_ato = HZ / 2;
@@ -2713,6 +2714,7 @@ void tcp_send_delayed_ack(struct sock *sk)
 		if (icsk->icsk_ack.blocked ||
 		    time_before_eq(icsk->icsk_ack.timeout, jiffies + (ato >> 2))) {
 			tcp_send_ack(sk);
+            printk(KERN_INFO "%s: end(ack sent)\n", __func__);
 			return;
 		}
 
@@ -2722,6 +2724,7 @@ void tcp_send_delayed_ack(struct sock *sk)
 	icsk->icsk_ack.pending |= ICSK_ACK_SCHED | ICSK_ACK_TIMER;
 	icsk->icsk_ack.timeout = timeout;
 	sk_reset_timer(sk, &icsk->icsk_delack_timer, timeout);
+    printk(KERN_INFO "%s: end(rst timer)\n", __func__);
 }
 
 /* This routine sends an ack and also updates the window. */

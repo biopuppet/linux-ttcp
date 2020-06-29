@@ -4072,6 +4072,7 @@ static void tcp_fin(struct sk_buff *skb, struct sock *sk, struct tcphdr *th)
 {
 	struct tcp_sock *tp = tcp_sk(sk);
 
+    printk(KERN_INFO "%s: begin\n", __func__);
 	inet_csk_schedule_ack(sk);
 
 	sk->sk_shutdown |= RCV_SHUTDOWN;
@@ -4135,6 +4136,7 @@ static void tcp_fin(struct sk_buff *skb, struct sock *sk, struct tcphdr *th)
 		else
 			sk_wake_async(sk, SOCK_WAKE_WAITD, POLL_IN);
 	}
+    printk(KERN_INFO "%s: end\n", __func__);
 }
 
 static inline int tcp_sack_extend(struct tcp_sack_block *sp, u32 seq,
@@ -4184,6 +4186,7 @@ static void tcp_send_dupack(struct sock *sk, struct sk_buff *skb)
 {
 	struct tcp_sock *tp = tcp_sk(sk);
 
+    printk(KERN_INFO "%s: begin\n", __func__);
 	if (TCP_SKB_CB(skb)->end_seq != TCP_SKB_CB(skb)->seq &&
 	    before(TCP_SKB_CB(skb)->seq, tp->rcv_nxt)) {
 		NET_INC_STATS_BH(sock_net(sk), LINUX_MIB_DELAYEDACKLOST);
@@ -4199,6 +4202,7 @@ static void tcp_send_dupack(struct sock *sk, struct sk_buff *skb)
 	}
 
 	tcp_send_ack(sk);
+    printk(KERN_INFO "%s: end\n", __func__);
 }
 
 /* These routines update the SACK block as out-of-order packets arrive or
@@ -4371,7 +4375,8 @@ static void tcp_data_queue(struct sock *sk, struct sk_buff *skb)
 	struct tcp_sock *tp = tcp_sk(sk);
 	int eaten = -1;
 
-	if (TCP_SKB_CB(skb)->seq == TCP_SKB_CB(skb)->end_seq)
+    printk(KERN_INFO "%s: begin\n", __func__);
+    if (TCP_SKB_CB(skb)->seq == TCP_SKB_CB(skb)->end_seq)
 		goto drop;
 
 	skb_dst_drop(skb);
@@ -4488,6 +4493,7 @@ drop:
 	/* Disable header prediction. */
 	tp->pred_flags = 0;
 	inet_csk_schedule_ack(sk);
+    printk(KERN_INFO "%s: sched ack\n", __func__);
 
 	SOCK_DEBUG(sk, "out of order segment: rcv_next %X seq %X - %X\n",
 		   tp->rcv_nxt, TCP_SKB_CB(skb)->seq, TCP_SKB_CB(skb)->end_seq);
@@ -4923,6 +4929,7 @@ static void __tcp_ack_snd_check(struct sock *sk, int ofo_possible)
 {
 	struct tcp_sock *tp = tcp_sk(sk);
 
+    printk(KERN_INFO "%s: begin\n", __func__);
 	    /* More than one full frame received... */
 	if (((tp->rcv_nxt - tp->rcv_wup) > inet_csk(sk)->icsk_ack.rcv_mss &&
 	     /* ... and right edge of window advances far enough.
@@ -4939,6 +4946,7 @@ static void __tcp_ack_snd_check(struct sock *sk, int ofo_possible)
 		/* Else, send delayed ack. */
 		tcp_send_delayed_ack(sk);
 	}
+    printk(KERN_INFO "%s: end\n", __func__);
 }
 
 static inline void tcp_ack_snd_check(struct sock *sk)

@@ -572,7 +572,8 @@ struct sock *ttcp_check_req(struct sock *sk, struct sk_buff *skb,
 	__be32 flg = ttcp_flag_word(th) & (TTCP_FLAG_RST|TTCP_FLAG_SYN|TTCP_FLAG_ACK);
 	int paws_reject = 0;
 
-	tmp_opt.saw_tstamp = 0;
+    printk(KERN_INFO "ttcp_check_req: begin\n");
+    tmp_opt.saw_tstamp = 0;
 	if (th->doff > (sizeof(struct ttcphdr)>>2)) {
 		ttcp_parse_options(skb, &tmp_opt, &hash_location, 0);
 

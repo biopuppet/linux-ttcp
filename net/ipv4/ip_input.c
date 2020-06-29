@@ -378,12 +378,12 @@ int ip_rcv(struct sk_buff *skb, struct net_device *dev, struct packet_type *pt, 
 	struct iphdr *iph;
 	u32 len;
 
-	/* When the interface is in promisc. mode, drop all the crap
+    printk(KERN_INFO "ip_rcv: begin\n");
+    /* When the interface is in promisc. mode, drop all the crap
 	 * that it receives, do not try to analyse it.
 	 */
 	if (skb->pkt_type == PACKET_OTHERHOST)
 		goto drop;
-
 
 	IP_UPD_PO_STATS_BH(dev_net(dev), IPSTATS_MIB_IN, skb->len);
 
@@ -440,6 +440,7 @@ int ip_rcv(struct sk_buff *skb, struct net_device *dev, struct packet_type *pt, 
 
 	/* Must drop socket now because of tproxy. */
 	skb_orphan(skb);
+    printk(KERN_INFO "ip_rcv: end\n");
 
 	return NF_HOOK(NFPROTO_IPV4, NF_INET_PRE_ROUTING, skb, dev, NULL,
 		       ip_rcv_finish);

@@ -225,7 +225,7 @@ static int inet_csk_wait_for_connect(struct sock *sk, long timeo)
 	struct inet_connection_sock *icsk = inet_csk(sk);
 	DEFINE_WAIT(wait);
 	int err;
-    printk(KERN_INFO "inet_csk_wait: begin with timeout %d\n", timeo);
+    printk(KERN_INFO "inet_csk_wait: begin with timeout %ld\n", timeo);
     
 	/*
 	 * True wake-one mechanism for incoming connections: only
@@ -247,12 +247,14 @@ static int inet_csk_wait_for_connect(struct sock *sk, long timeo)
 		release_sock(sk);
 		if (reqsk_queue_empty(&icsk->icsk_accept_queue)) {
 			timeo = schedule_timeout(timeo);
-            printk(KERN_INFO "inet_csk_wait: empty reqsk_queue, new to: %d\n", timeo);
+            printk(KERN_INFO "inet_csk_wait: empty reqsk_queue, new to: %ld\n", timeo);
         }
 		lock_sock(sk);
 		err = 0;
-		if (!reqsk_queue_empty(&icsk->icsk_accept_queue))
+		if (!reqsk_queue_empty(&icsk->icsk_accept_queue)) {
+            printk(KERN_INFO "inet_csk_wait: reqsk_queue not empty!\n");
 			break;
+        }
 		err = -EINVAL;
 		if (sk->sk_state != TCP_LISTEN)
 			break;
@@ -263,6 +265,7 @@ static int inet_csk_wait_for_connect(struct sock *sk, long timeo)
 		if (!timeo)
 			break;
 	}
+    printk(KERN_INFO "inet_csk_wait: finish wait\n");
 	finish_wait(sk_sleep(sk), &wait);
     printk(KERN_INFO "inet_csk_wait: ret %d\n", err);
 	return err;

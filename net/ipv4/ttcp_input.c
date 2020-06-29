@@ -5537,7 +5537,7 @@ static int ttcp_rcv_synsent_state_process(struct sock *sk, struct sk_buff *skb,
 		ttcp_init_buffer_space(sk);
 
 		if (sock_flag(sk, SOCK_KEEPOPEN))
-			inet_csk_reset_keepalive_timer(sk, keepalive_time_when(tp));
+			inet_csk_reset_keepalive_timer(sk, keepalive_ttcp_time_when(tp));
 
 		if (!tp->rx_opt.snd_wscale)
 			__ttcp_fast_path_on(tp, tp->snd_wnd);

@@ -510,7 +510,7 @@ struct sock *ttcp_create_openreq_child(struct sock *sk, struct request_sock *req
 
 		if (sock_flag(newsk, SOCK_KEEPOPEN))
 			inet_csk_reset_keepalive_timer(newsk,
-						       keepalive_time_when((struct tcp_sock *)newtp));
+						       keepalive_ttcp_time_when((struct tcp_sock *)newtp));
 
 		newtp->rx_opt.tstamp_ok = ireq->tstamp_ok;
 		if ((newtp->rx_opt.sack_ok = ireq->sack_ok) != 0) {

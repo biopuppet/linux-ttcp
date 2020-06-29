@@ -804,6 +804,7 @@ static int ttcp_transmit_skb(struct sock *sk,
 
     printk(KERN_INFO
                "ttcp_tx_skb: %d(%d - %d + %d) packets in flight\n",
+                ttcp_packets_in_flight(tp),
                 tp->packets_out, ttcp_left_out(tp), tp->retrans_out);
     if (ttcp_packets_in_flight(tp) == 0) {
         printk(KERN_INFO

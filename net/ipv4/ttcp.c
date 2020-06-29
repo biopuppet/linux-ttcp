@@ -2088,7 +2088,7 @@ static int do_ttcp_setsockopt(struct sock *sk, int level,
 			if (sock_flag(sk, SOCK_KEEPOPEN) &&
 			    !((1 << sk->sk_state) &
 			      (TTCPF_CLOSE | TTCPF_LISTEN))) {
-				u32 elapsed = keepalive_time_elapsed(tp);
+				u32 elapsed = keepalive_ttcp_time_elapsed(tp);
 				if (tp->keepalive_time > elapsed)
 					elapsed = tp->keepalive_time - elapsed;
 				else
@@ -2297,13 +2297,13 @@ static int do_ttcp_getsockopt(struct sock *sk, int level,
 		val = !!(tp->nonagle&TTCP_NAGLE_CORK);
 		break;
 	case TTCP_KEEPIDLE:
-		val = keepalive_time_when(tp) / HZ;
+		val = keepalive_ttcp_time_when(tp) / HZ;
 		break;
 	case TTCP_KEEPINTVL:
-		val = keepalive_intvl_when(tp) / HZ;
+		val = keepalive_ttcp_intvl_when(tp) / HZ;
 		break;
 	case TTCP_KEEPCNT:
-		val = keepalive_probes(tp);
+		val = keepalive_ttcp_probes(tp);
 		break;
 	case TTCP_SYNCNT:
 		val = icsk->icsk_syn_retries ? : sysctl_tcp_syn_retries;

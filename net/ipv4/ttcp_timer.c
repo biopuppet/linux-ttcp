@@ -510,7 +510,7 @@ void ttcp_set_keepalive(struct sock *sk, int val)
 		return;
 
 	if (val && !sock_flag(sk, SOCK_KEEPOPEN))
-		inet_csk_reset_keepalive_timer(sk, keepalive_time_when(ttcp_sk(sk)));
+		inet_csk_reset_keepalive_timer(sk, keepalive_ttcp_time_when(ttcp_sk(sk)));
 	else if (!val)
 		inet_csk_delete_keepalive_timer(sk);
 }
@@ -552,15 +552,15 @@ static void ttcp_keepalive_timer (unsigned long data)
 	if (!sock_flag(sk, SOCK_KEEPOPEN) || sk->sk_state == TTCP_CLOSE)
 		goto out;
 
-	elapsed = keepalive_time_when(tp);
+	elapsed = keepalive_ttcp_time_when(tp);
 
 	/* It is alive without keepalive 8) */
 	if (tp->packets_out || ttcp_send_head(sk))
 		goto resched;
 
-	elapsed = keepalive_time_elapsed(tp);
+	elapsed = keepalive_ttcp_time_elapsed(tp);
 
-	if (elapsed >= keepalive_time_when(tp)) {
+	if (elapsed >= keepalive_ttcp_time_when(tp)) {
 		/* If the TTCP_USER_TIMEOUT option is enabled, use that
 		 * to determine when to timeout instead.
 		 */
@@ -568,14 +568,14 @@ static void ttcp_keepalive_timer (unsigned long data)
 		    elapsed >= icsk->icsk_user_timeout &&
 		    icsk->icsk_probes_out > 0) ||
 		    (icsk->icsk_user_timeout == 0 &&
-		    icsk->icsk_probes_out >= keepalive_probes(tp))) {
+		    icsk->icsk_probes_out >= keepalive_ttcp_probes(tp))) {
 			ttcp_send_active_reset(sk, GFP_ATOMIC);
 			ttcp_write_err(sk);
 			goto out;
 		}
 		if (ttcp_write_wakeup(sk) <= 0) {
 			icsk->icsk_probes_out++;
-			elapsed = keepalive_intvl_when(tp);
+			elapsed = keepalive_ttcp_intvl_when(tp);
 		} else {
 			/* If keepalive was lost due to local congestion,
 			 * try harder.
@@ -583,8 +583,8 @@ static void ttcp_keepalive_timer (unsigned long data)
 			elapsed = TTCP_RESOURCE_PROBE_INTERVAL;
 		}
 	} else {
-		/* It is tp->rcv_tstamp + keepalive_time_when(tp) */
-		elapsed = keepalive_time_when(tp) - elapsed;
+		/* It is tp->rcv_tstamp + keepalive_ttcp_time_when(tp) */
+		elapsed = keepalive_ttcp_time_when(tp) - elapsed;
 	}
 
 	sk_mem_reclaim(sk);

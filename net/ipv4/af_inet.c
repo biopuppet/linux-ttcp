@@ -488,10 +488,8 @@ int inet_bind(struct socket *sock, struct sockaddr *uaddr, int addr_len)
 	err = -EINVAL;
 	if (addr_len < sizeof(struct sockaddr_in))
 		goto out;
-    printk(KERN_INFO "inet_bind: checkpoint 1\n");
 
 	chk_addr_ret = inet_addr_type(sock_net(sk), addr->sin_addr.s_addr);
-    printk(KERN_INFO "inet_bind: checkpoint 2\n");
 
 	/* Not specified by any standard per-se, however it breaks too
 	 * many applications when removed.  It is unfortunate since
@@ -508,13 +506,11 @@ int inet_bind(struct socket *sock, struct sockaddr *uaddr, int addr_len)
 	    chk_addr_ret != RTN_MULTICAST &&
 	    chk_addr_ret != RTN_BROADCAST)
 		goto out;
-    printk(KERN_INFO "inet_bind: checkpoint 3\n");
 
 	snum = ntohs(addr->sin_port);
 	err = -EACCES;
 	if (snum && snum < PROT_SOCK && !capable(CAP_NET_BIND_SERVICE))
 		goto out;
-    printk(KERN_INFO "inet_bind: checkpoint 4\n");
 
 	/*      We keep a pair of addresses. rcv_saddr is the one
 	 *      used by hash lookups, and saddr is used for transmit.
@@ -529,7 +525,6 @@ int inet_bind(struct socket *sock, struct sockaddr *uaddr, int addr_len)
 	err = -EINVAL;
 	if (sk->sk_state != TCP_CLOSE || inet->inet_num)
 		goto out_release_sock;
-    printk(KERN_INFO "inet_bind: checkpoint 5\n");
 
 	inet->inet_rcv_saddr = inet->inet_saddr = addr->sin_addr.s_addr;
 	if (chk_addr_ret == RTN_MULTICAST || chk_addr_ret == RTN_BROADCAST)
@@ -542,7 +537,6 @@ int inet_bind(struct socket *sock, struct sockaddr *uaddr, int addr_len)
 		err = -EADDRINUSE;
 		goto out_release_sock;
 	}
-    printk(KERN_INFO "inet_bind: checkpoint 7\n");
 
 	if (inet->inet_rcv_saddr)
 		sk->sk_userlocks |= SOCK_BINDADDR_LOCK;
@@ -552,7 +546,6 @@ int inet_bind(struct socket *sock, struct sockaddr *uaddr, int addr_len)
 	inet->inet_daddr = 0;
 	inet->inet_dport = 0;
 	sk_dst_reset(sk);
-    printk(KERN_INFO "inet_bind: checkpoint 8\n");
 
 	err = 0;
 out_release_sock:

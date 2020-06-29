@@ -634,7 +634,8 @@ int inet_stream_connect(struct socket *sock, struct sockaddr *uaddr,
 			goto out;
 
 		err = sk->sk_prot->connect(sk, uaddr, addr_len);
-		if (err < 0)
+        printk(KERN_INFO "%s: connect ret %d\n", __func__, err);
+        if (err < 0)
 			goto out;
 
 		sock->state = SS_CONNECTING;
@@ -648,6 +649,7 @@ int inet_stream_connect(struct socket *sock, struct sockaddr *uaddr,
 	}
 
 	timeo = sock_sndtimeo(sk, flags & O_NONBLOCK);
+    printk(KERN_INFO "%s: sndtimeo ret %d\n", __func__, timeo);
 
 	if ((1 << sk->sk_state) & (TCPF_SYN_SENT | TCPF_SYN_RECV)) {
 		/* Error code is set above */

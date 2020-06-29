@@ -575,8 +575,8 @@ EXPORT_SYMBOL(inet_dgram_connect);
 static long inet_wait_for_connect(struct sock *sk, long timeo)
 {
 	DEFINE_WAIT(wait);
-
-	prepare_to_wait(sk_sleep(sk), &wait, TASK_INTERRUPTIBLE);
+    printk(KERN_INFO "%s: begin with %ld\n", __func__, timeo);
+    prepare_to_wait(sk_sleep(sk), &wait, TASK_INTERRUPTIBLE);
 
 	/* Basic assumption: if someone sets sk->sk_err, he _must_
 	 * change state of the socket from TCP_SYN_*.
@@ -592,6 +592,7 @@ static long inet_wait_for_connect(struct sock *sk, long timeo)
 		prepare_to_wait(sk_sleep(sk), &wait, TASK_INTERRUPTIBLE);
 	}
 	finish_wait(sk_sleep(sk), &wait);
+    printk(KERN_INFO "%s: end with %ld\n", __func__, timeo);
 	return timeo;
 }
 

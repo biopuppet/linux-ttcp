@@ -230,7 +230,7 @@ int ttcp_v4_connect(struct sock *sk, struct sockaddr *uaddr, int addr_len)
 	if (err)
 		goto failure;
 
-	printk(KERN_INFO "\tcheckpoint end.\n");
+	printk(KERN_INFO "%s: end 0\n", __func__);
 	return 0;
 
 failure:

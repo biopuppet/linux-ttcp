@@ -1562,8 +1562,8 @@ int tcp_v4_do_rcv(struct sock *sk, struct sk_buff *skb)
 	if (tcp_v4_inbound_md5_hash(sk, skb))
 		goto discard;
 #endif
-
-	if (sk->sk_state == TCP_ESTABLISHED) { /* Fast path */
+    printk(KERN_INFO "%s: begin\n", __func__);
+    if (sk->sk_state == TCP_ESTABLISHED) { /* Fast path */
 		sock_rps_save_rxhash(sk, skb->rxhash);
 		if (tcp_rcv_established(sk, skb, tcp_hdr(skb), skb->len)) {
 			rsk = sk;
@@ -1594,9 +1594,11 @@ int tcp_v4_do_rcv(struct sock *sk, struct sk_buff *skb)
 		rsk = sk;
 		goto reset;
 	}
+    printk(KERN_INFO "%s: end(0)\n", __func__);
 	return 0;
 
 reset:
+    printk(KERN_INFO "%s: end(send reset..)\n", __func__);
 	tcp_v4_send_reset(rsk, skb);
 discard:
 	kfree_skb(skb);

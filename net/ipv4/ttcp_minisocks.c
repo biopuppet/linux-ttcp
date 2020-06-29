@@ -766,6 +766,7 @@ int ttcp_child_process(struct sock *parent, struct sock *child,
 	int ret = 0;
 	int state = child->sk_state;
 
+    printk(KERN_INFO "%s: begin\n", __func__);
 	if (!sock_owned_by_user(child)) {
 		ret = ttcp_rcv_state_process(child, skb, ttcp_hdr(skb),
 					    skb->len);
@@ -782,6 +783,7 @@ int ttcp_child_process(struct sock *parent, struct sock *child,
 
 	bh_unlock_sock(child);
 	sock_put(child);
+    printk(KERN_INFO "%s: end(%d)\n", __func__, ret);
 	return ret;
 }
 EXPORT_SYMBOL(ttcp_child_process);

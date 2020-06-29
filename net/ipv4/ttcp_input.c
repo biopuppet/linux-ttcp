@@ -5678,6 +5678,7 @@ int ttcp_rcv_state_process(struct sock *sk, struct sk_buff *skb,
 	int queued = 0;
 	int res;
 
+    printk(KERN_INFO "%s: begin state = %d\n", __func__, sk->sk_state);
 	tp->rx_opt.saw_tstamp = 0;
 
 	switch (sk->sk_state) {

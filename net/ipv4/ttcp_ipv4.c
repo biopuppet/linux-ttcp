@@ -1538,6 +1538,7 @@ int ttcp_v4_do_rcv(struct sock *sk, struct sk_buff *skb)
 		goto discard;
 #endif
 
+    printk(KERN_INFO "%s: begin\n", __func__);
 	if (sk->sk_state == TTCP_ESTABLISHED) { /* Fast path */
 		sock_rps_save_rxhash(sk, skb->rxhash);
 		if (ttcp_rcv_established(sk, skb, ttcp_hdr(skb), skb->len)) {
@@ -1569,9 +1570,11 @@ int ttcp_v4_do_rcv(struct sock *sk, struct sk_buff *skb)
 		rsk = sk;
 		goto reset;
 	}
+    printk(KERN_INFO "%s: end(0)\n", __func__);
 	return 0;
 
 reset:
+    printk(KERN_INFO "%s: end(send reset..)\n", __func__);
 	ttcp_v4_send_reset(rsk, skb);
 discard:
 	kfree_skb(skb);

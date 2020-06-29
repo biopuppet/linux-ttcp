@@ -5614,7 +5614,7 @@ static int tcp_rcv_synsent_state_process(struct sock *sk, struct sk_buff *skb,
 			sk->sk_state_change(sk);
 			sk_wake_async(sk, SOCK_WAKE_IO, POLL_OUT);
 		}
-        printk(KERN_INFO "%s: \n", __func__, len);
+        printk(KERN_INFO "%s: \n", __func__);
 
 		if (sk->sk_write_pending ||
 		    icsk->icsk_accept_queue.rskq_defer_accept ||
@@ -5647,6 +5647,7 @@ discard:
     printk(KERN_INFO "%s: NO ACK in the seg\n", __func__);
 
 	if (th->rst) {
+        printk(KERN_INFO "%s: just RST, discard..\n", __func__);
 		/* rfc793:
 		 * "If the RST bit is set
 		 *

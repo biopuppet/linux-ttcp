@@ -5395,9 +5395,11 @@ static int ttcp_rcv_synsent_state_process(struct sock *sk, struct sk_buff *skb,
 	struct ttcp_cookie_values *cvp = tp->cookie_values;
 	int saved_clamp = tp->rx_opt.mss_clamp;
 
+    printk(KERN_INFO "%s: begin len: %d\n", __func__, len);
 	ttcp_parse_options(skb, &tp->rx_opt, &hash_location, 0);
 
 	if (th->ack) {
+        printk(KERN_INFO "%s: ack is set", __func__);
 		/* rfc793:
 		 * "If the state is SYN-SENT then
 		 *    first check the ACK bit
@@ -5428,6 +5430,7 @@ static int ttcp_rcv_synsent_state_process(struct sock *sk, struct sk_buff *skb,
 		 */
 
 		if (th->rst) {
+            printk(KERN_INFO "%s: rst is set, reset now...\n", __func__);
 			ttcp_reset(sk);
 			goto discard;
 		}
@@ -5549,6 +5552,7 @@ static int ttcp_rcv_synsent_state_process(struct sock *sk, struct sk_buff *skb,
 			sk_wake_async(sk, SOCK_WAKE_IO, POLL_OUT);
 		}
 
+        printk(KERN_INFO "%s: \n", __func__);
 		if (sk->sk_write_pending ||
 		    icsk->icsk_accept_queue.rskq_defer_accept ||
 		    icsk->icsk_ack.pingpong) {
@@ -5577,8 +5581,10 @@ discard:
 	}
 
 	/* No ACK in the segment */
+    printk(KERN_INFO "%s: NO ACK in the seg\n", __func__);
 
 	if (th->rst) {
+        printk(KERN_INFO "%s: just RST, discard..\n", __func__);
 		/* rfc793:
 		 * "If the RST bit is set
 		 *
@@ -5594,6 +5600,7 @@ discard:
 		goto discard_and_undo;
 
 	if (th->syn) {
+        printk(KERN_INFO "%s: crossed SYNs\n", __func__);
 		/* We see SYN without ACK. It is attempt of
 		 * simultaneous connect with crossed SYNs.
 		 * Particularly, it can be connect to self.

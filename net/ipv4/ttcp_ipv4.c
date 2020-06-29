@@ -1203,7 +1203,7 @@ int ttcp_v4_conn_request(struct sock *sk, struct sk_buff *skb)
 #else
 #define want_cookie 0 /* Argh, why doesn't gcc optimize this :( */
 #endif
-    printk(KERN_INFO "ttcp_conn_req: begin\n");
+    printk(KERN_INFO "%s: begin\n", __func__);
     /* Never answer to SYNs send to broadcast or multicast */
 	if (skb_rtable(skb)->rt_flags & (RTCF_BROADCAST | RTCF_MULTICAST))
 		goto drop;
@@ -1363,6 +1363,7 @@ int ttcp_v4_conn_request(struct sock *sk, struct sk_buff *skb)
 		goto drop_and_free;
 
 	inet_csk_reqsk_queue_hash_add(sk, req, TTCP_TIMEOUT_INIT);
+    printk(KERN_INFO "%s: end\n", __func__);
 	return 0;
 
 drop_and_release:

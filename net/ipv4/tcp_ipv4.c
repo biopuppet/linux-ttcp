@@ -1627,7 +1627,8 @@ int tcp_v4_rcv(struct sk_buff *skb)
 	int ret;
 	struct net *net = dev_net(skb->dev);
 
-	if (skb->pkt_type != PACKET_HOST)
+    printk(KERN_INFO "%s: begin\n", __func__);
+    if (skb->pkt_type != PACKET_HOST)
 		goto discard_it;
 
 	/* Count it even if it's bad */
@@ -1663,6 +1664,7 @@ int tcp_v4_rcv(struct sk_buff *skb)
 	sk = __inet_lookup_skb(&tcp_hashinfo, skb, th->source, th->dest);
 	if (!sk)
 		goto no_tcp_socket;
+    printk(KERN_INFO "%s: lookup_skb %p\n", __func__, sk);
 
 process:
 	if (sk->sk_state == TCP_TIME_WAIT)
@@ -1694,8 +1696,10 @@ process:
 		else
 #endif
 		{
-			if (!tcp_prequeue(sk, skb))
+			if (!tcp_prequeue(sk, skb)) {
 				ret = tcp_v4_do_rcv(sk, skb);
+                printk(KERN_INFO "%s: do_rcv = %d\n", __func__, ret);
+            }
 		}
 	} else if (unlikely(sk_add_backlog(sk, skb))) {
 		bh_unlock_sock(sk);
@@ -1706,6 +1710,7 @@ process:
 
 	sock_put(sk);
 
+    printk(KERN_INFO "%s: ret(%d)\n", __func__, ret);
 	return ret;
 
 no_tcp_socket:

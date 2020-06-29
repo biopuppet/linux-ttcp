@@ -1603,7 +1603,7 @@ int ttcp_v4_rcv(struct sk_buff *skb)
 	int ret;
 	struct net *net = dev_net(skb->dev);
 
-    printk(KERN_INFO "ttcp_v4_rcv: begin\n");
+    printk(KERN_INFO "%s: begin\n", __func__);
     if (skb->pkt_type != PACKET_HOST)
 		goto discard_it;
 
@@ -1641,8 +1641,9 @@ int ttcp_v4_rcv(struct sk_buff *skb)
 	sk = __inet_lookup_skb(&ttcp_hashinfo, skb, th->source, th->dest);
 	if (!sk)
 		goto no_ttcp_socket;
+    printk(KERN_INFO "%s: lookup_skb %p, processing\n", 
+            __func__, sk);
 
-    printk(KERN_INFO "ttcp_v4_rcv: processing\n");
 process:
 	if (sk->sk_state == TTCP_TIME_WAIT)
 		goto do_time_wait;
@@ -1687,6 +1688,7 @@ process:
 
 	sock_put(sk);
 
+    printk(KERN_INFO "%s: ret(%d)\n", __func__, ret);
 	return ret;
 
 no_ttcp_socket:

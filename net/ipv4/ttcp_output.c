@@ -2380,6 +2380,7 @@ void ttcp_send_active_reset(struct sock *sk, gfp_t priority)
 int ttcp_send_synack(struct sock *sk)
 {
     struct sk_buff *skb;
+    printk(KERN_INFO "%s: begin\n", __func__);
 
     skb = ttcp_write_queue_head(sk);
     if (skb == NULL || !(TTCP_SKB_CB(skb)->flags & TTCPHDR_SYN)) {
@@ -2404,6 +2405,7 @@ int ttcp_send_synack(struct sock *sk)
         TTCP_ECN_send_synack(ttcp_sk(sk), skb);
     }
     TTCP_SKB_CB(skb)->when = ttcp_time_stamp;
+    printk(KERN_INFO "%s: end (trans skb ...)\n", __func__);
     return ttcp_transmit_skb(sk, skb, 1, GFP_ATOMIC);
 }
 
@@ -2718,6 +2720,7 @@ void ttcp_send_ack(struct sock *sk)
 {
     struct sk_buff *buff;
 
+    printk(KERN_INFO "%s: begin\n", __func__);
     /* If we have been reset, we may not send again. */
     if (sk->sk_state == TTCP_CLOSE)
         return;
@@ -2742,6 +2745,7 @@ void ttcp_send_ack(struct sock *sk)
     /* Send it off, this clears delayed acks for us. */
     TTCP_SKB_CB(buff)->when = ttcp_time_stamp;
     ttcp_transmit_skb(sk, buff, 0, GFP_ATOMIC);
+    printk(KERN_INFO "%s: end\n", __func__);
 }
 
 /* This routine sends a packet with an out of date sequence

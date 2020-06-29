@@ -2390,8 +2390,9 @@ void tcp_send_active_reset(struct sock *sk, gfp_t priority)
 int tcp_send_synack(struct sock *sk)
 {
 	struct sk_buff *skb;
+    printk(KERN_INFO "%s: begin\n", __func__);
 
-	skb = tcp_write_queue_head(sk);
+    skb = tcp_write_queue_head(sk);
 	if (skb == NULL || !(TCP_SKB_CB(skb)->flags & TCPHDR_SYN)) {
 		printk(KERN_DEBUG "tcp_send_synack: wrong queue state\n");
 		return -EFAULT;
@@ -2414,6 +2415,7 @@ int tcp_send_synack(struct sock *sk)
 		TCP_ECN_send_synack(tcp_sk(sk), skb);
 	}
 	TCP_SKB_CB(skb)->when = tcp_time_stamp;
+    printk(KERN_INFO "%s: end (trans skb ...)\n", __func__);
 	return tcp_transmit_skb(sk, skb, 1, GFP_ATOMIC);
 }
 

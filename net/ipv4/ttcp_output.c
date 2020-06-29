@@ -802,14 +802,18 @@ static int ttcp_transmit_skb(struct sock *sk,
     printk(KERN_INFO "ttcp_tx_skb: hdrsz(%d) = %d + %d\n", ttcp_header_size,
            ttcp_options_size, sizeof(struct ttcphdr));
 
+    printk(KERN_INFO
+               "ttcp_tx_skb: %d(%d - %d + %d) packets in flight\n",
+                tp->packets_out, ttcp_left_out(tp), tp->retrans_out);
     if (ttcp_packets_in_flight(tp) == 0) {
         printk(KERN_INFO
-               "ttcp_tx_skb: no packets in flight -> TX_START event\n");
+               "ttcp_tx_skb: Triggered TX_START event\n");
         ttcp_ca_event(sk, CA_EVENT_TX_START);
         skb->ooo_okay = 1;
     }
-    else
+    else {
         skb->ooo_okay = 0;
+    }
 
     skb_push(skb, ttcp_header_size);
     skb_reset_transport_header(skb);
@@ -2629,9 +2633,8 @@ int ttcp_connect(struct sock *sk)
     tp->packets_out += ttcp_skb_pcount(buff);
 
     err = ttcp_transmit_skb(sk, buff, 1, sk->sk_allocation);
-    printk(KERN_INFO "tx_skb: %d(ret) == %d(-ECONNREFUSED)\n", err,
-           -ECONNREFUSED);
-    if (err == -ECONNREFUSED)
+    printk(KERN_INFO "ttcp_connect: tx_skb ret %d\n", err);
+    if (err == -ECONNREFUSED)  // -111
         return err;
 
     /* We change tp->snd_nxt after the ttcp_transmit_skb() call

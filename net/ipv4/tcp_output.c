@@ -833,10 +833,14 @@ static int tcp_transmit_skb(struct sock *sk, struct sk_buff *skb, int clone_it,
 		tcp_options_size = tcp_established_options(sk, skb, &opts,
 							   &md5);
 	tcp_header_size = tcp_options_size + sizeof(struct tcphdr);
-
+    printk(KERN_INFO "tcp_tx_skb: hdrsz(%d) = %d + %d\n", tcp_header_size,
+           tcp_options_size, sizeof(struct tcphdr));
+    printk(KERN_INFO
+               "tcp_tx_skb: %d(%d - %d + %d) packets in flight\n",
+                tp->packets_out, tcp_left_out(tp), tp->retrans_out);
 	if (tcp_packets_in_flight(tp) == 0) {
         printk(KERN_INFO
-               "tcp_tx_skb: no packets in flight -> TX_START event\n");
+               "tcp_tx_skb: Triggered TX_START event\n");
 		tcp_ca_event(sk, CA_EVENT_TX_START);
 		skb->ooo_okay = 1;
 	} else

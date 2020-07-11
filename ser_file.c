@@ -17,7 +17,7 @@ int main(int argc, char **argv)
     FILE *fp;
     int n;
 
-    if ((listenfd = socket(AF_INET, SOCK_STREAM, IPPORTO_TTCP)) < 0) {
+    if ((listenfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TTCP)) < 0) {
         printf("create socket error: %s(errno: %d)\n", strerror(errno), errno);
         return 0;
     }
